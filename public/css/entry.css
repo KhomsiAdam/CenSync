@@ -1,0 +1,304 @@
+/* Colors */
+/* Font Weights */
+.entry_forms {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: #F9F9F9;
+}
+.entry_forms input,
+.entry_forms select,
+.entry_forms button {
+  width: 291px;
+  height: 42px;
+  border: solid 1px #2B777D;
+  border-radius: 10px;
+  outline: none;
+  padding: 0 1em;
+  font-size: 1.6rem;
+  font-weight: 400;
+  background: #F9F9F9;
+}
+.entry_forms .custom_select {
+  position: relative;
+}
+.entry_forms .custom_select select {
+  cursor: pointer;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+.entry_forms .custom_select .custom-options {
+  font-size: 2.4rem;
+  list-style: none;
+  margin: 0;
+  background: #F9F9F9;
+  color: #2B777D;
+  border-radius: 10px;
+  z-index: 1;
+  width: 100%;
+  position: absolute;
+  left: 0%;
+  top: 0%;
+  overflow: hidden;
+}
+.entry_forms .custom_select .custom-options li {
+  height: 69px;
+  border: solid 1px #2B777D;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+.entry_forms .custom_select .custom_arrow {
+  position: absolute;
+  top: 0;
+  right: 1.5rem;
+  height: 100%;
+  width: 2rem;
+  pointer-events: none;
+  z-index: 2;
+}
+.entry_forms .custom_select .custom_arrow .arrow_up {
+  display: none;
+}
+.entry_forms .custom_select .custom_arrow img {
+  height: inherit;
+  width: inherit;
+}
+.entry_forms button {
+  margin-top: 1.6rem;
+  color: #F9F9F9;
+  background: #5FBE6E;
+  border: solid 2px #5FBE6E;
+  font-weight: 600;
+  cursor: pointer;
+}
+.entry_forms .signup_section {
+  display: none;
+  transition: opacity 200ms linear;
+  border-radius: 10px;
+  padding: 1em;
+  margin: 2em;
+  background: #2B777D;
+}
+.entry_forms .signup_form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.entry_forms .signup_form .fullname {
+  display: flex;
+  gap: 1.4rem;
+}
+.entry_forms .signup_form .fullname input {
+  width: 139px;
+}
+.entry_forms .signup_form .fullname .firstname,
+.entry_forms .signup_form .fullname .lastname {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+.entry_forms .signup_form .signin {
+  text-align: center;
+  font-weight: 600;
+  margin: 1rem;
+}
+.entry_forms .signup_form .signin #signin_btn_mob {
+  cursor: pointer;
+  color: #5FBE6E;
+  -webkit-text-decoration: underline solid #5FBE6E;
+          text-decoration: underline solid #5FBE6E;
+}
+.entry_forms .signup_form .signin #signin_btn_desk {
+  display: none;
+}
+.entry_forms .signin_section {
+  transition: opacity 200ms linear;
+  border-radius: 10px;
+  padding: 1em;
+  margin: 7.5em 2em;
+  background: #2b777d;
+}
+.entry_forms .signin_form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.entry_forms .signin_form .signup {
+  text-align: center;
+  font-weight: 600;
+  margin: 1rem;
+}
+.entry_forms .signin_form .signup #signup_btn_mob {
+  cursor: pointer;
+  color: #5FBE6E;
+  -webkit-text-decoration: underline solid #5FBE6E;
+          text-decoration: underline solid #5FBE6E;
+}
+.entry_forms .signin_form .signup #signup_btn_desk {
+  display: none;
+}
+
+.hero {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+  color: #2B777D;
+  width: 100vw;
+  height: 100vh;
+  transition: all 300ms linear;
+  z-index: 3;
+}
+.hero .logo_icon {
+  width: 184px;
+  transform: rotate(0deg);
+  transition: transform 300ms;
+}
+.hero .logo_name {
+  font-size: 3.2rem;
+  font-weight: 600;
+  display: flex;
+}
+.hero .logo_name .cen {
+  color: #2B777D;
+}
+.hero .logo_name .sync {
+  color: #5FBE6E;
+}
+.hero .hero_msg {
+  display: none;
+  text-align: center;
+  width: 80%;
+  font-size: 3.8rem;
+  font-weight: 400;
+}
+
+@media only screen and (min-width: 1280px) {
+  .signup_section,
+.signin_section {
+    display: unset !important;
+  }
+
+  .entry_forms {
+    flex-direction: row;
+    font-size: 2.4rem;
+    background: #2B777D;
+  }
+  .entry_forms input,
+.entry_forms select,
+.entry_forms button {
+    width: 500px;
+    height: 69px;
+    font-size: 2.4rem;
+  }
+  .entry_forms .custom_select {
+    position: relative;
+  }
+  .entry_forms .custom_select select {
+    width: 500px;
+    height: 69px;
+  }
+  .entry_forms .custom_select .custom_arrow {
+    position: absolute;
+    top: 0;
+    right: 1.5rem;
+    height: 100%;
+    width: 4rem;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .entry_forms .custom_select .custom_arrow .arrow_up {
+    display: none;
+  }
+  .entry_forms .custom_select .custom_arrow img {
+    height: inherit;
+    width: inherit;
+  }
+  .entry_forms .custom_select .custom-options li:hover {
+    background: #5FBEBC;
+    color: #F9F9F9;
+  }
+  .entry_forms button {
+    margin-top: 2.6rem;
+    color: #5FBE6E;
+    background: none;
+  }
+  .entry_forms button:hover {
+    color: #F9F9F9;
+    background: #5FBE6E;
+  }
+  .entry_forms .signup_form {
+    gap: 3.5rem;
+  }
+  .entry_forms .signup_form .fullname {
+    gap: 2.6rem;
+  }
+  .entry_forms .signup_form .fullname input {
+    width: 237px;
+  }
+  .entry_forms .signup_form .fullname .firstname,
+.entry_forms .signup_form .fullname .lastname {
+    gap: 3.5rem;
+  }
+  .entry_forms .signup_form .signin {
+    margin: 0;
+  }
+  .entry_forms .signup_form .signin #signin_btn_mob {
+    display: none;
+  }
+  .entry_forms .signup_form .signin #signin_btn_desk {
+    display: unset;
+    cursor: pointer;
+  }
+  .entry_forms .signup_form .signin #signin_btn_desk:hover {
+    cursor: pointer;
+    color: #5FBE6E;
+    -webkit-text-decoration: underline solid #5FBE6E;
+            text-decoration: underline solid #5FBE6E;
+  }
+  .entry_forms .signin_form {
+    gap: 3.5rem;
+  }
+  .entry_forms .signin_form .signup {
+    margin: 0;
+  }
+  .entry_forms .signin_form .signup #signup_btn_mob {
+    display: none;
+  }
+  .entry_forms .signin_form .signup #signup_btn_desk {
+    display: unset;
+    cursor: pointer;
+  }
+  .entry_forms .signin_form .signup #signup_btn_desk:hover {
+    cursor: pointer;
+    color: #5FBE6E;
+    -webkit-text-decoration: underline solid #5FBE6E;
+            text-decoration: underline solid #5FBE6E;
+  }
+
+  .hero {
+    position: absolute;
+    left: 0%;
+    right: 50%;
+    background: #F9F9F9;
+    width: 50vw;
+  }
+  .hero .logo_icon {
+    width: 415px;
+  }
+  .hero .logo_name {
+    font-size: 7.2rem;
+  }
+  .hero .hero_msg {
+    display: unset;
+  }
+}/*# sourceMappingURL=entry.css.map */

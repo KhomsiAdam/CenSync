@@ -1,0 +1,20 @@
+# VSCode
+.vscode
+
+# Composer
+/composer_vendor
+/vendor
+composer.lock
+composer.phar
+
+# Node
+/node_modules
+
+# SASS
+.sass-cache/
+*.css.map
+*.sass.map
+*.scss.map
+
+# ENV Variables
+.env

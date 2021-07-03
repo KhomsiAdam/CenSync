@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="34.875" height="34.875" viewBox="0 0 34.875 34.875">
+  <g id="Group_8" data-name="Group 8" transform="translate(-467.563 -72.063)">
+    <path id="svg_white_circle" data-name="svg white circle" d="M35.438,18A17.438,17.438,0,1,1,18,.563,17.434,17.434,0,0,1,35.438,18Z" transform="translate(467 71.5)" fill="#f9f9f9"/>
+    <path id="Icon_awesome-arrow-alt-circle-down" data-name="Icon awesome-arrow-alt-circle-down" d="M35.438,18A17.438,17.438,0,1,1,18,.563,17.434,17.434,0,0,1,35.438,18ZM14.906,9.844V18H9.921a.844.844,0,0,0-.6,1.441L17.4,27.478a.836.836,0,0,0,1.188,0l8.079-8.037a.844.844,0,0,0-.6-1.441H21.094V9.844A.846.846,0,0,0,20.25,9h-4.5A.846.846,0,0,0,14.906,9.844Z" transform="translate(467 71.5)" fill="#2b777d"/>
+  </g>
+</svg>
