@@ -133,19 +133,7 @@ header {
     background: $white;
     border-right: solid 2px $gray;
     transition: width 200ms ease;
-    // &:hover {
-    //     width: 34rem;
-    //     .nav_menu .logo .nav_link .text_link {
-    //         visibility: visible;
-    //     }
-    //     .nav_menu .nav_item .nav_link .text_link {
-    //         display: block;
-    //     }
-    //     .nav_menu .logo .nav_link .logo_link img {
-    //         transform: rotate(360deg);
-    //         transition: transform 600ms;
-    //     }
-    // }
+
     .nav_menu {
         list-style: none;
         padding: 0;
