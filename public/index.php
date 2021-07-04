@@ -15,6 +15,9 @@ $app = new Application(dirname(__DIR__));
 
 // Web routes for views : GET
 $app->router->get('/', [WebController::class, 'entry']);
+$app->router->get('/dashboard', [WebController::class, 'dashboard']);
+$app->router->get('/tickets', [WebController::class, 'tickets']);
+$app->router->get('/staff', [WebController::class, 'staff']);
 // Web routes for views : POST
 
 // * Any ExampleApiController manages the API side of the framework with the Middleware

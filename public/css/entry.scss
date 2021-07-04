@@ -21,6 +21,7 @@
         padding: 0 1em;
         font-size: 1.6rem;
         font-weight: $regular;
+        color: $blue;
         background: $white;
     }
 
@@ -51,6 +52,10 @@
                 padding: 0 15px;
                 cursor: pointer;
                 transition: background 0.3s ease;
+                &:hover {
+                    background: $lightblue;
+                    color: $white;
+                }
             }
         }
         .custom_arrow {
@@ -219,22 +224,16 @@
                     width: inherit;
                 }
             }
-            .custom-options {
-                li:hover {
-                    background: $lightblue;
-                    color: $white;
-                }
-            }
         }
 
         button {
             margin-top: 2.6rem;
             color: $green;
             background: none;
-        }
-        button:hover {
-            color: $white;
-            background: $green;
+            &:hover {
+                color: $white;
+                background: $green;
+            }
         }
         .signup_form {
             gap: 3.5rem;
@@ -256,11 +255,10 @@
                 #signin_btn_desk {
                     display: unset;
                     cursor: pointer;
-                }
-                #signin_btn_desk:hover {
-                    cursor: pointer;
-                    color: $green;
-                    text-decoration: underline solid $green;
+                    &:hover {
+                        color: $green;
+                        text-decoration: underline solid $green;    
+                    }
                 }
             }
         }
@@ -274,11 +272,10 @@
                 #signup_btn_desk {
                     display: unset;
                     cursor: pointer;
-                }
-                #signup_btn_desk:hover {
-                    cursor: pointer;
-                    color: $green;
-                    text-decoration: underline solid $green;
+                    &:hover {
+                        color: $green;
+                        text-decoration: underline solid $green;    
+                    }
                 }
             }
         }

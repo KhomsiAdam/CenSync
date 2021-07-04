@@ -65,10 +65,8 @@ custom_select.addEventListener('mousedown', e => {
     // Preventing the selecting from opening the default HTML dropdown menu
     e.preventDefault();
     // Changing Arrow Icon to upwards
-    const arrow_up = document.querySelector('.arrow_up');
-    const arrow_down = document.querySelector('.arrow_down');
-    arrow_down.style.display = "none";
-    arrow_up.style.display = "unset";
+    custom_select.children[1].style.transform = 'rotate(180deg)';
+
     // Selecting the default HTML select element and creating a custom dropdown
     const default_select = custom_select.children[0];
     const custom_dropdown = document.createElement('ul');
@@ -85,8 +83,7 @@ custom_select.addEventListener('mousedown', e => {
         default_select.dispatchEvent(new Event('change'));
 
         // Restoring the Arrow to Downwards and deleting the custom dropdown menu
-        arrow_up.style.display = "none";
-        arrow_down.style.display = "unset";
+        custom_select.children[1].style.transform = 'rotate(0deg)';
         custom_dropdown.remove();
       });
       custom_dropdown.appendChild(custom_option);   
@@ -96,9 +93,15 @@ custom_select.addEventListener('mousedown', e => {
     document.addEventListener('click', (e) => {
       if(!custom_select.contains(e.target)) {
         custom_dropdown.remove();
-        arrow_up.style.display = "none";
-        arrow_down.style.display = "unset";
-      }
+        custom_select.children[1].style.transform = 'rotate(0deg)';
+    }
     });
   }
 });
+// Prevent buttons from submitting
+document.getElementById('sign_in').addEventListener('click', (e) => {
+    e.preventDefault();
+})
+document.getElementById('sign_up').addEventListener('click', (e) => {
+    e.preventDefault();
+})

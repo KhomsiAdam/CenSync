@@ -1,0 +1,591 @@
+@use "variables" as *;
+
+body {
+    display: grid;
+    height: 100vh;
+    width: 100vw;
+    grid-template-areas:
+        "navbar header"
+        "navbar main";
+    grid-template-columns: 20% 1fr;
+    grid-template-rows: 15% 1fr;
+    overflow: hidden;
+}
+// Scrollbar Styling Chrome & Safari & Opera
+main::-webkit-scrollbar {
+    width: 1.5rem;
+}
+main::-webkit-scrollbar-track {
+    background: $blue;
+}
+main::-webkit-scrollbar-thumb {
+    background: $lightblue;
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: $green;
+}
+
+main {
+    // Scrollbar Styling : Firefox
+    scrollbar-width: thin;
+    scrollbar-color: $green $blue;
+    grid-area: main;
+    overflow-y: scroll;
+    padding: 5rem;
+    h1 {
+        font-size: 5rem;
+    }
+    p {
+        font-size: 2.4rem;
+    }
+}
+// Header Component Styling
+header {
+    grid-area: navbar header;
+    display: flex;
+    gap: 4rem;
+    background-color: $white;
+    width: 100vw;
+    align-items: center;
+    border-bottom: solid 2px $gray;
+    .search-container {
+        width: 40%;
+        height: 72px;
+        margin-left: 20%;
+        background-color: $gray;
+        border-radius: 10px;
+        .search-bar {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: center;
+            padding: 2rem;
+            .search {
+                padding: 2rem;
+                border: none;
+                outline: none;
+                width: 100%;
+                height: 90%;
+                background-color: $gray;
+                font-size: 25px;
+                font-weight: $regular;
+                color: $black;
+                &:focus + .search-icon {
+                    fill: $green;
+                }
+            }
+            .search-icon {
+                fill: $blue;
+                cursor: pointer;
+            }
+        }
+    }
+    .create_container {
+        width: 20%;
+        .create_ticket {
+            width: 100%;
+            height: 72px;
+            background: $white;
+            border: solid 2px $blue;
+            border-radius: 10px;
+            color: $blue;
+            font-size: 2.8rem;
+            font-weight: $semibold;
+            cursor: pointer;
+            &:hover {
+                background: $green;
+                border: solid 2px $green;
+                color: $white;
+            }
+        }
+    }
+    .bell_container {
+        width: 5%;
+        padding: 0 3em;
+        .bell {
+            fill: $blue;
+            cursor: pointer;
+            &:hover {
+                fill: $green;
+            }
+        }
+    }
+    .profile_container {
+        width: auto;
+        height: 42%;
+        .profile {
+            fill: $blue;
+            cursor: pointer;
+            &:hover {
+                fill: $green;
+            }
+        }
+    }
+}
+// Navbar Component Styling
+.navbar {
+    grid-area: navbar;
+    width: 16rem;
+    height: 100vh;
+    position: fixed;
+    background: $white;
+    border-right: solid 2px $gray;
+    transition: width 200ms ease;
+    // &:hover {
+    //     width: 34rem;
+    //     .nav_menu .logo .nav_link .text_link {
+    //         visibility: visible;
+    //     }
+    //     .nav_menu .nav_item .nav_link .text_link {
+    //         display: block;
+    //     }
+    //     .nav_menu .logo .nav_link .logo_link img {
+    //         transform: rotate(360deg);
+    //         transition: transform 600ms;
+    //     }
+    // }
+    .nav_menu {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        height: 100vh;
+        justify-content: space-evenly;
+        flex-direction: column;
+        align-items: center;
+        .nav_item {
+            width: 100%;
+            .nav_link {
+                margin-right: 0;
+                display: flex;
+                align-items: center;
+                height: 12rem;
+                width: 30rem;
+                color: $blue;
+                text-decoration: none;
+                font-size: 2rem;
+                font-weight: $semibold;
+                transition: 600ms;
+                .text_link {
+                    display: none;
+                }
+                svg {
+                    width: 5rem;
+                    height: 5rem;
+                    margin: 0 5rem;
+                    fill: $blue;
+                    transition: 600ms;
+                }
+                &:hover {
+                    color: $green;
+                    transition: 600ms;
+                    svg {
+                        fill: $green;
+                        transition: 600ms;
+                    }
+                }
+            }
+            .active_link {
+                color: $green;
+                svg {
+                    fill: $green;
+                }
+            }
+        }
+        .nav_item:nth-child(2) {
+            margin-top: 15rem;
+        }
+        .nav_item:last-child {
+            margin-top: auto;
+            margin-bottom: 3rem;
+        }
+        .logo {
+            width: 100%;
+            font-weight: $bold;
+            margin: 5rem 0;
+            font-size: 3.4rem;
+            .nav_link {
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+                height: 5rem;
+                width: 34rem;
+                text-decoration: none;
+                transition: 600ms;
+                .text_link {
+                    visibility: hidden;
+                }
+            }
+            img {
+                transform: rotate(180deg);
+                transition: transform 600ms;
+                height: 114px;
+                width: 114px;
+            }
+            .cen {
+                color: $blue;
+            }
+            .sync {
+                color: $green;
+            }
+        }
+    }
+}
+
+// Modal Component Styling
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 200ms ease-in-out;
+    color: $white;
+    background-color: $blue;
+    border-radius: 10px;
+    z-index: 10;
+    width: 1600px;
+    max-width: 91%;
+    padding: 5rem;
+    .modal-header {
+        text-align: center;
+        padding: 0 0 5rem 0;
+        display: grid;
+        grid-template-areas: "title close";
+        grid-template-columns: 1fr 53px;
+        grid-template-rows: 100%;
+        width: 1488px;
+        max-width: 100%;
+        .title {
+            grid-area: title;
+            font-size: 4.2rem;
+            font-weight: $semibold;
+        }
+        .close-button {
+            grid-area: close;
+            cursor: pointer;
+            background: none;
+            outline: none;
+            border: 2px solid #f9f9f9;
+            border-radius: 10px;
+            width: 53px;
+            height: 53px;
+            display: grid;
+            align-content: center;
+            justify-content: center;
+            &:hover {
+                background: $red;
+            }
+        }
+    }
+    .modal-body {
+        font-size: 2.4rem;
+        .create-ticket-form {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            font-weight: $regular;
+            color: $white;
+            gap: 2rem;
+            width: 1488px;
+            max-width: 100%;
+            input,
+            textarea,
+            select,
+            button {
+                width: 1488px;
+                max-width: 100%;
+                height: 69px;
+                border: solid 1px $blue;
+                border-radius: 10px;
+                outline: none;
+                padding: 0 1em;
+                font-weight: $regular;
+                color: $blue;
+                background: $white;
+                font-size: 2.4rem;
+            }
+            textarea {
+                height: 253px;
+                padding-top: 1em;
+            }
+            .all_selects_container {
+                display: flex;
+                justify-content: space-between;
+                @media only screen and (max-width: 1730px) {
+                    flex-direction: column;
+                    gap: 2rem;
+                }
+            }
+            .select_container {
+                display: flex;
+                flex-direction: column;
+                gap: 2rem;
+            }
+            .custom_select {
+                position: relative;
+                select {
+                    cursor: pointer;
+                    appearance: none;
+                    width: 730px;
+                    max-width: 100%;
+                    @media only screen and (max-width: 1730px) {
+                        width: 1488px;
+                    }
+                }
+                .custom-options {
+                    font-size: 2.4rem;
+                    list-style: none;
+                    margin: 0;
+                    background: $white;
+                    color: $blue;
+                    border-radius: 10px;
+                    width: 100%;
+                    position: absolute;
+                    left: 0%;
+                    top: 0%;
+                    overflow: hidden;
+                    li {
+                        height: 69px;
+                        border: solid 1px $blue;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        padding: 0 15px;
+                        cursor: pointer;
+                        transition: background 0.3s ease;
+                        &:hover {
+                            background: $lightblue;
+                            color: $white;
+                            #high-icon {
+                                fill: $red;
+                                stroke: $red;
+                            }
+                            #medium-icon {
+                                fill: $yellow;
+                                stroke: $yellow;
+                            }
+                            #low-icon {
+                                fill: $green;
+                                stroke: $green;
+                            }
+                            #H,
+                            #M,
+                            #L {
+                                fill: $white;
+                            }
+                        }
+                    }
+                }
+                .custom_arrow {
+                    position: absolute;
+                    top: 0;
+                    right: 1.5rem;
+                    height: 100%;
+                    width: 4rem;
+                    pointer-events: none;
+                    img {
+                        height: inherit;
+                        width: inherit;
+                    }
+                }
+            }
+
+            button {
+                font-weight: $semibold;
+                margin-top: 3rem;
+                color: $green;
+                background: none;
+                border: solid 2px $green;
+                cursor: pointer;
+                &:hover {
+                    color: $white;
+                    background: $green;
+                }
+            }
+        }
+    }
+}
+.modal.active {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+#overlay {
+    position: fixed;
+    opacity: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba($color: $black, $alpha: 0.5);
+    pointer-events: none;
+    transition: 200ms ease-in-out;
+}
+#overlay.active {
+    pointer-events: all;
+    opacity: 1;
+}
+@media only screen and (max-width: 768px) {
+    body {
+        grid-template-areas:
+            "header"
+            "main"
+            "navbar";
+        grid-template-columns: 100%;
+        grid-template-rows: 14% 1fr 14%;
+    }
+    main::-webkit-scrollbar {
+        width: 0;
+    }
+    .navbar {
+        bottom: 0;
+        width: 100vw;
+        height: 12rem;
+        border-right: none;
+        border-top: solid 2px $gray;
+        .nav_menu {
+            flex-direction: row;
+            height: auto;
+            .logo {
+                display: none;
+            }
+            .nav_item {
+                width: auto;
+                .nav_link {
+                    width: 3rem;
+                    svg {
+                        margin: 0;
+                        width: 3rem;
+                        height: 3rem;
+                    }
+                }
+                .create_container_mobile {
+                    .create_ticket_mobile {
+                        width: 6rem;
+                        height: 6rem;
+                        background: $green;
+                        color: $white;
+                        font-size: 5rem;
+                        border: none;
+                        outline: none;
+                        border-radius: 10px;
+                    }
+                }
+                .bell_container_mobile {
+                    width: 3rem;
+                    padding: 0 0.5em;
+                    .bell {
+                        width: 2rem;
+                        fill: $blue;
+                        cursor: pointer;
+                    }
+                }
+                .profile_container_mobile {
+                    width: 3rem;
+                    .profile {
+                        width: 3rem;
+                        fill: $blue;
+                        cursor: pointer;
+                    }
+                }
+            }
+            .nav_item:nth-child(2) {
+                margin-top: 0;
+            }
+            .nav_item:last-child {
+                margin: 0;
+            }
+        }
+    }
+    header {
+        .create_container,
+        .bell_container,
+        .profile_container {
+            display: none;
+        }
+        .search-container {
+            width: 88%;
+            margin-left: 6%;
+        }
+    }
+    .modal {
+        padding: 2rem;
+        .modal-header {
+            grid-template-areas:
+                "close"
+                "title";
+            grid-template-columns: 100%;
+            grid-template-rows: 50% 50%;
+            grid-gap: 2rem;
+            padding-bottom: 3rem;
+            .title {
+                font-size: 2.4rem;
+            }
+            .close-button {
+                width: 46px;
+                height: 46px;
+                background: $red;
+                justify-self: end;
+                svg {
+                    width: 15px;
+                    height: 15px;
+                }
+            }
+        }
+        .modal-body {
+            font-size: 2rem;
+            .create-ticket-form {
+                gap: 1.5rem;
+                input,
+                select,
+                button {
+                    height: 50px;
+                    font-size: 2rem;
+                }
+                textarea {
+                    height: 180px;
+                    overflow-y: scroll;
+                }
+                button {
+                    background: $green;
+                    color: $white;
+                    margin-top: 2rem;
+                }
+                .all_selects_container {
+                    gap: 1.5rem;
+                    .select_container {
+                        gap: 1.5rem;
+                        .custom_select {
+                            .custom_arrow {
+                                width: 3rem;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media only screen and (min-width: 768px) {
+    .navbar {
+        &:hover {
+            width: 34rem;
+            .nav_menu .logo .nav_link .text_link {
+                visibility: visible;
+            }
+            .nav_menu .nav_item .nav_link .text_link {
+                display: block;
+            }
+            .nav_menu .logo .nav_link .logo_link img {
+                transform: rotate(360deg);
+                transition: transform 600ms;
+            }
+        }
+    }
+    .create_container_mobile,
+    .bell_container_mobile,
+    .profile_container_mobile {
+        display: none;
+    }
+}

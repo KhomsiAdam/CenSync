@@ -145,3 +145,11 @@ Entry page (with both login and register) for desktop:
 mobile:
 
 ![censync_mobile](https://user-images.githubusercontent.com/9354045/124360359-45eb1d80-dc21-11eb-8d11-4499baa6548a.gif)
+
+Dashboard layout and main components done for desktop:
+
+![censync_dashboard_desktop](https://user-images.githubusercontent.com/9354045/124396409-45c24f00-dd01-11eb-9d6e-300519ce1197.gif)
+
+mobile:
+
+![censync_dashboard_mobile](https://user-images.githubusercontent.com/9354045/124396420-52df3e00-dd01-11eb-8542-42aa0671898f.gif)

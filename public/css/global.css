@@ -1,4 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap");
+/* Colors */
+/* Font Weights */
 * {
   margin: 0;
   padding: 0;
@@ -6,6 +8,25 @@
   font-family: "Raleway", sans-serif;
 }
 
+.preload * {
+  transition: none !important;
+}
+
 html {
   font-size: 62.5%;
+}
+
+::-moz-placeholder {
+  color: #262626;
+  opacity: 0.6;
+}
+
+:-ms-input-placeholder {
+  color: #262626;
+  opacity: 0.6;
+}
+
+::placeholder {
+  color: #262626;
+  opacity: 0.6;
 }/*# sourceMappingURL=global.css.map */

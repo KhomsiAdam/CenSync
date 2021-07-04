@@ -22,6 +22,7 @@
   padding: 0 1em;
   font-size: 1.6rem;
   font-weight: 400;
+  color: #2B777D;
   background: #F9F9F9;
 }
 .entry_forms .custom_select {
@@ -55,6 +56,10 @@
   padding: 0 15px;
   cursor: pointer;
   transition: background 0.3s ease;
+}
+.entry_forms .custom_select .custom-options li:hover {
+  background: #5FBEBC;
+  color: #F9F9F9;
 }
 .entry_forms .custom_select .custom_arrow {
   position: absolute;
@@ -223,10 +228,6 @@
     height: inherit;
     width: inherit;
   }
-  .entry_forms .custom_select .custom-options li:hover {
-    background: #5FBEBC;
-    color: #F9F9F9;
-  }
   .entry_forms button {
     margin-top: 2.6rem;
     color: #5FBE6E;
@@ -260,7 +261,6 @@
     cursor: pointer;
   }
   .entry_forms .signup_form .signin #signin_btn_desk:hover {
-    cursor: pointer;
     color: #5FBE6E;
     -webkit-text-decoration: underline solid #5FBE6E;
             text-decoration: underline solid #5FBE6E;
@@ -279,7 +279,6 @@
     cursor: pointer;
   }
   .entry_forms .signin_form .signup #signup_btn_desk:hover {
-    cursor: pointer;
     color: #5FBE6E;
     -webkit-text-decoration: underline solid #5FBE6E;
             text-decoration: underline solid #5FBE6E;
