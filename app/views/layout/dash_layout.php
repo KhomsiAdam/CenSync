@@ -1,3 +1,6 @@
+<?php 
+if (isset($_SESSION['ACCOUNTS_ID'])) {
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,10 +15,16 @@
     <header>
         {{header}}
     </header>
-    <main>
+    <main class="main">
         {{modal}}
         {{content}}
     </main>
 </body>
 
 </html>
+<?php
+} else {
+    header("Location: /");
+    exit();
+}
+?>

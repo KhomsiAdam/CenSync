@@ -1,0 +1,271 @@
+@use "variables" as *;
+
+main {
+    overflow: hidden;
+}
+
+.tickets {
+    width: 100%;
+    height: 75vh;
+    display: grid;
+    grid-template-areas:
+        "thead"
+        "tbody";
+    grid-template-columns: 100%;
+    grid-template-rows: 15% 1fr;
+    grid-gap: 5rem;
+    overflow: hidden;
+    .thead {
+        grid-area: thead;
+        width: 93%;
+        background: $white;
+        border: 2px solid $blue;
+        border-radius: 10px;
+        font-size: 2.8rem;
+        font-weight: $semibold;
+        color: $blue;
+        ul {
+            height: 100%;
+            display: grid;
+            align-items: center;
+            list-style: none;
+            grid-template-columns: 16% 12% 24% 15% 19% 13%;
+            text-align: center;
+        }
+    }
+    .tbody {
+        grid-area: tbody;
+        // Scrollbar Styling : Firefox
+        scrollbar-width: thin;
+        scrollbar-color: $green $blue;
+        width: 100%;
+        font-size: 2.4rem;
+        font-weight: $regular;
+        color: $blue;
+        height: 100%;
+        overflow-y: overlay;
+        ul {
+            height: 17%;
+            width: 93%;
+            background: $white;
+            border: 1px solid $gray;
+            display: grid;
+            align-items: center;
+            grid-template-columns: 16% 12% 24% 15% 19% 13%;
+            text-align: center;
+            list-style: none;
+            border-bottom: 1px solid $gray;
+            cursor: pointer;
+            &:hover {
+                background: $gray;
+                .priority {
+                    #High_Icon {
+                        #Icon_feather-triangle {
+                            fill: $red;
+                            stroke: $red;
+                        }
+                        #H {
+                            fill: $white;
+                        }
+                    }
+                    #Medium_Icon {
+                        #Icon_feather-triangle {
+                            fill: $yellow;
+                            stroke: $yellow;
+                        }
+                        #M {
+                            fill: $white;
+                        }
+                    }
+                    #Low_Icon {
+                        #Icon_feather-triangle {
+                            fill: $green;
+                            stroke: $green;
+                        }
+                        #L {
+                            fill: $white;
+                        }
+                    }
+                }
+            }
+            &:first-child {
+                border-radius: 10px 10px 0 0;
+            }
+            &:last-child {
+                border-radius: 0 0 10px 10px;
+            }
+            .ticket_id {
+                display: none;
+            }
+            .title {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+            }
+        }
+    }
+
+    // Scrollbar Styling Chrome & Safari & Opera
+    ::-webkit-scrollbar {
+        width: 1.5rem;
+    }
+    ::-webkit-scrollbar-track {
+        background: $blue;
+        border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: $lightblue;
+        border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background: $green;
+    }
+}
+
+.ticket-details {
+    display: none;
+    width: 93%;
+    height: 75vh;
+    // display: grid;
+    grid-template-areas:
+        "tkstatus tktitle"
+        "tkinfo tkcontent"
+        "tkinfo tkbuttons"
+        "tkinfo tknote";
+    grid-template-columns: 25% 75%;
+    grid-template-rows: 15% 35% 10% 40%;
+    overflow: hidden;
+    background: $white;
+    border: 1px solid $gray;
+    border-radius: 10px;
+    .ticket-status-container {
+        grid-area: tkstatus;
+        display: grid;
+        align-content: center;
+        justify-content: center;
+        border-right: 1px solid $gray;
+        border-bottom: 1px solid $gray;
+        .ticket-status {
+            background: $purple;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 221px;
+            height: 52px;
+            padding: 0 2rem;
+            font-size: 1.8rem;
+            font-weight: $semibold;
+            color: $white;
+            border-radius: 5px;
+        }
+    }
+    .ticket-info-container {
+        grid-area: tkinfo;
+        border-right: 1px solid $gray;
+        display: grid;
+        grid-template-columns: 43% 57%;
+        justify-items: center;
+        .ticket-info {
+            display: grid;
+            grid-template-rows: 12.5%;
+            align-items: center;
+            font-size: 1.6rem;
+            font-weight: $semibold;
+            color: $blue;
+        }
+        .info-values {
+            display: grid;
+            grid-template-rows: 12.5%;
+            align-items: center;
+            font-size: 1.6rem;
+            color: $black;
+            :first-child {
+                display: flex;
+                gap: 1rem;
+                align-items: center;
+            }
+            .ticket-reported-by-value,
+            .ticket-assigned-to-value,
+            .ticket-assigned-by-value {
+                font-weight: $semibold;
+                color: $blue;
+            }
+        }
+    }
+    .ticket-title-container {
+        grid-area: tktitle;
+        display: grid;
+        grid-template-columns: 93% 5%;
+        align-content: center;
+        font-size: 4.2rem;
+        font-weight: $semibold;
+        color: $blue;
+        border-bottom: 1px solid $gray;
+        .ticket-title {
+            padding-left: 5rem;
+            align-self: center;
+        }
+        .tickets-return {
+            svg {
+                height: 20px;
+                width: 40px;
+                text-align: center;
+                fill: $blue;
+                cursor: pointer;
+                &:hover {
+                    fill: $green;
+                }
+            }
+        }
+    }
+    .ticket-content-container {
+        grid-area: tkcontent;
+        display: grid;
+        font-size: 2.4rem;
+        font-weight: $regular;
+        color: $black;
+        .ticket-content {
+            padding: 0 5rem;
+            align-self: center;
+        }
+    }
+    .ticket-buttons-container {
+        grid-area: tkbuttons;
+        display: flex;
+        align-items: center;
+        gap: 5rem;
+        padding-left: 5rem;
+        .ticket-button {
+            font-size: 2.2rem;
+            font-weight: $semibold;
+            color: $blue;
+            text-align: center;
+            background: $white;
+            border: 2px solid $blue;
+            border-radius: 10px;
+            width: 256px;
+            height: 58px;
+            cursor: pointer;
+            &:hover {
+                background: $green;
+                border-color: $green;
+                color: $white;
+            }
+        }
+        .ticket-button-disabled {
+            font-size: 2.2rem;
+            font-weight: $semibold;
+            color: $blue;
+            text-align: center;
+            background: $white;
+            border: 2px solid $blue;
+            border-radius: 10px;
+            width: 256px;
+            height: 58px;
+            opacity: 0.5;
+        }
+    }
+    .ticket-note-container {
+        grid-area: tknote;
+    }
+}

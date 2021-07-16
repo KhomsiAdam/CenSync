@@ -44,19 +44,19 @@ class UserApiController extends Middleware
     public function createUser() {
         $role = $this->validateParams('role', $this->param['role'], STRING);
         switch ($role) {
-            case 'admin':
+            case 'Admin':
                 $user_id = $this->generateAdminId();
                 $status = 'active';
                 break;
-            case 'developer':
+            case 'Developer':
                 $user_id = $this->generateDevId();
                 $status = 'inactive';
                 break;
-            case 'technician':
+            case 'Technician':
                 $user_id = $this->generateTechId();
                 $status = 'inactive';
                 break;
-            case 'employee':
+            case 'Employee':
                 $user_id = $this->generateEmpId();
                 $status = 'inactive';
                 break;
@@ -73,7 +73,6 @@ class UserApiController extends Middleware
         $password = $this->validateParams('password', $this->param['password'], STRING);
         $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
-        $dateofbirth = $this->validateParams('dateofbirth', $this->param['dateofbirth'], STRING);
         $data = new UserModel;
         $data->setUserId($user_id);
         $data->setRole($role);
@@ -84,7 +83,6 @@ class UserApiController extends Middleware
         //* setter for your hashed password
         $data->setPassword($hashed_password);
 
-        $data->setDateOfBirth($dateofbirth);
         $data->setStatus($status);
         if ($_ENV['DEV_MODE'] === 'ON') {
             if($data->create($_ENV['ACCOUNTS_TABLE']) != true) {
@@ -99,7 +97,7 @@ class UserApiController extends Middleware
     }
 
     public function readAllUsers() {
-        $this->validateToken();
+        // $this->validateToken();
         $data = new UserModel;
         if ($_ENV['DEV_MODE'] === 'ON') {
             if($data->readAll($_ENV['ACCOUNTS_TABLE']) != true) {
@@ -114,7 +112,7 @@ class UserApiController extends Middleware
     }
 
     public function readUniqueUser() {
-        $this->validateToken();
+        // $this->validateToken();
         $user_id = $this->validateParams('user_id', $this->param['user_id'], STRING);
         $data = new UserModel;
         $data->setUserId($user_id);
@@ -127,6 +125,38 @@ class UserApiController extends Middleware
             $this->returnResponse(RESPONSE_MESSAGE, $message);
         } else {
             $data->readUnique($_ENV['ACCOUNTS_TABLE']);
+        }
+    }
+
+    public function readProfileUser() {
+        $this->validateToken();
+        $user_id = $this->validateParams('user_id', $this->user_id, STRING);
+        $data = new UserModel;
+        $data->setUserId($user_id);
+        if ($_ENV['DEV_MODE'] === 'ON') {
+            if($data->readUnique($_ENV['ACCOUNTS_TABLE']) != true) {
+                $message = 'Failed to fetch unique User.';
+            } else {
+                $message = "Unique User fetched successfully.";
+            }
+            $this->returnResponse(RESPONSE_MESSAGE, $message);
+        } else {
+            $data->readUnique($_ENV['ACCOUNTS_TABLE']);
+        }
+    }
+
+    public function readUsersNumber() {
+        // $this->validateToken();
+        $data = new UserModel;
+        if ($_ENV['DEV_MODE'] === 'ON') {
+            if($data->readNumber($_ENV['ACCOUNTS_TABLE']) != true) {
+                $message = 'Failed to fetch all Users number.';
+            } else {
+                $message = "All Users number fetched successfully.";
+            }
+            $this->returnResponse(RESPONSE_MESSAGE, $message);
+        } else {
+            $data->readNumber($_ENV['ACCOUNTS_TABLE']);            
         }
     }
 

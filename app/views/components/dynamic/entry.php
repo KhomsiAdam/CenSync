@@ -43,9 +43,7 @@
         <input type="email" name="email" id="email_in">
         <label for="password">Password</label>
         <input type="password" name="password" id="password_in">
-        <a href="/dashboard">
-            <button type="submit" id="sign_in">Sign In</button>
-        </a>
+        <button type="submit" id="sign_in">Sign In</button>
         <span class="signup">Not having an account ? <span id="signup_btn_mob">Sign Up</span><span id="signup_btn_desk">Sign Up</span></span>
     </form>
 </section>

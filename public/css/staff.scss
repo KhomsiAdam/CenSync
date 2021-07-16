@@ -1,0 +1,195 @@
+@use "variables" as *;
+
+.staff-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    grid-column-gap: 4rem;
+    grid-row-gap: 4rem;
+    place-items: center;
+    padding: 0 10rem 4rem 0;
+    .staff-card {
+        display: grid;
+        grid-template-areas:
+            "chead"
+            "cbody";
+        grid-template-rows: 25% 75%;
+        width: 445px;
+        height: 344px;
+        background: $white;
+        border: 1px solid $gray;
+        border-radius: 10px;
+        cursor: pointer;
+        .staff-id {
+            display: none;
+        }
+        .card-header {
+            grid-area: chead;
+            display: grid;
+            justify-content: center;
+            align-content: center;
+            grid-gap: 1rem;
+            gap: 1rem;
+            color: $blue;
+            background: $gray;
+            border-radius: 10px 10px 0 0;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            .fullname {
+                font-size: 2.4rem;
+                font-weight: $semibold;
+            }
+            .role {
+                font-size: 1.6rem;
+                font-weight: $regular;
+            }
+        }
+        .card-body {
+            grid-area: cbody;
+            font-size: 1.6rem;
+            display: grid;
+            grid-template-rows: 100%;
+            grid-template-columns: 50% 50%;
+            align-items: center;
+            padding: 0.5rem 2rem;
+            .details,
+            .values {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-evenly;
+                height: 100%;
+            }
+            .details {
+                font-weight: $semibold;
+                color: $blue;
+            }
+            .values {
+                align-items: flex-end;
+            }
+        }
+    }
+}
+
+.staff-details {
+    width: 93%;
+    height: 75vh;
+    display: grid;
+    grid-template-areas: "linfo rinfo";
+    grid-template-columns: 35% 65%;
+    grid-template-rows: 100%;
+    overflow: hidden;
+    background: $white;
+    border: 1px solid $gray;
+    border-radius: 10px;
+    .staff-left {
+        display: grid;
+        grid-template-rows: 35% 65%;
+        align-items: center;
+        padding: 0 4rem;
+        font-size: 2.2rem;
+        border-right: 1px solid $gray;
+        .staff-left-info {
+            display: grid;
+            grid-template-columns: 40% 60%;
+            height: 100%;
+            .left-info,
+            .left-values {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-evenly;
+                height: 100%;
+            }
+            .left-info {
+                font-weight: $semibold;
+                color: $blue;
+            }
+            .left-values {
+                align-items: flex-end;
+            }
+        }
+    }
+    .staff-right {
+        display: grid;
+        grid-template-rows: 20% 35% 45%;
+        align-items: center;
+        padding: 0 4rem;
+        font-size: 2.2rem;
+        .top-right {
+            display: grid;
+            grid-template-rows: 60% 40%;
+            grid-template-columns: 95% 5%;
+            grid-template-areas:
+                "name return"
+                "email email";
+            height: 70%;
+            align-items: flex-end;
+            .staff-return {
+                grid-area: return;
+                svg {
+                    height: 20px;
+                    width: 40px;
+                    text-align: center;
+                    fill: $blue;
+                    cursor: pointer;
+                    &:hover {
+                        fill: $green;
+                    }
+                }
+            }
+            .name-right {
+                grid-area: name;
+                font-size: 4.6rem;
+                font-weight: $semibold;
+                color: $blue;
+            }
+            .email-right {
+                grid-area: email;
+                color: $green;
+            }
+        }
+        .bio-right {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            height: 100%;
+            label {
+                font-size: 3.2rem;
+                font-weight: $semibold;
+                color: $blue;
+            }
+            textarea {
+                font-size: 1.6rem;
+                background: $white;
+                border: 1px solid $gray;
+                border-radius: 5px;
+                outline: none;
+                padding: 1rem;
+                &:focus {
+                    background: #ffffff;
+                }
+            }
+        }
+        .bottom-right {
+            display: grid;
+            grid-template-columns: 50% 50%;
+            height: 100%;
+            .staff-right-info {
+                display: grid;
+                grid-template-columns: 40% 60%;
+                .right-info,
+                .right-values {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-evenly;
+                }
+                .right-info {
+                    font-weight: $semibold;
+                    color: $blue;
+                }
+                .right-values {
+                    align-items: flex-end;
+                }
+            }
+        }
+    }
+}

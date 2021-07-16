@@ -4,11 +4,6 @@ namespace App\Config;
 use PDO;
 use Exception;
 
-require_once __DIR__ . '../../../composer_vendor/autoload.php';
-use Dotenv\Dotenv;
-$dotenv = Dotenv::createImmutable('../');
-$dotenv->load();
-
 // Database Handler
 class Dbh {
     public function connect() {

@@ -48,3 +48,10 @@ CREATE TABLE note (
     FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE,
     FOREIGN KEY (ticket_id) REFERENCES ticket(ticket_id) ON DELETE CASCADE
 )
+
+-- @block
+SELECT COUNT(user_id) FROM user
+
+-- @block
+SELECT COUNT(*) AS [Staff Number]
+FROM user;

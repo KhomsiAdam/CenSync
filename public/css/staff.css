@@ -1,0 +1,191 @@
+/* Colors */
+/* Font Weights */
+.staff-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  grid-column-gap: 4rem;
+  grid-row-gap: 4rem;
+  place-items: center;
+  padding: 0 10rem 4rem 0;
+}
+.staff-container .staff-card {
+  display: grid;
+  grid-template-areas: "chead" "cbody";
+  grid-template-rows: 25% 75%;
+  width: 445px;
+  height: 344px;
+  background: #F9F9F9;
+  border: 1px solid #EBEBEB;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.staff-container .staff-card .staff-id {
+  display: none;
+}
+.staff-container .staff-card .card-header {
+  grid-area: chead;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  grid-gap: 1rem;
+  gap: 1rem;
+  color: #2B777D;
+  background: #EBEBEB;
+  border-radius: 10px 10px 0 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+.staff-container .staff-card .card-header .fullname {
+  font-size: 2.4rem;
+  font-weight: 600;
+}
+.staff-container .staff-card .card-header .role {
+  font-size: 1.6rem;
+  font-weight: 400;
+}
+.staff-container .staff-card .card-body {
+  grid-area: cbody;
+  font-size: 1.6rem;
+  display: grid;
+  grid-template-rows: 100%;
+  grid-template-columns: 50% 50%;
+  align-items: center;
+  padding: 0.5rem 2rem;
+}
+.staff-container .staff-card .card-body .details,
+.staff-container .staff-card .card-body .values {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 100%;
+}
+.staff-container .staff-card .card-body .details {
+  font-weight: 600;
+  color: #2B777D;
+}
+.staff-container .staff-card .card-body .values {
+  align-items: flex-end;
+}
+
+.staff-details {
+  width: 93%;
+  height: 75vh;
+  display: grid;
+  grid-template-areas: "linfo rinfo";
+  grid-template-columns: 35% 65%;
+  grid-template-rows: 100%;
+  overflow: hidden;
+  background: #F9F9F9;
+  border: 1px solid #EBEBEB;
+  border-radius: 10px;
+}
+.staff-details .staff-left {
+  display: grid;
+  grid-template-rows: 35% 65%;
+  align-items: center;
+  padding: 0 4rem;
+  font-size: 2.2rem;
+  border-right: 1px solid #EBEBEB;
+}
+.staff-details .staff-left .staff-left-info {
+  display: grid;
+  grid-template-columns: 40% 60%;
+  height: 100%;
+}
+.staff-details .staff-left .staff-left-info .left-info,
+.staff-details .staff-left .staff-left-info .left-values {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 100%;
+}
+.staff-details .staff-left .staff-left-info .left-info {
+  font-weight: 600;
+  color: #2B777D;
+}
+.staff-details .staff-left .staff-left-info .left-values {
+  align-items: flex-end;
+}
+.staff-details .staff-right {
+  display: grid;
+  grid-template-rows: 20% 35% 45%;
+  align-items: center;
+  padding: 0 4rem;
+  font-size: 2.2rem;
+}
+.staff-details .staff-right .top-right {
+  display: grid;
+  grid-template-rows: 60% 40%;
+  grid-template-columns: 95% 5%;
+  grid-template-areas: "name return" "email email";
+  height: 70%;
+  align-items: flex-end;
+}
+.staff-details .staff-right .top-right .staff-return {
+  grid-area: return;
+}
+.staff-details .staff-right .top-right .staff-return svg {
+  height: 20px;
+  width: 40px;
+  text-align: center;
+  fill: #2B777D;
+  cursor: pointer;
+}
+.staff-details .staff-right .top-right .staff-return svg:hover {
+  fill: #5FBE6E;
+}
+.staff-details .staff-right .top-right .name-right {
+  grid-area: name;
+  font-size: 4.6rem;
+  font-weight: 600;
+  color: #2B777D;
+}
+.staff-details .staff-right .top-right .email-right {
+  grid-area: email;
+  color: #5FBE6E;
+}
+.staff-details .staff-right .bio-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 100%;
+}
+.staff-details .staff-right .bio-right label {
+  font-size: 3.2rem;
+  font-weight: 600;
+  color: #2B777D;
+}
+.staff-details .staff-right .bio-right textarea {
+  font-size: 1.6rem;
+  background: #F9F9F9;
+  border: 1px solid #EBEBEB;
+  border-radius: 5px;
+  outline: none;
+  padding: 1rem;
+}
+.staff-details .staff-right .bio-right textarea:focus {
+  background: #ffffff;
+}
+.staff-details .staff-right .bottom-right {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  height: 100%;
+}
+.staff-details .staff-right .bottom-right .staff-right-info {
+  display: grid;
+  grid-template-columns: 40% 60%;
+}
+.staff-details .staff-right .bottom-right .staff-right-info .right-info,
+.staff-details .staff-right .bottom-right .staff-right-info .right-values {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.staff-details .staff-right .bottom-right .staff-right-info .right-info {
+  font-weight: 600;
+  color: #2B777D;
+}
+.staff-details .staff-right .bottom-right .staff-right-info .right-values {
+  align-items: flex-end;
+}/*# sourceMappingURL=staff.css.map */

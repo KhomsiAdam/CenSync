@@ -56,7 +56,7 @@ class TicketApiController extends Middleware
     }
 
     public function readAllTickets() {
-        $this->validateToken();
+        // $this->validateToken();
         $data = new TicketModel;
         if ($_ENV['DEV_MODE'] === 'ON') {
             if($data->readAll($_ENV['AUDIENCE_TABLE']) != true) {
@@ -70,8 +70,38 @@ class TicketApiController extends Middleware
         }
     }
 
+    public function readTicketsNumber() {
+        // $this->validateToken();
+        $data = new TicketModel;
+        if ($_ENV['DEV_MODE'] === 'ON') {
+            if($data->readNumber($_ENV['AUDIENCE_TABLE']) != true) {
+                $message = 'Failed to fetch all Tickets number.';
+            } else {
+                $message = "All Tickets number fetched successfully.";
+            }
+            $this->returnResponse(RESPONSE_MESSAGE, $message);
+        } else {
+            $data->readNumber($_ENV['AUDIENCE_TABLE']);            
+        }
+    }
+
+    public function readTicketsResolved() {
+        // $this->validateToken();
+        $data = new TicketModel;
+        if ($_ENV['DEV_MODE'] === 'ON') {
+            if($data->readResolved($_ENV['AUDIENCE_TABLE']) != true) {
+                $message = 'Failed to fetch all resolved Tickets.';
+            } else {
+                $message = "All resolved Tickets fetched successfully.";
+            }
+            $this->returnResponse(RESPONSE_MESSAGE, $message);
+        } else {
+            $data->readResolved($_ENV['AUDIENCE_TABLE']);            
+        }
+    }
+
     public function readUniqueTicket() {
-        $this->validateToken();
+        // $this->validateToken();
         $ticket_id = $this->validateParams('ticket_id', $this->param['ticket_id'], STRING);
         $data = new TicketModel;
         $data->setTicketId($ticket_id);
@@ -90,7 +120,7 @@ class TicketApiController extends Middleware
     public function updateTicketAssigned() {
         $this->validateToken();
         $ticket_id = $this->validateParams('ticket_id', $this->param['ticket_id'], STRING);
-        $status = $this->validateParams('status', $this->param['status'], STRING);
+        $status = $this->validateParams('status', 'Open', STRING);
         $assigned_by = $this->validateParams('assigned_by', $this->param['assigned_by'], STRING);
         $assigned_to = $this->validateParams('assigned_to', $this->param['assigned_to'], STRING);
         $data = new TicketModel;
@@ -114,7 +144,7 @@ class TicketApiController extends Middleware
     public function updateTicketResolved() {
         $this->validateToken();
         $ticket_id = $this->validateParams('ticket_id', $this->param['ticket_id'], STRING);
-        $status = $this->validateParams('status', $this->param['status'], STRING);
+        $status = $this->validateParams('status', 'Resolved', STRING);
         $data = new TicketModel;
         $data->setTicketId($ticket_id);
         $data->setStatus($status);

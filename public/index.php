@@ -1,4 +1,7 @@
 <?php
+
+session_start();
+
 use App\Controller\WebController;
 use App\Controller\AuthApiController;
 use App\Controller\UserApiController;
@@ -18,14 +21,11 @@ $app->router->get('/', [WebController::class, 'entry']);
 $app->router->get('/dashboard', [WebController::class, 'dashboard']);
 $app->router->get('/tickets', [WebController::class, 'tickets']);
 $app->router->get('/staff', [WebController::class, 'staff']);
+$app->router->get('/profile', [WebController::class, 'profile']);
+$app->router->get('/logout', [WebController::class, 'logout']);
 // Web routes for views : POST
 
 // * Any ExampleApiController manages the API side of the framework with the Middleware
-
-// API routes for endpoints : GET
-$app->router->get('/user', [UserApiController::class, 'processUserMethods']);
-$app->router->get('/ticket', [TicketApiController::class, 'processTicketMethods']);
-$app->router->get('/note', [NoteApiController::class, 'processNoteMethods']);
 
 // API routes for endpoints : POST
 $app->router->post('/auth', [AuthApiController::class, 'processAuthMethods']);

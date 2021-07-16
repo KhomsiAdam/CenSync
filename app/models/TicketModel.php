@@ -109,10 +109,13 @@ class TicketModel {
     }
 
     public function readAll($table) {
-        $sql = "SELECT category, priority, title, employee, updated_at, status FROM $table";
+        $sql = "SELECT ticket_id, category, priority, title, reported_by, ticket_created_at, status FROM $table";
     	$stmt = $this->db_conn->prepare($sql);
         if($stmt->execute()) {
             $tickets = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            for($i = 0; $i < count($tickets); $i ++) {
+                $tickets[$i]['ticket_created_at'] = (date("M d Y", strtotime($tickets[$i]['ticket_created_at'])));
+            }
             header ("Content-Type: application/json");
             echo json_encode($tickets,JSON_PRETTY_PRINT|JSON_NUMERIC_CHECK);
     		return true;
@@ -121,12 +124,39 @@ class TicketModel {
     	}
     }
 
+    public function readNumber($table) {
+        $sql = "SELECT * FROM $table";
+        $stmt = $this->db_conn->prepare($sql);
+        if ($stmt->execute()) {
+            $users = $stmt->rowCount();
+            echo $users;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function readResolved($table) {
+        $sql = "SELECT * FROM $table WHERE status = 'resolved'";
+        $stmt = $this->db_conn->prepare($sql);
+        if ($stmt->execute()) {
+            $users = $stmt->rowCount();
+            echo $users;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function readUnique($table) {
         $sql = "SELECT * FROM $table WHERE (ticket_id = :ticket_id)";
     	$stmt = $this->db_conn->prepare($sql);
         $stmt->bindParam(':ticket_id', $this->ticket_id);
         if($stmt->execute()) {
             $ticket = $stmt->fetch(PDO::FETCH_ASSOC);
+            $ticket['ticket_created_at'] = (date("M d Y, H:m A", strtotime($ticket['ticket_created_at'])));
+            $ticket['ticket_assigned_at'] = (date("M d Y, H:m A", strtotime($ticket['ticket_assigned_at'])));
+            $ticket['ticket_resolved_at'] = (date("M d Y, H:m A", strtotime($ticket['ticket_resolved_at'])));
             header ("Content-Type: application/json");
             echo json_encode($ticket,JSON_PRETTY_PRINT|JSON_NUMERIC_CHECK);
     		return true;

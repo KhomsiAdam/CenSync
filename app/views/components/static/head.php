@@ -19,21 +19,36 @@
 
         case '/dashboard':?>
             <meta name="description" content="Dashboard for looking at general informations and stats about the staff and tickets">
+            <link rel="stylesheet" href="/css/layout.css">
             <link rel="stylesheet" href="/css/dashboard.css">
+            <script src="/js/layout.js" defer></script>
             <script src="/js/dashboard.js" defer></script>
         <?php break;
 
         case '/tickets':?>
             <meta name="description" content="Dashboard section for ticket handling">
-            <link rel="stylesheet" href="/css/dashboard.css">
-            <script src="/js/dashboard.js" defer></script>
+            <link rel="stylesheet" href="/css/layout.css">
+            <link rel="stylesheet" href="/css/tickets.css">
+            <script src="/js/layout.js" defer></script>
+            <script src="/js/tickets.js" defer></script>
         <?php break;
 
         case '/staff':?>
             <meta name="description" content="Dashboard section for staff management">
-            <link rel="stylesheet" href="/css/dashboard.css">
-            <script src="/js/dashboard.js" defer></script>
+            <link rel="stylesheet" href="/css/layout.css">
+            <link rel="stylesheet" href="/css/staff.css">
+            <script src="/js/layout.js" defer></script>
+            <script src="/js/staff.js" defer></script>
         <?php break;
+
+        case '/profile':?>
+            <meta name="description" content="Profile page">
+            <link rel="stylesheet" href="/css/layout.css">
+            <link rel="stylesheet" href="/css/staff.css">
+            <script src="/js/layout.js" defer></script>
+            <script src="/js/profile.js" defer></script>
+        <?php break;
+
     }
 ?>
 
