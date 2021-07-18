@@ -1,5 +1,5 @@
 <?php 
-if (isset($_SESSION['ACCOUNTS_ID'])) {
+if (isset($_SESSION['ACCOUNTS_ROLE'])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">

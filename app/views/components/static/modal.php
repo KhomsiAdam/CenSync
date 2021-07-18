@@ -8,7 +8,7 @@
         </button>
     </div>
     <div class="modal-body">
-        <form method="POST" class="create-ticket-form">
+        <form method="POST" class="create-ticket-form" action="/ticket">
             <div class="all_selects_container">
                 <div class="select_container">
                     <label for="category">Category</label>

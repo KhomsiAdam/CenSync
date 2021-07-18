@@ -10,9 +10,7 @@ const fetchNumbers = async (method, endpoint, data_number) => {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            //TODO: uncomment for token use
-            // 'Authorization': 'Bearer ' + token
+            'Accept': 'application/json'
         },
         body: JSON.stringify(data)
     });

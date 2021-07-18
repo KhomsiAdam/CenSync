@@ -269,7 +269,7 @@ header .profile_container .profile:hover {
 .modal .modal-body {
   font-size: 2.4rem;
 }
-.modal .modal-body .create-ticket-form {
+.modal .modal-body .create-ticket-form, .modal .modal-body .assign-ticket-form, .modal .modal-body .activate-account-form, .modal .modal-body .delete-account-form {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -282,7 +282,16 @@ header .profile_container .profile:hover {
 .modal .modal-body .create-ticket-form input,
 .modal .modal-body .create-ticket-form textarea,
 .modal .modal-body .create-ticket-form select,
-.modal .modal-body .create-ticket-form button {
+.modal .modal-body .create-ticket-form button, .modal .modal-body .assign-ticket-form input,
+.modal .modal-body .assign-ticket-form textarea,
+.modal .modal-body .assign-ticket-form select,
+.modal .modal-body .assign-ticket-form button, .modal .modal-body .activate-account-form input,
+.modal .modal-body .activate-account-form textarea,
+.modal .modal-body .activate-account-form select,
+.modal .modal-body .activate-account-form button, .modal .modal-body .delete-account-form input,
+.modal .modal-body .delete-account-form textarea,
+.modal .modal-body .delete-account-form select,
+.modal .modal-body .delete-account-form button {
   width: 1488px;
   max-width: 100%;
   height: 69px;
@@ -295,29 +304,29 @@ header .profile_container .profile:hover {
   background: #F9F9F9;
   font-size: 2.4rem;
 }
-.modal .modal-body .create-ticket-form textarea {
+.modal .modal-body .create-ticket-form textarea, .modal .modal-body .assign-ticket-form textarea, .modal .modal-body .activate-account-form textarea, .modal .modal-body .delete-account-form textarea {
   height: 253px;
   padding-top: 1em;
 }
-.modal .modal-body .create-ticket-form .all_selects_container {
+.modal .modal-body .create-ticket-form .all_selects_container, .modal .modal-body .assign-ticket-form .all_selects_container, .modal .modal-body .activate-account-form .all_selects_container, .modal .modal-body .delete-account-form .all_selects_container {
   display: flex;
   justify-content: space-between;
 }
 @media only screen and (max-width: 1730px) {
-  .modal .modal-body .create-ticket-form .all_selects_container {
+  .modal .modal-body .create-ticket-form .all_selects_container, .modal .modal-body .assign-ticket-form .all_selects_container, .modal .modal-body .activate-account-form .all_selects_container, .modal .modal-body .delete-account-form .all_selects_container {
     flex-direction: column;
     gap: 2rem;
   }
 }
-.modal .modal-body .create-ticket-form .select_container {
+.modal .modal-body .create-ticket-form .select_container, .modal .modal-body .assign-ticket-form .select_container, .modal .modal-body .activate-account-form .select_container, .modal .modal-body .delete-account-form .select_container {
   display: flex;
   flex-direction: column;
   gap: 2rem;
 }
-.modal .modal-body .create-ticket-form .custom_select {
+.modal .modal-body .create-ticket-form .custom_select, .modal .modal-body .assign-ticket-form .custom_select, .modal .modal-body .activate-account-form .custom_select, .modal .modal-body .delete-account-form .custom_select {
   position: relative;
 }
-.modal .modal-body .create-ticket-form .custom_select select {
+.modal .modal-body .create-ticket-form .custom_select select, .modal .modal-body .assign-ticket-form .custom_select select, .modal .modal-body .activate-account-form .custom_select select, .modal .modal-body .delete-account-form .custom_select select {
   cursor: pointer;
   -webkit-appearance: none;
      -moz-appearance: none;
@@ -326,11 +335,11 @@ header .profile_container .profile:hover {
   max-width: 100%;
 }
 @media only screen and (max-width: 1730px) {
-  .modal .modal-body .create-ticket-form .custom_select select {
+  .modal .modal-body .create-ticket-form .custom_select select, .modal .modal-body .assign-ticket-form .custom_select select, .modal .modal-body .activate-account-form .custom_select select, .modal .modal-body .delete-account-form .custom_select select {
     width: 1488px;
   }
 }
-.modal .modal-body .create-ticket-form .custom_select .custom-options {
+.modal .modal-body .create-ticket-form .custom_select .custom-options, .modal .modal-body .assign-ticket-form .custom_select .custom-options, .modal .modal-body .activate-account-form .custom_select .custom-options, .modal .modal-body .delete-account-form .custom_select .custom-options {
   font-size: 2.4rem;
   list-style: none;
   margin: 0;
@@ -343,7 +352,7 @@ header .profile_container .profile:hover {
   top: 0%;
   overflow: hidden;
 }
-.modal .modal-body .create-ticket-form .custom_select .custom-options li {
+.modal .modal-body .create-ticket-form .custom_select .custom-options li, .modal .modal-body .assign-ticket-form .custom_select .custom-options li, .modal .modal-body .activate-account-form .custom_select .custom-options li, .modal .modal-body .delete-account-form .custom_select .custom-options li {
   height: 69px;
   border: solid 1px #2B777D;
   display: flex;
@@ -353,28 +362,34 @@ header .profile_container .profile:hover {
   cursor: pointer;
   transition: background 0.3s ease;
 }
-.modal .modal-body .create-ticket-form .custom_select .custom-options li:hover {
+.modal .modal-body .create-ticket-form .custom_select .custom-options li:hover, .modal .modal-body .assign-ticket-form .custom_select .custom-options li:hover, .modal .modal-body .activate-account-form .custom_select .custom-options li:hover, .modal .modal-body .delete-account-form .custom_select .custom-options li:hover {
   background: #5FBEBC;
   color: #F9F9F9;
 }
-.modal .modal-body .create-ticket-form .custom_select .custom-options li:hover #high-icon {
+.modal .modal-body .create-ticket-form .custom_select .custom-options li:hover #high-icon, .modal .modal-body .assign-ticket-form .custom_select .custom-options li:hover #high-icon, .modal .modal-body .activate-account-form .custom_select .custom-options li:hover #high-icon, .modal .modal-body .delete-account-form .custom_select .custom-options li:hover #high-icon {
   fill: #C94242;
   stroke: #C94242;
 }
-.modal .modal-body .create-ticket-form .custom_select .custom-options li:hover #medium-icon {
+.modal .modal-body .create-ticket-form .custom_select .custom-options li:hover #medium-icon, .modal .modal-body .assign-ticket-form .custom_select .custom-options li:hover #medium-icon, .modal .modal-body .activate-account-form .custom_select .custom-options li:hover #medium-icon, .modal .modal-body .delete-account-form .custom_select .custom-options li:hover #medium-icon {
   fill: #BEBE5F;
   stroke: #BEBE5F;
 }
-.modal .modal-body .create-ticket-form .custom_select .custom-options li:hover #low-icon {
+.modal .modal-body .create-ticket-form .custom_select .custom-options li:hover #low-icon, .modal .modal-body .assign-ticket-form .custom_select .custom-options li:hover #low-icon, .modal .modal-body .activate-account-form .custom_select .custom-options li:hover #low-icon, .modal .modal-body .delete-account-form .custom_select .custom-options li:hover #low-icon {
   fill: #5FBE6E;
   stroke: #5FBE6E;
 }
 .modal .modal-body .create-ticket-form .custom_select .custom-options li:hover #H,
 .modal .modal-body .create-ticket-form .custom_select .custom-options li:hover #M,
-.modal .modal-body .create-ticket-form .custom_select .custom-options li:hover #L {
+.modal .modal-body .create-ticket-form .custom_select .custom-options li:hover #L, .modal .modal-body .assign-ticket-form .custom_select .custom-options li:hover #H,
+.modal .modal-body .assign-ticket-form .custom_select .custom-options li:hover #M,
+.modal .modal-body .assign-ticket-form .custom_select .custom-options li:hover #L, .modal .modal-body .activate-account-form .custom_select .custom-options li:hover #H,
+.modal .modal-body .activate-account-form .custom_select .custom-options li:hover #M,
+.modal .modal-body .activate-account-form .custom_select .custom-options li:hover #L, .modal .modal-body .delete-account-form .custom_select .custom-options li:hover #H,
+.modal .modal-body .delete-account-form .custom_select .custom-options li:hover #M,
+.modal .modal-body .delete-account-form .custom_select .custom-options li:hover #L {
   fill: #F9F9F9;
 }
-.modal .modal-body .create-ticket-form .custom_select .custom_arrow {
+.modal .modal-body .create-ticket-form .custom_select .custom_arrow, .modal .modal-body .assign-ticket-form .custom_select .custom_arrow, .modal .modal-body .activate-account-form .custom_select .custom_arrow, .modal .modal-body .delete-account-form .custom_select .custom_arrow {
   position: absolute;
   top: 0;
   right: 1.5rem;
@@ -382,11 +397,11 @@ header .profile_container .profile:hover {
   width: 4rem;
   pointer-events: none;
 }
-.modal .modal-body .create-ticket-form .custom_select .custom_arrow img {
+.modal .modal-body .create-ticket-form .custom_select .custom_arrow img, .modal .modal-body .assign-ticket-form .custom_select .custom_arrow img, .modal .modal-body .activate-account-form .custom_select .custom_arrow img, .modal .modal-body .delete-account-form .custom_select .custom_arrow img {
   height: inherit;
   width: inherit;
 }
-.modal .modal-body .create-ticket-form button {
+.modal .modal-body .create-ticket-form button, .modal .modal-body .assign-ticket-form button, .modal .modal-body .activate-account-form button, .modal .modal-body .delete-account-form button {
   font-weight: 600;
   margin-top: 3rem;
   color: #5FBE6E;
@@ -394,9 +409,30 @@ header .profile_container .profile:hover {
   border: solid 2px #5FBE6E;
   cursor: pointer;
 }
-.modal .modal-body .create-ticket-form button:hover {
+.modal .modal-body .create-ticket-form button:hover, .modal .modal-body .assign-ticket-form button:hover, .modal .modal-body .activate-account-form button:hover, .modal .modal-body .delete-account-form button:hover {
   color: #F9F9F9;
   background: #5FBE6E;
+}
+.modal .modal-body .delete-account-form {
+  flex-direction: row;
+}
+.modal .modal-body .delete-account-form .delete-submit-button {
+  width: 740px;
+  color: #F9F9F9;
+  border: solid 2px #F9F9F9;
+}
+.modal .modal-body .delete-account-form .delete-submit-button:hover {
+  background: #C94242;
+  border: solid 2px #C94242;
+}
+.modal .modal-body .delete-account-form .delete-cancel-button {
+  width: 740px;
+  color: #F9F9F9;
+  border: solid 2px #F9F9F9;
+}
+.modal .modal-body .delete-account-form .delete-cancel-button:hover {
+  background: #5FBEBC;
+  border: solid 2px #5FBEBC;
 }
 
 .modal.active {

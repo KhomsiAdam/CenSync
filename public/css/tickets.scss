@@ -45,7 +45,7 @@ main {
         height: 100%;
         overflow-y: overlay;
         ul {
-            height: 17%;
+            height: 16.6%;
             width: 93%;
             background: $white;
             border: 1px solid $gray;
@@ -69,7 +69,7 @@ main {
                         }
                     }
                     #Medium_Icon {
-                        #Icon_feather-triangle {
+                        #Icon_awesome-square {
                             fill: $yellow;
                             stroke: $yellow;
                         }
@@ -233,8 +233,8 @@ main {
         grid-area: tkbuttons;
         display: flex;
         align-items: center;
-        gap: 5rem;
-        padding-left: 5rem;
+        gap: 7.5rem;
+        justify-content: center;
         .ticket-button {
             font-size: 2.2rem;
             font-weight: $semibold;
@@ -263,6 +263,14 @@ main {
             width: 256px;
             height: 58px;
             opacity: 0.5;
+        }
+        .leave-note:hover {
+            background: $lightblue;
+            border: 2px solid $lightblue;
+        }
+        .delete-ticket:hover {
+            background: $red;
+            border: 2px solid $red;
         }
     }
     .ticket-note-container {

@@ -9,8 +9,7 @@ const fetchStaff = async (method, endpoint, staff_container) => {
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
-            //TODO: uncomment for token use
-            // 'Authorization': 'Bearer ' + token
+            'Authorization': 'Bearer ' + token
         },
         body: JSON.stringify(data)
     });
@@ -19,124 +18,156 @@ const fetchStaff = async (method, endpoint, staff_container) => {
         throw new Error('cannot fetch data');
     }
     users = await response.json();
+    // Check for expired token to redirect to login page
+    if (users.error) {
+        verifyTokenExp();
+    } else {
+        console.log(users);
 
-    users.forEach(user => {
-        // Create Staff Card
-        let staff_card = document.createElement('div');
-        staff_card.setAttribute('class', 'staff-card');
-        staff_container.appendChild(staff_card);
+        users.forEach(user => {
 
-        // Crate Staff Id
-        let staff_id = document.createElement('div');
-        staff_id.setAttribute('class', 'staff-id');
-        staff_card.appendChild(staff_id);
-        staff_id.innerHTML = user['user_id'];
+            // Create card element to append
+            function staffCardElement(parent, child, classname, value) {
+                child.setAttribute('class', classname);
+                parent.appendChild(child);
+                child.innerHTML = value;
+            }
 
-        // Create Staff Header
-        let staff_header = document.createElement('div');
-        staff_header.setAttribute('class', 'card-header');
-        staff_card.appendChild(staff_header);
+            // Create Staff Card
+            let staff_card = document.createElement('div');
+            staffCardElement(staff_container, staff_card, 'staff-card', '');
 
-        // Create Staff Fullname & Role
-        let staff_name = document.createElement('div');
-        staff_name.setAttribute('class', 'fullname');
-        staff_header.appendChild(staff_name);
-        staff_name.innerHTML = user['firstname'] + ' ' + user['lastname'];
+            // Crate Staff Id
+            let staff_id = document.createElement('div');
+            staffCardElement(staff_card, staff_id, 'staff-id', user['user_id']);
 
-        let staff_role = document.createElement('div');
-        staff_role.setAttribute('class', 'role');
-        staff_header.appendChild(staff_role);
-        staff_role.innerHTML = user['role'];
+            // Create Staff Header
+            let staff_header = document.createElement('div');
+            staffCardElement(staff_card, staff_header, 'card-header', '');
 
-        // Create Staff Body
-        let staff_body = document.createElement('div');
-        staff_body.setAttribute('class', 'card-body');
-        staff_card.appendChild(staff_body);
+            // Create Staff Image
+            let staff_image = document.createElement('div');
+            staffCardElement(staff_header, staff_image, 'card-image', '<svg class="card-profile" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 34.875 34.875"> <path id="Icon_awesome-user-circle" data-name="Icon awesome-user-circle" d="M17.438.563A17.438,17.438,0,1,0,34.875,18,17.434,17.434,0,0,0,17.438.563Zm0,6.75A6.188,6.188,0,1,1,11.25,13.5,6.188,6.188,0,0,1,17.438,7.313Zm0,24.188a13.474,13.474,0,0,1-10.3-4.8,7.839,7.839,0,0,1,6.926-4.2,1.72,1.72,0,0,1,.5.077,9.309,9.309,0,0,0,2.876.485,9.274,9.274,0,0,0,2.876-.485,1.72,1.72,0,0,1,.5-.077,7.839,7.839,0,0,1,6.926,4.2A13.474,13.474,0,0,1,17.438,31.5Z" transform="translate(0 -0.563)"/> </svg>');
 
-        // Create Staff Details
-        let staff_details = document.createElement('div');
-        staff_details.setAttribute('class', 'details');
-        staff_body.appendChild(staff_details);
+            // Create Staff Info
+            let staff_info = document.createElement('div');
+            staffCardElement(staff_header, staff_info, 'card-info', '');
 
-        // Create Staff Email
-        let staff_email = document.createElement('div');
-        staff_email.setAttribute('class', 'email');
-        staff_details.appendChild(staff_email);
-        staff_email.innerHTML = 'Email';
-        // Create Staff Phone
-        let staff_phone = document.createElement('div');
-        staff_phone.setAttribute('class', 'phone');
-        staff_details.appendChild(staff_phone);
-        staff_phone.innerHTML = 'Phone';
-        // Create Staff Age
-        let staff_age = document.createElement('div');
-        staff_age.setAttribute('class', 'age');
-        staff_details.appendChild(staff_age);
-        staff_age.innerHTML = 'Age';
-        // Create Staff Date of birth
-        let staff_dob = document.createElement('div');
-        staff_dob.setAttribute('class', 'dob');
-        staff_details.appendChild(staff_dob);
-        staff_dob.innerHTML = 'Date of birth';
-        // Create Staff Location
-        let staff_loc = document.createElement('div');
-        staff_loc.setAttribute('class', 'loc');
-        staff_details.appendChild(staff_loc);
-        staff_loc.innerHTML = 'Location';
-        // Create Staff Join date
-        let staff_joined = document.createElement('div');
-        staff_joined.setAttribute('class', 'joined');
-        staff_details.appendChild(staff_joined);
-        staff_joined.innerHTML = 'Joined';
+            // Create Staff Fullname & Role
+            let staff_name = document.createElement('div');
+            staffCardElement(staff_info, staff_name, 'fullname', user['firstname'] + ' ' + user['lastname']);
 
-        // Create Staff Values
-        let staff_values = document.createElement('div');
-        staff_values.setAttribute('class', 'values');
-        staff_body.appendChild(staff_values);
+            let staff_role = document.createElement('div');
+            staffCardElement(staff_info, staff_role, 'role', user['role']);
 
-        // Create Staff Email values
-        let staff_email_value = document.createElement('div');
-        staff_email_value.setAttribute('class', 'email-value');
-        staff_values.appendChild(staff_email_value);
-        staff_email_value.innerHTML = user['email'];
-        // Create Staff Phone values
-        let staff_phone_value = document.createElement('div');
-        staff_phone_value.setAttribute('class', 'phone-value');
-        staff_values.appendChild(staff_phone_value);
-        let phone = user['phone'];
-        if (phone == null) phone = "--------------------";
-        staff_phone_value.innerHTML = phone;
-        // Create Staff Age values
-        let staff_age_value = document.createElement('div');
-        staff_age_value.setAttribute('class', 'age-value');
-        staff_values.appendChild(staff_age_value);
-        age = getAge(user['dateofbirth']);
-        staff_age_value.innerHTML = age;
-        // Create Staff Date of birth values
-        let staff_dob_value = document.createElement('div');
-        staff_dob_value.setAttribute('class', 'dob-value');
-        staff_values.appendChild(staff_dob_value);
-        staff_dob_value.innerHTML = user['dateofbirth'];
-        // Create Staff Location values
-        let staff_loc_value = document.createElement('div');
-        staff_loc_value.setAttribute('class', 'loc-value');
-        staff_values.appendChild(staff_loc_value);
+            // Create Staff Status
+            let staff_status = document.createElement('div');
+            if (user['status'] == 'active') {
+                staff_status.setAttribute('class', 'card-status status-active');
+            } else {
+                staff_status.setAttribute('class', 'card-status status-inactive');
+            }
+            staff_header.appendChild(staff_status);
+            staff_status.innerHTML = '&#8226 ' + user['status'];
 
-        let country = user['country'];
-        if (country == null) country = "----------";
+            // Create Staff Body
+            let staff_body = document.createElement('div');
+            staffCardElement(staff_card, staff_body, 'card-body', '');
 
-        let city = user['city'];
-        if (city == null) city = "---------";
+            // Create Staff Details
+            let staff_details = document.createElement('div');
+            staffCardElement(staff_body, staff_details, 'details', '');
 
-        let location = country + ', ' + city;
-        staff_loc_value.innerHTML = location;
-        // Create Staff Join date values
-        let staff_joined_value = document.createElement('div');
-        staff_joined_value.setAttribute('class', 'joined-value');
-        staff_values.appendChild(staff_joined_value);
-        staff_joined_value.innerHTML = user['user_created_at'];
+            // Create Staff Email
+            let staff_email = document.createElement('div');
+            staffCardElement(staff_details, staff_email, 'email', 'Email');
 
-    });
+            // Create Staff Phone
+            let staff_phone = document.createElement('div');
+            staffCardElement(staff_details, staff_phone, 'phone', 'Phone');
+
+            // Create Staff Age
+            let staff_age = document.createElement('div');
+            staffCardElement(staff_details, staff_age, 'age', 'Age');
+
+            // Create Staff Date of birth
+            let staff_dob = document.createElement('div');
+            staffCardElement(staff_details, staff_dob, 'dob', 'Date of birth');
+
+            // Create Staff Location
+            let staff_loc = document.createElement('div');
+            staffCardElement(staff_details, staff_loc, 'loc', 'Location');
+
+            // Create Staff Join date
+            let staff_joined = document.createElement('div');
+            staffCardElement(staff_details, staff_joined, 'joined', 'Joined');
+
+            // Create Staff Values
+            let staff_values = document.createElement('div');
+            staffCardElement(staff_body, staff_values, 'values', '');
+
+            // Create Staff Email values
+            let staff_email_value = document.createElement('div');
+            staffCardElement(staff_values, staff_email_value, 'email-value', user['email']);
+
+            // Create Staff Phone values
+            let staff_phone_value = document.createElement('div');
+            staffCardElement(staff_values, staff_phone_value, 'phone-value', '');
+
+            let phone = user['phone'];
+            placeholderData(phone, staff_phone_value, '(+___)-___-______');
+
+            // Create Staff Age values
+            let staff_age_value = document.createElement('div');
+            staffCardElement(staff_values, staff_age_value, 'age-value', '');
+
+            let age = user['dateofbirth'];
+            if (age == null) {
+                staff_age_value.style.opacity = '0.2';
+                age = '--';
+            } else {
+                staff_age_value.style.opacity = '1';
+                age = getAge(age);
+            }
+            staff_age_value.innerHTML = age;
+
+            // Create Staff Date of birth values
+            let staff_dob_value = document.createElement('div');
+            staffCardElement(staff_values, staff_dob_value, 'dob-value', '');
+
+            let dob = user['dateofbirth'];
+            placeholderData(dob, staff_dob_value, '____-__-__');
+
+            // Create Staff Location values
+            let staff_loc_value = document.createElement('div');
+            staffCardElement(staff_values, staff_loc_value, 'loc-value', '');
+
+            // Create Staff Country Values
+            let staff_country_value = document.createElement('span');
+            staffCardElement(staff_loc_value, staff_country_value, 'country-value', '');
+
+            let country = user['country'];
+            placeholderData(country, staff_country_value, '_________');
+
+            //? Create Staff Location Spacing
+            let staff_loc_space = document.createElement('span');
+            staff_loc_space.setAttribute('class', 'space-value');
+            staff_loc_value.appendChild(staff_loc_space);
+            staff_loc_space.style.opacity = '1';
+            staff_loc_space.innerHTML = ', ';
+
+            // Create Staff City Values
+            let staff_city_value = document.createElement('span');
+            staffCardElement(staff_loc_value, staff_city_value, 'city-value', '');
+
+            let city = user['city'];
+            placeholderData(city, staff_city_value, '_________');
+
+            // Create Staff Join date values
+            let staff_joined_value = document.createElement('div');
+            staffCardElement(staff_values, staff_joined_value, 'joined-value', user['user_created_at']);
+        });
+    }
 }
 
 // Calculate Age depending on Date of birth (YYYY-MM-DD)
@@ -155,8 +186,7 @@ const fetchUserById = async (method, endpoint, user_id) => {
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
-            //TODO: uncomment for token use
-            // 'Authorization': 'Bearer ' + token
+            'Authorization': 'Bearer ' + token
         },
         body: JSON.stringify(data)
     });
@@ -165,63 +195,179 @@ const fetchUserById = async (method, endpoint, user_id) => {
         throw new Error('cannot fetch data');
     }
     user = await response.json();
-    console.log(user);
-    
-    let user_department = user['department'];
-    if (user_department == null) user_department = "--------------------";
-
-    let user_jobtitle = user['jobtitle'];
-    if (user_jobtitle == null) user_jobtitle = "--------------------";
-
-    let user_bio = user['bio'];
-    if (user_bio == null) user_bio = '';
-
-    let user_phone = user['phone'];
-    if (user_phone == null) user_phone = "--------------------";
-
-    let user_country = user['country'];
-    if (user_country == null) user_country = "---------";
-
-    let user_city = user['city'];
-    if (user_city == null) user_city = "---------";
-    
-    let user_gender = user['gender'];
-    if (user_gender == null) user_gender = "---------";
-    
-    let user_dob = user['dateofbirth'];
-    if (user_dob == null) user_dob = "---------";
-
-    let user_age = user['dateofbirth'];
-    if (user_age == null) {
-        user_age = "---------";
+    // Check for expired token to redirect to login page
+    if (user.error) {
+        verifyTokenExp();
     } else {
-        user_age = getAge(user_age);
+
+        console.log(user);
+
+        if (user['status'] != 'active') {
+            document.querySelector('.activate-submit-button').value = user['user_id'];
+        } else {
+            document.querySelector('.delete-submit-button').value = user['user_id'];
+        }
+
+        // Department
+        let user_department = user['department'];
+        placeholderData(user_department, document.querySelector('.left-department-value'), '____________________');
+        // Jobtitle
+        let user_jobtitle = user['jobtitle'];
+        placeholderData(user_jobtitle, document.querySelector('.left-jobtitle-value'), '____________________');
+        // Date of birth
+        let user_dob = user['dateofbirth'];
+        placeholderData(user_dob, document.querySelector('.left-dob-value'), '____-__-__');
+        // Age
+        let user_age = user['dateofbirth'];
+        if (user_age == null) {
+            document.querySelector('.left-age-value').style.opacity = '0.2';
+            user_age = '--';
+        } else {
+            document.querySelector('.left-age-value').style.opacity = '1';
+            user_age = getAge(user_age);
+        }
+        document.querySelector('.left-age-value').innerHTML = user_age;
+
+        // Status
+        if (document.querySelector('.activate-account')) {
+            if (user['status'] == 'active') {
+                document.querySelector('.activate-account').style.display = 'none';
+                document.querySelector('.delete-account').style.display = 'block';
+            } else {
+                document.querySelector('.activate-account').style.display = 'block';
+                document.querySelector('.delete-account').style.display = 'none';
+            }
+        }
+
+        // Bio
+        let user_bio = user['bio'];
+        placeholderData(user_bio, document.querySelector('#bio'), '');
+
+        // Phone
+        let user_phone = user['phone'];
+        placeholderData(user_phone, document.querySelector('.right-phone-value'), '(+___)-___-______');
+        // Country
+        let user_country = user['country'];
+        placeholderData(user_country, document.querySelector('.right-country-value'), '_________');
+        // City
+        let user_city = user['city'];
+        placeholderData(user_city, document.querySelector('.right-city-value'), '_________');
+        // Gender
+        let user_gender = user['gender'];
+        placeholderData(user_gender, document.querySelector('.right-gender-value'), '_________');
+
+        document.querySelector('.left-joined-value').innerHTML = user['user_created_at'];
+
+        document.querySelector('.name-right').innerHTML = user['firstname'] + ' ' + user['lastname'];
+        document.querySelector('.email-right').innerHTML = user['email'];
+        document.querySelector('.role-right').innerHTML = user['role'];
+
+        // Hide Staff List and show Staff member selected
+        document.querySelector('.staff-container').style.display = 'none';
+        document.querySelector('.staff-details').style.display = 'grid';
+        document.querySelector('.main').style.overflowY = 'hidden';
     }
-
-    document.querySelector('.left-department-value').innerHTML = user_department;
-    document.querySelector('.left-jobtitle-value').innerHTML = user_jobtitle;
-
-    document.querySelector('.left-age-value').innerHTML = user_age;
-    document.querySelector('.left-dob-value').innerHTML = user_dob;
-    document.querySelector('.left-joined-value').innerHTML = user['user_created_at'];
-
-    document.querySelector('.name-right').innerHTML = user['firstname'] + ' ' + user['lastname'];
-    document.querySelector('.email-right').innerHTML = user['email'];
-    document.querySelector('.role-right').innerHTML = user['role'];
-
-    document.querySelector('#bio').value = user_bio;
-    
-    document.querySelector('.right-phone-value').innerHTML = user_phone;
-    document.querySelector('.right-country-value').innerHTML = user_country;
-    document.querySelector('.right-city-value').innerHTML = user_city;
-    document.querySelector('.right-gender-value').innerHTML = user_gender;
-
-    // Hide Staff List and show Staff member selected
-    document.querySelector('.staff-container').style.display = 'none';
-    document.querySelector('.staff-details').style.display = 'grid';
-    document.querySelector('.main').style.overflowY = 'hidden';
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     fetchStaff('readAllUsers', 'http://localhost:8080/user', staff_container);
+})
+
+const activate_form = document.querySelector('.activate-account-form');
+const department = document.getElementById('department');
+const jobtitle = document.getElementById('jobtitle');
+const activate_button = document.querySelector('.activate-submit-button');
+
+const activateUser = async (method, endpoint) => {
+    const data = {
+        "method": method,
+        "params": {
+            "user_id": activate_button.value,
+            "department": department.value,
+            "jobtitle": jobtitle.value,
+        }
+    }
+    const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify(data)
+    });
+    // Custom error message in case the status is not 200 : OK (ex:problem with ressource url)
+    if (response.status !== 200) {
+        throw new Error('cannot fetch data');
+    }
+    update = await response.json();
+    // Check for expired token to redirect to login page
+    if (update.error) {
+        verifyTokenExp();
+    }
+}
+
+activate_form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    if (department.value === '' || jobtitle.value === '') {
+        // activate_error.innerHTML = 'Please fill all the fields';
+        console.log('Please fill all the fields');
+    } else {
+        activateUser('updateUserStatus', 'http://localhost:8080/user');
+        fetchUserById('readUniqueUser', 'http://localhost:8080/user', activate_button.value);
+        staff_container.innerHTML = '';
+        fetchStaff('readAllUsers', 'http://localhost:8080/user', staff_container);
+        const modals = document.querySelectorAll('.modal.active');
+        modals.forEach(modal => {
+            closeModal(modal);
+        })
+        setTimeout(() => { captureAllStaff(); }, 400);
+    }
+})
+
+const delete_form = document.querySelector('.delete-account-form');
+const delete_button = document.querySelector('.delete-submit-button');
+
+const deleteUser = async (method, endpoint) => {
+    const data = {
+        "method": method,
+        "params": {
+            "user_id": delete_button.value
+        }
+    }
+    const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify(data)
+    });
+    // Custom error message in case the status is not 200 : OK (ex:problem with ressource url)
+    if (response.status !== 200) {
+        throw new Error('cannot fetch data');
+    }
+    deletion = await response.json();
+    // Check for expired token to redirect to login page
+    if (deletion.error) {
+        verifyTokenExp();
+    }
+}
+
+delete_form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    deleteUser('deleteUser', 'http://localhost:8080/user');
+    document.querySelector('.staff-details').style.display = 'none';
+    document.querySelector('.staff-container').style.display = 'grid';
+    document.querySelector('.main').style.overflowY = 'overlay';
+    staff_container.innerHTML = '';
+    fetchStaff('readAllUsers', 'http://localhost:8080/user', staff_container);
+    const modals = document.querySelectorAll('.modal.active');
+    modals.forEach(modal => {
+        closeModal(modal);
+    })
+    setTimeout(() => { captureAllStaff(); }, 400);
 })

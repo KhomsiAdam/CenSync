@@ -34,7 +34,7 @@ document.getElementById('signin_btn_desk').addEventListener('click', () => {
 })
 
 // Mobile Animation: Toggling between login and register forms while rotating the logo
-document.getElementById('signup_btn_mob').addEventListener('click', () => {
+function signInFade() {
     cen.style.color = green;
     sync.style.color = blue;
     logo.style.transform = "rotate(-180deg)"
@@ -48,8 +48,8 @@ document.getElementById('signup_btn_mob').addEventListener('click', () => {
             signup_section.style.opacity = "1";
         }, 100);
     }
-})
-document.getElementById('signin_btn_mob').addEventListener('click', () => {
+}
+function signUpFade() {
     cen.style.color = blue;
     sync.style.color = green;
     logo.style.transform = "rotate(0deg)"
@@ -63,6 +63,12 @@ document.getElementById('signin_btn_mob').addEventListener('click', () => {
             signin_section.style.opacity = "1";
         }, 100);
     }
+}
+document.getElementById('signup_btn_mob').addEventListener('click', () => {
+    signInFade();
+})
+document.getElementById('signin_btn_mob').addEventListener('click', () => {
+    signUpFade();
 })
 
 // Handling Custom Select/Options
@@ -119,9 +125,9 @@ const password_up = document.getElementById('password_up');
 const signup_error = document.getElementById('signup_error');
 
 // Sign in, generating a token and storing it in localstorage
-const register = async () => {
+const register = async (method, endpoint) => {
     let data = {
-        "method": "createUser",
+        "method": method,
         "params": {
             "role": role.value,
             "firstname": firstname.value,
@@ -130,7 +136,7 @@ const register = async () => {
             "password": password_up.value
         }
     };
-    const response = await fetch(user, {
+    const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -142,6 +148,7 @@ const register = async () => {
         throw new Error('cannot insert data');
     } else {
         slideRight();
+        signUpFade();
     }
 }
 
@@ -152,7 +159,7 @@ signup_form.addEventListener('submit', async function (e) {
         // signup_error.innerHTML = 'Please fill all the fields';
         console.log('Please fill all the fields');
     } else {
-        register();
+        register('createUser', user);
         console.log('user registered');
     }
 })
@@ -168,15 +175,15 @@ const password_in = document.getElementById('password_in');
 const signin_error = document.getElementById('signin_error');
 
 // Sign in, generating a token and storing it in localstorage
-const login = async () => {
+const login = async (method, endpoint) => {
     let data = {
-        "method": "login",
+        "method": method,
         "params": {
             "account_email": email_in.value,
             "account_password": password_in.value
         }
     };
-    const response = await fetch(auth, {
+    const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -188,7 +195,8 @@ const login = async () => {
         throw new Error('cannot get JWT token');
     }
     jwt = await response.json();
-    if(typeof jwt === 'object') {
+    // if (typeof jwt === 'object') {
+    if(jwt.error) {
         console.log('wrong username password');
     } else {
         localStorage.setItem("token", jwt);
@@ -204,6 +212,6 @@ signin_form.addEventListener('submit', async function (e) {
         // signin_error.innerHTML = 'Please fill all the fields';
         console.log('Please fill all the fields');
     } else {
-        login();
+        login('login', auth);
     }
 })

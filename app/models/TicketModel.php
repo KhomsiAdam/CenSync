@@ -67,9 +67,9 @@ class TicketModel {
         // $stmt->bindParam(':reported_by', $this->reported_by);
         // $stmt->execute();
 
-        // $appoint = $stmt->fetch(PDO::FETCH_ASSOC);
+        // $ticket = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // if (!is_array($appoint)) {
+        // if (!is_array($ticket)) {
 
     	$sql = "INSERT INTO $table (
         ticket_id,
@@ -99,6 +99,7 @@ class TicketModel {
     	$stmt->bindParam(':status', $this->status);
     	$stmt->bindParam(':reported_by', $this->reported_by);
     	if($stmt->execute()) {
+            echo json_encode('ticket created successfully');
     		return true;
     	} else {
     		return false;
@@ -109,7 +110,7 @@ class TicketModel {
     }
 
     public function readAll($table) {
-        $sql = "SELECT ticket_id, category, priority, title, reported_by, ticket_created_at, status FROM $table";
+        $sql = "SELECT ticket_id, category, priority, title, reported_by, ticket_created_at, status FROM $table ORDER BY ticket_created_at DESC";
     	$stmt = $this->db_conn->prepare($sql);
         if($stmt->execute()) {
             $tickets = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -118,6 +119,20 @@ class TicketModel {
             }
             header ("Content-Type: application/json");
             echo json_encode($tickets,JSON_PRETTY_PRINT|JSON_NUMERIC_CHECK);
+    		return true;
+    	} else {
+    		return false;
+    	}
+    }
+
+    public function readLast($table) {
+        $sql = "SELECT ticket_id, category, priority, title, reported_by, ticket_created_at, status FROM $table ORDER BY ticket_created_at DESC LIMIT 1";
+    	$stmt = $this->db_conn->prepare($sql);
+        if($stmt->execute()) {
+            $ticket = $stmt->fetch(PDO::FETCH_ASSOC);
+            $ticket['ticket_created_at'] = date("M d Y", strtotime($ticket['ticket_created_at']));
+            header ("Content-Type: application/json");
+            echo json_encode($ticket,JSON_PRETTY_PRINT|JSON_NUMERIC_CHECK);
     		return true;
     	} else {
     		return false;
@@ -198,6 +213,7 @@ class TicketModel {
     	$stmt = $this->db_conn->prepare($sql);
     	$stmt->bindParam(':ticket_id', $this->ticket_id);
     	if($stmt->execute()) {
+            echo json_encode('ticket deleted successfully');
     		return true;
     	} else {
     		return false;

@@ -44,7 +44,7 @@ main {
   overflow-y: overlay;
 }
 .tickets .tbody ul {
-  height: 17%;
+  height: 16.6%;
   width: 93%;
   background: #F9F9F9;
   border: 1px solid #EBEBEB;
@@ -66,7 +66,7 @@ main {
 .tickets .tbody ul:hover .priority #High_Icon #H {
   fill: #F9F9F9;
 }
-.tickets .tbody ul:hover .priority #Medium_Icon #Icon_feather-triangle {
+.tickets .tbody ul:hover .priority #Medium_Icon #Icon_awesome-square {
   fill: #BEBE5F;
   stroke: #BEBE5F;
 }
@@ -214,8 +214,8 @@ main {
   grid-area: tkbuttons;
   display: flex;
   align-items: center;
-  gap: 5rem;
-  padding-left: 5rem;
+  gap: 7.5rem;
+  justify-content: center;
 }
 .ticket-details .ticket-buttons-container .ticket-button {
   font-size: 2.2rem;
@@ -245,6 +245,14 @@ main {
   width: 256px;
   height: 58px;
   opacity: 0.5;
+}
+.ticket-details .ticket-buttons-container .leave-note:hover {
+  background: #5FBEBC;
+  border: 2px solid #5FBEBC;
+}
+.ticket-details .ticket-buttons-container .delete-ticket:hover {
+  background: #C94242;
+  border: 2px solid #C94242;
 }
 .ticket-details .ticket-note-container {
   grid-area: tknote;

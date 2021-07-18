@@ -97,7 +97,7 @@ class UserApiController extends Middleware
     }
 
     public function readAllUsers() {
-        // $this->validateToken();
+        $this->validateToken();
         $data = new UserModel;
         if ($_ENV['DEV_MODE'] === 'ON') {
             if($data->readAll($_ENV['ACCOUNTS_TABLE']) != true) {
@@ -112,7 +112,7 @@ class UserApiController extends Middleware
     }
 
     public function readUniqueUser() {
-        // $this->validateToken();
+        $this->validateToken();
         $user_id = $this->validateParams('user_id', $this->param['user_id'], STRING);
         $data = new UserModel;
         $data->setUserId($user_id);
@@ -146,7 +146,6 @@ class UserApiController extends Middleware
     }
 
     public function readUsersNumber() {
-        // $this->validateToken();
         $data = new UserModel;
         if ($_ENV['DEV_MODE'] === 'ON') {
             if($data->readNumber($_ENV['ACCOUNTS_TABLE']) != true) {
@@ -165,7 +164,7 @@ class UserApiController extends Middleware
         $user_id = $this->validateParams('user_id', $this->param['user_id'], STRING);
         $department = $this->validateParams('department', $this->param['department'], STRING);
         $jobtitle = $this->validateParams('jobtitle', $this->param['jobtitle'], STRING);
-        $status = $this->validateParams('status', $this->param['status'], STRING);
+        $status = $this->validateParams('status', 'active', STRING);
         $data = new UserModel;
         $data->setUserId($user_id);
         $data->setDepartment($department);

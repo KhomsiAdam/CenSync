@@ -19,22 +19,30 @@
   border-radius: 10px;
   cursor: pointer;
 }
+.staff-container .staff-card:hover {
+  border: 1px solid #2B777D;
+}
 .staff-container .staff-card .staff-id {
   display: none;
 }
 .staff-container .staff-card .card-header {
   grid-area: chead;
   display: grid;
+  grid-template-columns: 20% 60% 20%;
   justify-content: center;
   align-content: center;
-  grid-gap: 1rem;
-  gap: 1rem;
   color: #2B777D;
   background: #EBEBEB;
   border-radius: 10px 10px 0 0;
   width: 100%;
   height: 100%;
+  text-align: left;
+}
+.staff-container .staff-card .card-header .card-image {
   text-align: center;
+}
+.staff-container .staff-card .card-header .card-image .card-profile {
+  fill: #2B777D;
 }
 .staff-container .staff-card .card-header .fullname {
   font-size: 2.4rem;
@@ -43,6 +51,17 @@
 .staff-container .staff-card .card-header .role {
   font-size: 1.6rem;
   font-weight: 400;
+}
+.staff-container .staff-card .card-header .card-status {
+  font-size: 1.6rem;
+  font-weight: 600;
+  align-self: center;
+}
+.staff-container .staff-card .card-header .status-active {
+  color: #5FBE6E;
+}
+.staff-container .staff-card .card-header .status-inactive {
+  color: #262626;
 }
 .staff-container .staff-card .card-body {
   grid-area: cbody;
@@ -117,13 +136,42 @@
 .staff-details .staff-right .top-right {
   display: grid;
   grid-template-rows: 60% 40%;
-  grid-template-columns: 95% 5%;
-  grid-template-areas: "name return" "email email";
+  grid-template-columns: 65% 20% 15%;
+  grid-template-areas: "name setting return" "email email email";
   height: 70%;
   align-items: flex-end;
 }
+.staff-details .staff-right .top-right .account-settings {
+  grid-area: setting;
+  text-align: center;
+  align-self: center;
+}
+.staff-details .staff-right .top-right .account-settings button {
+  width: 150px;
+  height: 45px;
+  border-radius: 5px;
+  outline: none;
+  font-size: 1.6rem;
+  font-weight: 600;
+  background: none;
+  cursor: pointer;
+  color: #2B777D;
+  border: 2px solid #2B777D;
+}
+.staff-details .staff-right .top-right .account-settings .activate-account:hover {
+  color: #F9F9F9;
+  background: #5FBE6E;
+  border: 2px solid #5FBE6E;
+}
+.staff-details .staff-right .top-right .account-settings .delete-account:hover {
+  color: #F9F9F9;
+  background: #C94242;
+  border: 2px solid #C94242;
+}
 .staff-details .staff-right .top-right .staff-return {
   grid-area: return;
+  text-align: right;
+  align-self: center;
 }
 .staff-details .staff-right .top-right .staff-return svg {
   height: 20px;

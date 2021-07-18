@@ -210,7 +210,7 @@ class UserModel
 
     public function readAll($table)
     {
-        $sql = "SELECT user_id, role, firstname, lastname, email, dateofbirth, jobtitle, phone, country, city, user_created_at FROM $table WHERE NOT (role = 'admin')";
+        $sql = "SELECT user_id, role, firstname, lastname, email, dateofbirth, jobtitle, phone, country, city, status, user_created_at FROM $table WHERE NOT (role = 'admin')";
         $stmt = $this->db_conn->prepare($sql);
         if ($stmt->execute()) {
             $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -227,7 +227,7 @@ class UserModel
 
     public function readUnique($table)
     {
-        $sql = "SELECT role, firstname, lastname, email, dateofbirth, department, jobtitle, phone, country, city, gender, bio, user_created_at FROM $table WHERE (user_id = :user_id)";
+        $sql = "SELECT user_id, role, firstname, lastname, email, dateofbirth, department, jobtitle, phone, country, city, status, gender, bio, user_created_at FROM $table WHERE (user_id = :user_id)";
         $stmt = $this->db_conn->prepare($sql);
         $stmt->bindParam(':user_id', $this->user_id);
         if ($stmt->execute()) {
@@ -244,7 +244,7 @@ class UserModel
 
     public function readNumber($table)
     {
-        $sql = "SELECT COUNT(role) FROM $table";
+        $sql = "SELECT COUNT(role) FROM $table WHERE NOT (role = 'admin')";
         $stmt = $this->db_conn->prepare($sql);
         if($stmt->execute()) {
             $users = $stmt->fetch(PDO::FETCH_OBJ);
@@ -266,6 +266,7 @@ class UserModel
         $stmt->bindParam(':jobtitle', $this->jobtitle);
         $stmt->bindParam(':status', $this->status);
         if ($stmt->execute()) {
+            echo json_encode('user status updated');
             return true;
         } else {
             return false;
@@ -284,6 +285,7 @@ class UserModel
         $stmt->bindParam(':gender', $this->gender);
         $stmt->bindParam(':bio', $this->bio);
         if ($stmt->execute()) {
+            echo json_encode('user info updated');
             return true;
         } else {
             return false;
@@ -296,6 +298,7 @@ class UserModel
         $stmt = $this->db_conn->prepare($sql);
         $stmt->bindParam(':user_id', $this->user_id);
         if ($stmt->execute()) {
+            echo json_encode('user deleted successfully');
             return true;
         } else {
             return false;

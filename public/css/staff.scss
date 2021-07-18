@@ -19,22 +19,30 @@
         border: 1px solid $gray;
         border-radius: 10px;
         cursor: pointer;
+        &:hover {
+            border: 1px solid $blue;
+        }
         .staff-id {
             display: none;
         }
         .card-header {
             grid-area: chead;
             display: grid;
+            grid-template-columns: 20% 60% 20%;
             justify-content: center;
             align-content: center;
-            grid-gap: 1rem;
-            gap: 1rem;
             color: $blue;
             background: $gray;
             border-radius: 10px 10px 0 0;
             width: 100%;
             height: 100%;
-            text-align: center;
+            text-align: left;
+            .card-image {
+                text-align: center;
+                .card-profile {
+                    fill: $blue;
+                }
+            }
             .fullname {
                 font-size: 2.4rem;
                 font-weight: $semibold;
@@ -42,6 +50,17 @@
             .role {
                 font-size: 1.6rem;
                 font-weight: $regular;
+            }
+            .card-status {
+                font-size: 1.6rem;
+                font-weight: $semibold;
+                align-self: center;
+            }
+            .status-active {
+                color: $green;
+            }
+            .status-inactive {
+                color: $black;
             }
         }
         .card-body {
@@ -117,14 +136,43 @@
         .top-right {
             display: grid;
             grid-template-rows: 60% 40%;
-            grid-template-columns: 95% 5%;
+            grid-template-columns: 65% 20% 15%;
             grid-template-areas:
-                "name return"
-                "email email";
+                "name setting return"
+                "email email email";
             height: 70%;
             align-items: flex-end;
+            .account-settings {
+                grid-area: setting;
+                text-align: center;
+                align-self: center;
+                button {
+                    width: 150px;
+                    height: 45px;
+                    border-radius: 5px;
+                    outline: none;
+                    font-size: 1.6rem;
+                    font-weight: $semibold;
+                    background: none;
+                    cursor: pointer;
+                    color: $blue;
+                    border: 2px solid $blue;
+                }
+                .activate-account:hover {
+                    color: $white;
+                    background: $green;
+                    border: 2px solid $green;
+                }
+                .delete-account:hover {
+                    color: $white;
+                    background: $red;
+                    border: 2px solid $red;
+                }
+            }
             .staff-return {
                 grid-area: return;
+                text-align: right;
+                align-self: center;
                 svg {
                     height: 20px;
                     width: 40px;

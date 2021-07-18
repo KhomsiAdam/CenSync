@@ -206,11 +206,16 @@ class Middleware
         }
 
         //* Checking if account is activated
-        if ($account['status'] === 'inactive') {
-            $this->returnResponse(ACCOUNT_NOT_ACTIVE, 'This account is not active.');
-        }
+        // if ($account['status'] === 'inactive') {
+        //     $this->returnResponse(ACCOUNT_NOT_ACTIVE, 'This account is not active.');
+        // }
 
         $this->user_id = $payload->data->user_id;
+        $this->email = $payload->data->email;
+        $this->firstname = $payload->data->firstname;
+        $this->lastname = $payload->data->lastname;
+        $this->role = $payload->data->role;
+        $this->status = $payload->data->status;
     }
 
     // 5.4) Validate token received
@@ -222,8 +227,6 @@ class Middleware
 
             $this->sqlVerifyAccountId($payload, $_ENV['ACCOUNTS_TABLE']);
         } catch (Exception $e) {
-            // header('location: /');
-            // exit();
             $this->throwError(ACCESS_TOKEN_ERRORS, $e->getMessage());
         }
     }

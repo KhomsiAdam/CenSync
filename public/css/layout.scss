@@ -269,7 +269,7 @@ header {
     }
     .modal-body {
         font-size: 2.4rem;
-        .create-ticket-form {
+        .create-ticket-form, .assign-ticket-form, .activate-account-form, .delete-account-form {
             display: flex;
             flex-direction: column;
             justify-content: space-around;
@@ -390,6 +390,27 @@ header {
                 &:hover {
                     color: $white;
                     background: $green;
+                }
+            }
+        }
+        .delete-account-form {
+            flex-direction: row;
+            .delete-submit-button {
+                width: 740px;
+                color: $white;
+                border: solid 2px $white;
+                &:hover {
+                    background: $red;
+                    border: solid 2px $red;
+                }
+            }
+            .delete-cancel-button {
+                width: 740px;
+                color: $white;
+                border: solid 2px $white;
+                &:hover {
+                    background: $lightblue;
+                    border: solid 2px $lightblue;
                 }
             }
         }

@@ -27,13 +27,13 @@ class TicketApiController extends Middleware
     public function createTicket() {
         $this->validateToken();
         $ticket_id = $this->generateTicketId();
-        $user_id = $this->validateParams('user_id', $this->param['user_id'], STRING);
+        $user_id = $this->validateParams('user_id', $this->user_id, STRING);
         $category = $this->validateParams('category', $this->param['category'], STRING);
         $priority = $this->validateParams('priority', $this->param['priority'], STRING);
         $title = $this->validateParams('title', $this->param['title'], STRING);
         $content = $this->validateParams('content', $this->param['content'], STRING);
-        $status = $this->validateParams('status', $this->param['status'], STRING);
-        $reported_by = $this->validateParams('reported_by', $this->param['reported_by'], STRING);
+        $status = $this->validateParams('status', 'pending', STRING);
+        $reported_by = $this->validateParams('reported_by', $this->firstname . ' ' . $this->lastname, STRING);
         $data = new TicketModel;
         $data->setTicketId($ticket_id);
         $data->setUserId($user_id);
@@ -56,7 +56,7 @@ class TicketApiController extends Middleware
     }
 
     public function readAllTickets() {
-        // $this->validateToken();
+        $this->validateToken();
         $data = new TicketModel;
         if ($_ENV['DEV_MODE'] === 'ON') {
             if($data->readAll($_ENV['AUDIENCE_TABLE']) != true) {
@@ -70,8 +70,22 @@ class TicketApiController extends Middleware
         }
     }
 
+    public function readLastTicket() {
+        $this->validateToken();
+        $data = new TicketModel;
+        if ($_ENV['DEV_MODE'] === 'ON') {
+            if($data->readLast($_ENV['AUDIENCE_TABLE']) != true) {
+                $message = 'Failed to fetch all Tickets.';
+            } else {
+                $message = "All Tickets fetched successfully.";
+            }
+            $this->returnResponse(RESPONSE_MESSAGE, $message);
+        } else {
+            $data->readLast($_ENV['AUDIENCE_TABLE']);            
+        }
+    }
+
     public function readTicketsNumber() {
-        // $this->validateToken();
         $data = new TicketModel;
         if ($_ENV['DEV_MODE'] === 'ON') {
             if($data->readNumber($_ENV['AUDIENCE_TABLE']) != true) {
@@ -86,7 +100,6 @@ class TicketApiController extends Middleware
     }
 
     public function readTicketsResolved() {
-        // $this->validateToken();
         $data = new TicketModel;
         if ($_ENV['DEV_MODE'] === 'ON') {
             if($data->readResolved($_ENV['AUDIENCE_TABLE']) != true) {
@@ -101,7 +114,7 @@ class TicketApiController extends Middleware
     }
 
     public function readUniqueTicket() {
-        // $this->validateToken();
+        $this->validateToken();
         $ticket_id = $this->validateParams('ticket_id', $this->param['ticket_id'], STRING);
         $data = new TicketModel;
         $data->setTicketId($ticket_id);

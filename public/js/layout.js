@@ -119,31 +119,62 @@ function priorityCustomSelect(custom_option, over_color, over_back, over_weight,
 
 
 // Create a ticket
-// const createTicket = async (method, endpoint, user_id) => {
-//     const data = {
-//         "method": method,
-//         "params": {
-//             "user_id": user_id
-//         }
-//     }
-//     const response = await fetch(endpoint, {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json',
-//             'Accept': 'application/json',
-//             //TODO: uncomment for token use
-//             // 'Authorization': 'Bearer ' + token
-//         },
-//         body: JSON.stringify(data)
-//     });
-//     // Custom error message in case the status is not 200 : OK (ex:problem with ressource url)
-//     if (response.status !== 200) {
-//         throw new Error('cannot fetch data');
-//     }
-//     user = await response.json();
-//     console.log(user);
-// }
+let token = localStorage.getItem('token');
 
-// document.addEventListener('DOMContentLoaded', () => {
-//     createTicket('createTicket', 'http://localhost:8080/ticket');
-// })
+const ticket_form = document.querySelector('.create-ticket-form');
+const category = document.getElementById('category');
+const priority = document.getElementById('priority');
+const title = document.getElementById('title');
+const content = document.getElementById('content');
+
+const createTicket = async (method, endpoint) => {
+    const data = {
+        "method": method,
+        "params": {
+            "category": category.value,
+            "priority": priority.value,
+            "title": title.value,
+            "content": content.value
+        }
+    }
+    const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify(data)
+    });
+    // Custom error message in case the status is not 200 : OK (ex:problem with ressource url)
+    if (response.status !== 200) {
+        throw new Error('cannot insert data');
+    }
+    ticket = await response.json();
+    // Check for expired token to redirect to login page
+    if (ticket.error) {
+        verifyTokenExp();
+    }
+}
+
+ticket_form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    if (category.value === '' || priority.value === '' || title.value === '' || content.value === '') {
+        // ticket_error.innerHTML = 'Please fill all the fields';
+        console.log('Please fill all the fields');
+    } else {
+        createTicket('createTicket', 'http://localhost:8080/ticket');
+        ticket_form.reset();
+        if (document.querySelector('.tbody')) {
+            fetchLastTicket('readLastTicket', 'http://localhost:8080/ticket', document.querySelector('.tbody'));
+        }
+        if (document.querySelector('.stats')) {
+            fetchNumbers('readTicketsNumber', 'http://localhost:8080/ticket', tickets_number);
+        }
+        const modals = document.querySelectorAll('.modal.active');
+        modals.forEach(modal => {
+            closeModal(modal);
+        })
+    }
+})

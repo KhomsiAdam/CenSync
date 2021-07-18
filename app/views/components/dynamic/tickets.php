@@ -59,11 +59,47 @@
     </div>
     <div class="ticket-buttons-container">
         <?php if ($_SESSION['ACCOUNTS_ROLE'] === 'Admin') { ?>
-            <button class="assign-ticket">Assign ticket</button>
+            <button class="assign-ticket" data-modal-target="#assignmodal">Assign ticket</button>
             <button class="ticket-button leave-note">Leave Note</button>
+            <button class="ticket-button delete-ticket" data-modal-target="#deletemodal">Delete ticket</button>
+        <?php } else if (($_SESSION['ACCOUNTS_ROLE'] === 'Developer') || ($_SESSION['ACCOUNTS_ROLE'] === 'Technician')) { ?>
+            <button class="assign-ticket">Resolve ticket</button>
         <?php } ?>
     </div>
     <div class="ticket-note-container">
 
+    </div>
+
+    <div class="modal" id="assignmodal">
+        <div class="modal-header">
+            <div class="title">Assign Ticket</div>
+            <button data-close-button class="close-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                    <path id="Icon_material-close" data-name="Icon material-close" d="M27.5,9.514,25.486,7.5,17.5,15.486,9.514,7.5,7.5,9.514,15.486,17.5,7.5,25.486,9.514,27.5,17.5,19.514,25.486,27.5,27.5,25.486,19.514,17.5Z" transform="translate(-7.5 -7.5)" fill="#f9f9f9" />
+                </svg>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form method="POST" class="assign-ticket-form" action="/ticket">
+                <button class="assign-submit-button">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="deletemodal">
+        <div class="modal-header">
+            <div class="title">Are you sure you wanna delete this ticket ?</div>
+            <button data-close-button class="close-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                    <path id="Icon_material-close" data-name="Icon material-close" d="M27.5,9.514,25.486,7.5,17.5,15.486,9.514,7.5,7.5,9.514,15.486,17.5,7.5,25.486,9.514,27.5,17.5,19.514,25.486,27.5,27.5,25.486,19.514,17.5Z" transform="translate(-7.5 -7.5)" fill="#f9f9f9" />
+                </svg>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form method="POST" class="delete-account-form" action="/user">
+                <button type="submit" class="delete-submit-button">Yes</button>
+                <button type="button" data-close-button class="delete-cancel-button">No</button>
+            </form>
+        </div>
     </div>
 </section>

@@ -2,6 +2,58 @@
 let ticket_selected_id;
 let ticket;
 let user_selected_id;
+
+// Select all tickets rows and get id depending clicked on ticket row
+function captureAllTickets() {
+    let ticket_rows = document.querySelectorAll(".ticket_row");
+    ticket_rows.forEach(ticket_row => {
+        ticket_row.addEventListener('click', () => {
+            ticket_selected_id = ticket_row.children[0].innerHTML;
+            fetchTicketById('readUniqueTicket', 'http://localhost:8080/ticket', ticket_selected_id);
+        })
+    });
+}
+
+// Select all staff cards and get user id depending card clicked on
+function captureAllStaff() {
+    let staff_cards = document.querySelectorAll(".staff-card");
+    staff_cards.forEach(staff_card => {
+        staff_card.addEventListener('click', () => {
+            user_selected_id = staff_card.children[0].innerHTML;
+            fetchUserById('readUniqueUser', 'http://localhost:8080/user', user_selected_id);
+        })
+    });
+}
+
+// Handle null data for staff informations, render placeholders
+function placeholderData(data, value, placeholder) {
+    if (data == null) {
+        value.style.opacity = '0.2';
+        data = placeholder;
+    } else {
+        value.style.opacity = '1';
+    }
+    value.innerHTML = data;
+}
+// Handle empty string data for ticket informations, render placeholders
+function placeholderAssignData(data, value, placeholder) {
+    if (data == '') {
+        value.style.opacity = '0.2';
+        data = placeholder;
+    } else {
+        value.style.opacity = '1';
+    }
+    value.innerHTML = data;
+}
+
+// Check for expired token to redirect to login page
+function verifyTokenExp() {
+    console.log('expired token');
+    localStorage.removeItem('token');
+    console.log('token removed');
+    location.replace('/logout');
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
         // Chrome Bug Workaround: Select body tag and remove preload class to re enable animations after the page load
@@ -10,14 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Check if tickets body exists
         if (document.querySelector('.tbody')) {
-            // Select all tickets rows and get id depending clicked on ticket row
-            let ticket_rows = document.querySelectorAll(".ticket_row");
-            ticket_rows.forEach(ticket_row => {
-                ticket_row.addEventListener('click', () => {
-                    ticket_selected_id = ticket_row.children[0].innerHTML;
-                    fetchTicketById('readUniqueTicket', 'http://localhost:8080/ticket', ticket_selected_id);
-                })
-            });
+            captureAllTickets();
         }
 
         // Return to the view of all tickets
@@ -34,14 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Check if staff container exists
         if (document.querySelector('.staff-container')) {
-            // Select all staff cards and get user id depending card clicked on
-            let staff_cards = document.querySelectorAll(".staff-card");
-            staff_cards.forEach(staff_card => {
-                staff_card.addEventListener('click', () => {
-                    user_selected_id = staff_card.children[0].innerHTML;
-                    fetchUserById('readUniqueUser', 'http://localhost:8080/user', user_selected_id);
-                })
-            });
+            captureAllStaff();
         }
 
         // Return to the view of all staff members
