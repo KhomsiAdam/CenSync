@@ -189,6 +189,7 @@ class TicketModel {
     	$stmt->bindParam(':assigned_by', $this->assigned_by);	
     	$stmt->bindParam(':assigned_to', $this->assigned_to);	
     	if($stmt->execute()) {
+            echo json_encode('Ticket assigned successfully');
     		return true;
     	} else {
     		return false;
@@ -202,6 +203,7 @@ class TicketModel {
         $stmt->bindParam(':ticket_id', $this->ticket_id);
     	$stmt->bindParam(':status', $this->status);	
     	if($stmt->execute()) {
+            echo json_encode('Ticket resolved successfully');
     		return true;
     	} else {
     		return false;

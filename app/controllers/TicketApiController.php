@@ -32,7 +32,7 @@ class TicketApiController extends Middleware
         $priority = $this->validateParams('priority', $this->param['priority'], STRING);
         $title = $this->validateParams('title', $this->param['title'], STRING);
         $content = $this->validateParams('content', $this->param['content'], STRING);
-        $status = $this->validateParams('status', 'pending', STRING);
+        $status = $this->validateParams('status', 'Pending', STRING);
         $reported_by = $this->validateParams('reported_by', $this->firstname . ' ' . $this->lastname, STRING);
         $data = new TicketModel;
         $data->setTicketId($ticket_id);
@@ -134,7 +134,7 @@ class TicketApiController extends Middleware
         $this->validateToken();
         $ticket_id = $this->validateParams('ticket_id', $this->param['ticket_id'], STRING);
         $status = $this->validateParams('status', 'Open', STRING);
-        $assigned_by = $this->validateParams('assigned_by', $this->param['assigned_by'], STRING);
+        $assigned_by = $this->validateParams('assigned_by', $this->firstname . ' ' . $this->lastname, STRING);
         $assigned_to = $this->validateParams('assigned_to', $this->param['assigned_to'], STRING);
         $data = new TicketModel;
         $data->setTicketId($ticket_id);

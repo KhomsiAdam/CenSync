@@ -269,7 +269,12 @@ header {
     }
     .modal-body {
         font-size: 2.4rem;
-        .create-ticket-form, .assign-ticket-form, .activate-account-form, .delete-account-form {
+        .create-ticket-form,
+        .assign-ticket-form,
+        .activate-account-form,
+        .delete-account-form,
+        .resolve-ticket-form,
+        .note-ticket-form {
             display: flex;
             flex-direction: column;
             justify-content: space-around;
@@ -411,6 +416,140 @@ header {
                 &:hover {
                     background: $lightblue;
                     border: solid 2px $lightblue;
+                }
+            }
+        }
+        .resolve-ticket-form {
+            flex-direction: row;
+            .resolve-submit-button {
+                width: 740px;
+                color: $white;
+                border: solid 2px $white;
+                &:hover {
+                    background: $green;
+                    border: solid 2px $green;
+                }
+            }
+            .resolve-cancel-button {
+                width: 740px;
+                color: $white;
+                border: solid 2px $white;
+                &:hover {
+                    background: $lightblue;
+                    border: solid 2px $lightblue;
+                }
+            }
+        }
+        // Scrollbar Styling Chrome & Safari & Opera
+        .assign-ticket-form::-webkit-scrollbar {
+            width: 1.5rem;
+        }
+        .assign-ticket-form::-webkit-scrollbar-track {
+            background: $white;
+            border-radius: 3px;
+        }
+        .assign-ticket-form::-webkit-scrollbar-thumb {
+            background: $lightblue;
+            border-radius: 3px;
+        }
+        .assign-ticket-form::-webkit-scrollbar-thumb:hover {
+            background: $green;
+        }
+        .assign-ticket-form {
+            // Scrollbar Styling : Firefox
+            scrollbar-width: thin;
+            scrollbar-color: $green $lightblue;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            gap: 5.5rem;
+            height: 410px;
+            overflow-y: auto;
+            width: 1500px;
+            max-width: 100%;
+            margin-bottom: 5rem;
+            .custom-radio {
+                display: none;
+                height: 10px;
+                width: 10px;
+            }
+            label {
+                cursor: pointer;
+                display: grid;
+                grid-template-columns: 25% 25% 25% 25%;
+                background: $white;
+                border-radius: 10px;
+                height: 100px;
+                width: 99%;
+                font-weight: $semibold;
+                justify-items: center;
+                align-items: center;
+                color: $blue;
+                &:hover {
+                    color: $green;
+                    .assigned-image {
+                        svg {
+                            fill: $green;
+                        }
+                    }
+                    .custom-radio-span {
+                        border: 3px solid $green;
+                    }
+                }
+                .assigned-image {
+                    height: 60px;
+                    width: 60px;
+                    svg {
+                        fill: $blue;
+                    }
+                }
+                .assigned-role {
+                    font-weight: $regular;
+                }
+                .custom-radio-span {
+                    display: grid;
+                    align-items: center;
+                    justify-content: space-evenly;
+                    border: 3px solid $blue;
+                    border-radius: 5px;
+                    width: 30px;
+                    height: 30px;
+                    transition: 300ms;
+                }
+                input:checked + .custom-radio-span {
+                    border: 3px solid $green;
+                    background: $green;
+                    border-radius: 5px;
+                    width: 30px;
+                    height: 30px;
+                }
+            }
+        }
+        .note-ticket-form {
+            #note {
+                resize: none;
+            }
+            .note-buttons-container {
+                display: flex;
+                gap: 3rem;
+                .note-submit-button {
+                    width: 740px;
+                    color: $white;
+                    border: solid 2px $white;
+                    &:hover {
+                        background: $green;
+                        border: solid 2px $green;
+                    }
+                }
+                .note-cancel-button {
+                    width: 740px;
+                    color: $white;
+                    border: solid 2px $white;
+                    &:hover {
+                        background: $red;
+                        border: solid 2px $red;
+                    }
                 }
             }
         }
@@ -578,6 +717,9 @@ header {
             }
         }
     }
+}
+.username {
+    display: none;
 }
 @media only screen and (min-width: 768px) {
     .navbar {

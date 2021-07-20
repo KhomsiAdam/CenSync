@@ -1,0 +1,127 @@
+@use "variables" as *;
+
+.staff-details {
+    width: 93%;
+    height: 75vh;
+    display: grid;
+    grid-template-areas: "linfo rinfo";
+    grid-template-columns: 35% 65%;
+    grid-template-rows: 100%;
+    overflow: hidden;
+    background: $white;
+    border: 1px solid $gray;
+    border-radius: 10px;
+    .staff-left {
+        display: grid;
+        grid-template-rows: 35% 65%;
+        align-items: center;
+        padding: 0 4rem;
+        font-size: 2.2rem;
+        border-right: 1px solid $gray;
+        .staff-left-info {
+            display: grid;
+            grid-template-columns: 40% 60%;
+            height: 100%;
+            .left-info,
+            .left-values {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-evenly;
+                height: 100%;
+            }
+            .left-info {
+                font-weight: $semibold;
+                color: $blue;
+            }
+            .left-values {
+                align-items: flex-end;
+            }
+        }
+    }
+    .staff-right {
+        display: grid;
+        grid-template-rows: 20% 35% 45%;
+        align-items: center;
+        padding: 0 4rem;
+        font-size: 2.2rem;
+        .top-right {
+            display: grid;
+            grid-template-rows: 60% 40%;
+            grid-template-columns: 85% 15%;
+            grid-template-areas:
+                "name return"
+                "email email";
+            height: 70%;
+            align-items: flex-end;
+            .profile-return {
+                grid-area: return;
+                text-align: right;
+                align-self: center;
+                svg {
+                    height: 20px;
+                    width: 40px;
+                    text-align: center;
+                    fill: $blue;
+                    cursor: pointer;
+                    &:hover {
+                        fill: $green;
+                    }
+                }
+            }
+            .name-right {
+                grid-area: name;
+                font-size: 4.6rem;
+                font-weight: $semibold;
+                color: $blue;
+            }
+            .email-right {
+                grid-area: email;
+                color: $green;
+            }
+        }
+        .bio-right {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            height: 100%;
+            label {
+                font-size: 3.2rem;
+                font-weight: $semibold;
+                color: $blue;
+            }
+            textarea {
+                font-size: 1.6rem;
+                background: $white;
+                border: 1px solid $gray;
+                border-radius: 5px;
+                outline: none;
+                padding: 1rem;
+                &:focus {
+                    background: #ffffff;
+                }
+            }
+        }
+        .bottom-right {
+            display: grid;
+            grid-template-columns: 50% 50%;
+            height: 100%;
+            .staff-right-info {
+                display: grid;
+                grid-template-columns: 40% 60%;
+                .right-info,
+                .right-values {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-evenly;
+                }
+                .right-info {
+                    font-weight: $semibold;
+                    color: $blue;
+                }
+                .right-values {
+                    align-items: flex-end;
+                }
+            }
+        }
+    }
+}

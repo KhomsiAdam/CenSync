@@ -35,6 +35,15 @@ function closeModal(modal) {
     if (modal == null) return;
     modal.classList.remove('active');
     overlay.classList.remove('active');
+    // Clear all forms in modals upon closing
+    let forms = document.querySelector('.modal-body').getElementsByTagName('form');
+    for (let i = 0; i < forms.length; i++) {
+        forms[i].reset();
+    }
+    // Uncheck Radio buttons
+    document.querySelectorAll('.custom-radio').forEach(radio_button => {
+        radio_button.checked = false;
+    });
 }
 
 // Handling Custom Select/Options
@@ -69,8 +78,6 @@ custom_select.forEach(select => {
 
                 custom_dropdown.appendChild(custom_option);
                 // Handling the priority text and icon styling on hover
-                let red = '#C94242', yellow = '#BEBE5F', green = '#5FBE6E', blue = '#2B777D', white = '#F9F9F9';
-                let semibold = '600', regular = '400';
 
                 switch (custom_option.innerText) {
                     case 'High':
@@ -164,13 +171,13 @@ ticket_form.addEventListener('submit', async function (e) {
         // ticket_error.innerHTML = 'Please fill all the fields';
         console.log('Please fill all the fields');
     } else {
-        createTicket('createTicket', 'http://localhost:8080/ticket');
+        createTicket('createTicket', '/ticket');
         ticket_form.reset();
         if (document.querySelector('.tbody')) {
-            fetchLastTicket('readLastTicket', 'http://localhost:8080/ticket', document.querySelector('.tbody'));
+            fetchLastTicket('readLastTicket', '/ticket', document.querySelector('.tbody'));
         }
         if (document.querySelector('.stats')) {
-            fetchNumbers('readTicketsNumber', 'http://localhost:8080/ticket', tickets_number);
+            fetchNumbers('readTicketsNumber', '/ticket', tickets_number);
         }
         const modals = document.querySelectorAll('.modal.active');
         modals.forEach(modal => {

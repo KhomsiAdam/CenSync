@@ -6,7 +6,7 @@
     <p class="hero_msg">"Standardize your incident management processes, centralized and synced in one place."</p>
 </div>
 <section class="signup_section">
-    <form method="POST" class="signup_form">
+    <form class="signup_form">
         <div class="fullname">
             <div class="firstname">
                 <label for="firstname">Firstname</label>
@@ -38,7 +38,7 @@
     </form>
 </section>
 <section class="signin_section">
-    <form method="POST" class="signin_form">
+    <form class="signin_form">
         <label for="email">Email</label>
         <input type="email" name="email" id="email_in">
         <label for="password">Password</label>

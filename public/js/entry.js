@@ -6,9 +6,6 @@ let sync = document.querySelector('.sync');
 let signin_section = document.querySelector('.signin_section');
 let signup_section = document.querySelector('.signup_section');
 
-let green = '#5FBE6E';
-let blue = '#2B777D';
-
 // Desktop Animation: Sliding the hero section right and left on top of login and register forms while rotating the logo
 function slideLeft() {
     hero.style.left = '50%';
@@ -113,9 +110,6 @@ custom_select.addEventListener('mousedown', e => {
   }
 });
 
-// User endpoint
-let user = 'http://localhost:8080/user';
-
 const signup_form = document.querySelector('.signup_form');
 const role = document.getElementById('role');
 const firstname = document.getElementById('firstname');
@@ -159,15 +153,13 @@ signup_form.addEventListener('submit', async function (e) {
         // signup_error.innerHTML = 'Please fill all the fields';
         console.log('Please fill all the fields');
     } else {
-        register('createUser', user);
+        register('createUser', '/user');
         console.log('user registered');
     }
 })
 
 // Token holder
 let jwt = '';
-// Authentication endpoint
-let auth = 'http://localhost:8080/auth';
 
 const signin_form = document.querySelector('.signin_form');
 const email_in = document.getElementById('email_in');
@@ -212,6 +204,6 @@ signin_form.addEventListener('submit', async function (e) {
         // signin_error.innerHTML = 'Please fill all the fields';
         console.log('Please fill all the fields');
     } else {
-        login('login', auth);
+        login('login', '/auth');
     }
 })

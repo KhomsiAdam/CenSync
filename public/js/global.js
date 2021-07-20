@@ -1,7 +1,33 @@
-// Init Ids
+// Init
 let ticket_selected_id;
 let ticket;
 let user_selected_id;
+let user;
+/* Colors */
+// Main
+const green = '#5FBE6E';
+const darkblue = '#2B365A';
+const blue = '#2B777D';
+const lightblue = '#5FBEBC';
+// Sub
+const yellow = '#BEBE5F';
+const red = '#C94242';
+const purple = '#A35FBE';
+// Basic
+const black = '#262626';
+const white = '#F9F9F9';
+const gray = '#EBEBEB';
+
+/* Font Weights */
+const thin = 100;
+const extralight = 200;
+const light = 300;
+const regular = 400;
+const medium = 500;
+const semibold = 600;
+const bold = 700;
+const extrabold = 800;
+const blackbold = 900;
 
 // Select all tickets rows and get id depending clicked on ticket row
 function captureAllTickets() {
@@ -9,7 +35,7 @@ function captureAllTickets() {
     ticket_rows.forEach(ticket_row => {
         ticket_row.addEventListener('click', () => {
             ticket_selected_id = ticket_row.children[0].innerHTML;
-            fetchTicketById('readUniqueTicket', 'http://localhost:8080/ticket', ticket_selected_id);
+            fetchTicketById('readUniqueTicket', '/ticket', ticket_selected_id);
         })
     });
 }
@@ -20,7 +46,7 @@ function captureAllStaff() {
     staff_cards.forEach(staff_card => {
         staff_card.addEventListener('click', () => {
             user_selected_id = staff_card.children[0].innerHTML;
-            fetchUserById('readUniqueUser', 'http://localhost:8080/user', user_selected_id);
+            fetchUserById('readUniqueUser', '/user', user_selected_id);
         })
     });
 }
@@ -54,6 +80,15 @@ function verifyTokenExp() {
     location.replace('/logout');
 }
 
+// Clear Note innerHTML
+function clearNoteHTML() {
+    note_author.innerHTML = '';
+    note_time.innerHTML = '';
+    note_ticket_content.innerHTML = '';
+    note_edit.value = '';
+    note_delete.value = '';
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
         // Chrome Bug Workaround: Select body tag and remove preload class to re enable animations after the page load
@@ -72,8 +107,15 @@ document.addEventListener("DOMContentLoaded", () => {
                     document.querySelector('.assign-ticket').classList.remove('ticket-button-disabled');
                     document.querySelector('.assign-ticket').classList.remove('ticket-button');
                 }
+                if (document.querySelector('.leave-note')) {
+                    document.querySelector('.leave-note').classList.remove('ticket-button');
+                    document.querySelector('.leave-note').classList.add('ticket-button-disabled');
+                    document.querySelector('.leave-note').disabled = true;    
+                }
                 document.querySelector('.tickets').style.display = 'grid';
                 document.querySelector('.ticket-details').style.display = 'none';
+                document.querySelector('.ticket-note-container').style.display = 'none'
+                clearNoteHTML();
             })
         }
 
@@ -91,6 +133,13 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
 
+        // Return to previous page from profile
+        if (document.querySelector('.profile-return')) {
+            document.querySelector('.profile-return').addEventListener('click', () => {
+                window.history.back();
+            });
+        }
+
         // Removing the token from local storage
         if (document.getElementById('logout')) {
             document.getElementById('logout').addEventListener('click', function () {
@@ -98,5 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.log('token removed');
             });
         }
+
+        if(document.querySelector('.username')) user = document.querySelector('.username').innerHTML;
     }, 400);
 })

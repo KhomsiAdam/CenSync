@@ -269,7 +269,12 @@ header .profile_container .profile:hover {
 .modal .modal-body {
   font-size: 2.4rem;
 }
-.modal .modal-body .create-ticket-form, .modal .modal-body .assign-ticket-form, .modal .modal-body .activate-account-form, .modal .modal-body .delete-account-form {
+.modal .modal-body .create-ticket-form,
+.modal .modal-body .assign-ticket-form,
+.modal .modal-body .activate-account-form,
+.modal .modal-body .delete-account-form,
+.modal .modal-body .resolve-ticket-form,
+.modal .modal-body .note-ticket-form {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -282,16 +287,27 @@ header .profile_container .profile:hover {
 .modal .modal-body .create-ticket-form input,
 .modal .modal-body .create-ticket-form textarea,
 .modal .modal-body .create-ticket-form select,
-.modal .modal-body .create-ticket-form button, .modal .modal-body .assign-ticket-form input,
+.modal .modal-body .create-ticket-form button,
+.modal .modal-body .assign-ticket-form input,
 .modal .modal-body .assign-ticket-form textarea,
 .modal .modal-body .assign-ticket-form select,
-.modal .modal-body .assign-ticket-form button, .modal .modal-body .activate-account-form input,
+.modal .modal-body .assign-ticket-form button,
+.modal .modal-body .activate-account-form input,
 .modal .modal-body .activate-account-form textarea,
 .modal .modal-body .activate-account-form select,
-.modal .modal-body .activate-account-form button, .modal .modal-body .delete-account-form input,
+.modal .modal-body .activate-account-form button,
+.modal .modal-body .delete-account-form input,
 .modal .modal-body .delete-account-form textarea,
 .modal .modal-body .delete-account-form select,
-.modal .modal-body .delete-account-form button {
+.modal .modal-body .delete-account-form button,
+.modal .modal-body .resolve-ticket-form input,
+.modal .modal-body .resolve-ticket-form textarea,
+.modal .modal-body .resolve-ticket-form select,
+.modal .modal-body .resolve-ticket-form button,
+.modal .modal-body .note-ticket-form input,
+.modal .modal-body .note-ticket-form textarea,
+.modal .modal-body .note-ticket-form select,
+.modal .modal-body .note-ticket-form button {
   width: 1488px;
   max-width: 100%;
   height: 69px;
@@ -304,29 +320,59 @@ header .profile_container .profile:hover {
   background: #F9F9F9;
   font-size: 2.4rem;
 }
-.modal .modal-body .create-ticket-form textarea, .modal .modal-body .assign-ticket-form textarea, .modal .modal-body .activate-account-form textarea, .modal .modal-body .delete-account-form textarea {
+.modal .modal-body .create-ticket-form textarea,
+.modal .modal-body .assign-ticket-form textarea,
+.modal .modal-body .activate-account-form textarea,
+.modal .modal-body .delete-account-form textarea,
+.modal .modal-body .resolve-ticket-form textarea,
+.modal .modal-body .note-ticket-form textarea {
   height: 253px;
   padding-top: 1em;
 }
-.modal .modal-body .create-ticket-form .all_selects_container, .modal .modal-body .assign-ticket-form .all_selects_container, .modal .modal-body .activate-account-form .all_selects_container, .modal .modal-body .delete-account-form .all_selects_container {
+.modal .modal-body .create-ticket-form .all_selects_container,
+.modal .modal-body .assign-ticket-form .all_selects_container,
+.modal .modal-body .activate-account-form .all_selects_container,
+.modal .modal-body .delete-account-form .all_selects_container,
+.modal .modal-body .resolve-ticket-form .all_selects_container,
+.modal .modal-body .note-ticket-form .all_selects_container {
   display: flex;
   justify-content: space-between;
 }
 @media only screen and (max-width: 1730px) {
-  .modal .modal-body .create-ticket-form .all_selects_container, .modal .modal-body .assign-ticket-form .all_selects_container, .modal .modal-body .activate-account-form .all_selects_container, .modal .modal-body .delete-account-form .all_selects_container {
+  .modal .modal-body .create-ticket-form .all_selects_container,
+.modal .modal-body .assign-ticket-form .all_selects_container,
+.modal .modal-body .activate-account-form .all_selects_container,
+.modal .modal-body .delete-account-form .all_selects_container,
+.modal .modal-body .resolve-ticket-form .all_selects_container,
+.modal .modal-body .note-ticket-form .all_selects_container {
     flex-direction: column;
     gap: 2rem;
   }
 }
-.modal .modal-body .create-ticket-form .select_container, .modal .modal-body .assign-ticket-form .select_container, .modal .modal-body .activate-account-form .select_container, .modal .modal-body .delete-account-form .select_container {
+.modal .modal-body .create-ticket-form .select_container,
+.modal .modal-body .assign-ticket-form .select_container,
+.modal .modal-body .activate-account-form .select_container,
+.modal .modal-body .delete-account-form .select_container,
+.modal .modal-body .resolve-ticket-form .select_container,
+.modal .modal-body .note-ticket-form .select_container {
   display: flex;
   flex-direction: column;
   gap: 2rem;
 }
-.modal .modal-body .create-ticket-form .custom_select, .modal .modal-body .assign-ticket-form .custom_select, .modal .modal-body .activate-account-form .custom_select, .modal .modal-body .delete-account-form .custom_select {
+.modal .modal-body .create-ticket-form .custom_select,
+.modal .modal-body .assign-ticket-form .custom_select,
+.modal .modal-body .activate-account-form .custom_select,
+.modal .modal-body .delete-account-form .custom_select,
+.modal .modal-body .resolve-ticket-form .custom_select,
+.modal .modal-body .note-ticket-form .custom_select {
   position: relative;
 }
-.modal .modal-body .create-ticket-form .custom_select select, .modal .modal-body .assign-ticket-form .custom_select select, .modal .modal-body .activate-account-form .custom_select select, .modal .modal-body .delete-account-form .custom_select select {
+.modal .modal-body .create-ticket-form .custom_select select,
+.modal .modal-body .assign-ticket-form .custom_select select,
+.modal .modal-body .activate-account-form .custom_select select,
+.modal .modal-body .delete-account-form .custom_select select,
+.modal .modal-body .resolve-ticket-form .custom_select select,
+.modal .modal-body .note-ticket-form .custom_select select {
   cursor: pointer;
   -webkit-appearance: none;
      -moz-appearance: none;
@@ -335,11 +381,21 @@ header .profile_container .profile:hover {
   max-width: 100%;
 }
 @media only screen and (max-width: 1730px) {
-  .modal .modal-body .create-ticket-form .custom_select select, .modal .modal-body .assign-ticket-form .custom_select select, .modal .modal-body .activate-account-form .custom_select select, .modal .modal-body .delete-account-form .custom_select select {
+  .modal .modal-body .create-ticket-form .custom_select select,
+.modal .modal-body .assign-ticket-form .custom_select select,
+.modal .modal-body .activate-account-form .custom_select select,
+.modal .modal-body .delete-account-form .custom_select select,
+.modal .modal-body .resolve-ticket-form .custom_select select,
+.modal .modal-body .note-ticket-form .custom_select select {
     width: 1488px;
   }
 }
-.modal .modal-body .create-ticket-form .custom_select .custom-options, .modal .modal-body .assign-ticket-form .custom_select .custom-options, .modal .modal-body .activate-account-form .custom_select .custom-options, .modal .modal-body .delete-account-form .custom_select .custom-options {
+.modal .modal-body .create-ticket-form .custom_select .custom-options,
+.modal .modal-body .assign-ticket-form .custom_select .custom-options,
+.modal .modal-body .activate-account-form .custom_select .custom-options,
+.modal .modal-body .delete-account-form .custom_select .custom-options,
+.modal .modal-body .resolve-ticket-form .custom_select .custom-options,
+.modal .modal-body .note-ticket-form .custom_select .custom-options {
   font-size: 2.4rem;
   list-style: none;
   margin: 0;
@@ -352,7 +408,12 @@ header .profile_container .profile:hover {
   top: 0%;
   overflow: hidden;
 }
-.modal .modal-body .create-ticket-form .custom_select .custom-options li, .modal .modal-body .assign-ticket-form .custom_select .custom-options li, .modal .modal-body .activate-account-form .custom_select .custom-options li, .modal .modal-body .delete-account-form .custom_select .custom-options li {
+.modal .modal-body .create-ticket-form .custom_select .custom-options li,
+.modal .modal-body .assign-ticket-form .custom_select .custom-options li,
+.modal .modal-body .activate-account-form .custom_select .custom-options li,
+.modal .modal-body .delete-account-form .custom_select .custom-options li,
+.modal .modal-body .resolve-ticket-form .custom_select .custom-options li,
+.modal .modal-body .note-ticket-form .custom_select .custom-options li {
   height: 69px;
   border: solid 1px #2B777D;
   display: flex;
@@ -362,34 +423,68 @@ header .profile_container .profile:hover {
   cursor: pointer;
   transition: background 0.3s ease;
 }
-.modal .modal-body .create-ticket-form .custom_select .custom-options li:hover, .modal .modal-body .assign-ticket-form .custom_select .custom-options li:hover, .modal .modal-body .activate-account-form .custom_select .custom-options li:hover, .modal .modal-body .delete-account-form .custom_select .custom-options li:hover {
+.modal .modal-body .create-ticket-form .custom_select .custom-options li:hover,
+.modal .modal-body .assign-ticket-form .custom_select .custom-options li:hover,
+.modal .modal-body .activate-account-form .custom_select .custom-options li:hover,
+.modal .modal-body .delete-account-form .custom_select .custom-options li:hover,
+.modal .modal-body .resolve-ticket-form .custom_select .custom-options li:hover,
+.modal .modal-body .note-ticket-form .custom_select .custom-options li:hover {
   background: #5FBEBC;
   color: #F9F9F9;
 }
-.modal .modal-body .create-ticket-form .custom_select .custom-options li:hover #high-icon, .modal .modal-body .assign-ticket-form .custom_select .custom-options li:hover #high-icon, .modal .modal-body .activate-account-form .custom_select .custom-options li:hover #high-icon, .modal .modal-body .delete-account-form .custom_select .custom-options li:hover #high-icon {
+.modal .modal-body .create-ticket-form .custom_select .custom-options li:hover #high-icon,
+.modal .modal-body .assign-ticket-form .custom_select .custom-options li:hover #high-icon,
+.modal .modal-body .activate-account-form .custom_select .custom-options li:hover #high-icon,
+.modal .modal-body .delete-account-form .custom_select .custom-options li:hover #high-icon,
+.modal .modal-body .resolve-ticket-form .custom_select .custom-options li:hover #high-icon,
+.modal .modal-body .note-ticket-form .custom_select .custom-options li:hover #high-icon {
   fill: #C94242;
   stroke: #C94242;
 }
-.modal .modal-body .create-ticket-form .custom_select .custom-options li:hover #medium-icon, .modal .modal-body .assign-ticket-form .custom_select .custom-options li:hover #medium-icon, .modal .modal-body .activate-account-form .custom_select .custom-options li:hover #medium-icon, .modal .modal-body .delete-account-form .custom_select .custom-options li:hover #medium-icon {
+.modal .modal-body .create-ticket-form .custom_select .custom-options li:hover #medium-icon,
+.modal .modal-body .assign-ticket-form .custom_select .custom-options li:hover #medium-icon,
+.modal .modal-body .activate-account-form .custom_select .custom-options li:hover #medium-icon,
+.modal .modal-body .delete-account-form .custom_select .custom-options li:hover #medium-icon,
+.modal .modal-body .resolve-ticket-form .custom_select .custom-options li:hover #medium-icon,
+.modal .modal-body .note-ticket-form .custom_select .custom-options li:hover #medium-icon {
   fill: #BEBE5F;
   stroke: #BEBE5F;
 }
-.modal .modal-body .create-ticket-form .custom_select .custom-options li:hover #low-icon, .modal .modal-body .assign-ticket-form .custom_select .custom-options li:hover #low-icon, .modal .modal-body .activate-account-form .custom_select .custom-options li:hover #low-icon, .modal .modal-body .delete-account-form .custom_select .custom-options li:hover #low-icon {
+.modal .modal-body .create-ticket-form .custom_select .custom-options li:hover #low-icon,
+.modal .modal-body .assign-ticket-form .custom_select .custom-options li:hover #low-icon,
+.modal .modal-body .activate-account-form .custom_select .custom-options li:hover #low-icon,
+.modal .modal-body .delete-account-form .custom_select .custom-options li:hover #low-icon,
+.modal .modal-body .resolve-ticket-form .custom_select .custom-options li:hover #low-icon,
+.modal .modal-body .note-ticket-form .custom_select .custom-options li:hover #low-icon {
   fill: #5FBE6E;
   stroke: #5FBE6E;
 }
 .modal .modal-body .create-ticket-form .custom_select .custom-options li:hover #H,
 .modal .modal-body .create-ticket-form .custom_select .custom-options li:hover #M,
-.modal .modal-body .create-ticket-form .custom_select .custom-options li:hover #L, .modal .modal-body .assign-ticket-form .custom_select .custom-options li:hover #H,
+.modal .modal-body .create-ticket-form .custom_select .custom-options li:hover #L,
+.modal .modal-body .assign-ticket-form .custom_select .custom-options li:hover #H,
 .modal .modal-body .assign-ticket-form .custom_select .custom-options li:hover #M,
-.modal .modal-body .assign-ticket-form .custom_select .custom-options li:hover #L, .modal .modal-body .activate-account-form .custom_select .custom-options li:hover #H,
+.modal .modal-body .assign-ticket-form .custom_select .custom-options li:hover #L,
+.modal .modal-body .activate-account-form .custom_select .custom-options li:hover #H,
 .modal .modal-body .activate-account-form .custom_select .custom-options li:hover #M,
-.modal .modal-body .activate-account-form .custom_select .custom-options li:hover #L, .modal .modal-body .delete-account-form .custom_select .custom-options li:hover #H,
+.modal .modal-body .activate-account-form .custom_select .custom-options li:hover #L,
+.modal .modal-body .delete-account-form .custom_select .custom-options li:hover #H,
 .modal .modal-body .delete-account-form .custom_select .custom-options li:hover #M,
-.modal .modal-body .delete-account-form .custom_select .custom-options li:hover #L {
+.modal .modal-body .delete-account-form .custom_select .custom-options li:hover #L,
+.modal .modal-body .resolve-ticket-form .custom_select .custom-options li:hover #H,
+.modal .modal-body .resolve-ticket-form .custom_select .custom-options li:hover #M,
+.modal .modal-body .resolve-ticket-form .custom_select .custom-options li:hover #L,
+.modal .modal-body .note-ticket-form .custom_select .custom-options li:hover #H,
+.modal .modal-body .note-ticket-form .custom_select .custom-options li:hover #M,
+.modal .modal-body .note-ticket-form .custom_select .custom-options li:hover #L {
   fill: #F9F9F9;
 }
-.modal .modal-body .create-ticket-form .custom_select .custom_arrow, .modal .modal-body .assign-ticket-form .custom_select .custom_arrow, .modal .modal-body .activate-account-form .custom_select .custom_arrow, .modal .modal-body .delete-account-form .custom_select .custom_arrow {
+.modal .modal-body .create-ticket-form .custom_select .custom_arrow,
+.modal .modal-body .assign-ticket-form .custom_select .custom_arrow,
+.modal .modal-body .activate-account-form .custom_select .custom_arrow,
+.modal .modal-body .delete-account-form .custom_select .custom_arrow,
+.modal .modal-body .resolve-ticket-form .custom_select .custom_arrow,
+.modal .modal-body .note-ticket-form .custom_select .custom_arrow {
   position: absolute;
   top: 0;
   right: 1.5rem;
@@ -397,11 +492,21 @@ header .profile_container .profile:hover {
   width: 4rem;
   pointer-events: none;
 }
-.modal .modal-body .create-ticket-form .custom_select .custom_arrow img, .modal .modal-body .assign-ticket-form .custom_select .custom_arrow img, .modal .modal-body .activate-account-form .custom_select .custom_arrow img, .modal .modal-body .delete-account-form .custom_select .custom_arrow img {
+.modal .modal-body .create-ticket-form .custom_select .custom_arrow img,
+.modal .modal-body .assign-ticket-form .custom_select .custom_arrow img,
+.modal .modal-body .activate-account-form .custom_select .custom_arrow img,
+.modal .modal-body .delete-account-form .custom_select .custom_arrow img,
+.modal .modal-body .resolve-ticket-form .custom_select .custom_arrow img,
+.modal .modal-body .note-ticket-form .custom_select .custom_arrow img {
   height: inherit;
   width: inherit;
 }
-.modal .modal-body .create-ticket-form button, .modal .modal-body .assign-ticket-form button, .modal .modal-body .activate-account-form button, .modal .modal-body .delete-account-form button {
+.modal .modal-body .create-ticket-form button,
+.modal .modal-body .assign-ticket-form button,
+.modal .modal-body .activate-account-form button,
+.modal .modal-body .delete-account-form button,
+.modal .modal-body .resolve-ticket-form button,
+.modal .modal-body .note-ticket-form button {
   font-weight: 600;
   margin-top: 3rem;
   color: #5FBE6E;
@@ -409,7 +514,12 @@ header .profile_container .profile:hover {
   border: solid 2px #5FBE6E;
   cursor: pointer;
 }
-.modal .modal-body .create-ticket-form button:hover, .modal .modal-body .assign-ticket-form button:hover, .modal .modal-body .activate-account-form button:hover, .modal .modal-body .delete-account-form button:hover {
+.modal .modal-body .create-ticket-form button:hover,
+.modal .modal-body .assign-ticket-form button:hover,
+.modal .modal-body .activate-account-form button:hover,
+.modal .modal-body .delete-account-form button:hover,
+.modal .modal-body .resolve-ticket-form button:hover,
+.modal .modal-body .note-ticket-form button:hover {
   color: #F9F9F9;
   background: #5FBE6E;
 }
@@ -433,6 +543,133 @@ header .profile_container .profile:hover {
 .modal .modal-body .delete-account-form .delete-cancel-button:hover {
   background: #5FBEBC;
   border: solid 2px #5FBEBC;
+}
+.modal .modal-body .resolve-ticket-form {
+  flex-direction: row;
+}
+.modal .modal-body .resolve-ticket-form .resolve-submit-button {
+  width: 740px;
+  color: #F9F9F9;
+  border: solid 2px #F9F9F9;
+}
+.modal .modal-body .resolve-ticket-form .resolve-submit-button:hover {
+  background: #5FBE6E;
+  border: solid 2px #5FBE6E;
+}
+.modal .modal-body .resolve-ticket-form .resolve-cancel-button {
+  width: 740px;
+  color: #F9F9F9;
+  border: solid 2px #F9F9F9;
+}
+.modal .modal-body .resolve-ticket-form .resolve-cancel-button:hover {
+  background: #5FBEBC;
+  border: solid 2px #5FBEBC;
+}
+.modal .modal-body .assign-ticket-form::-webkit-scrollbar {
+  width: 1.5rem;
+}
+.modal .modal-body .assign-ticket-form::-webkit-scrollbar-track {
+  background: #F9F9F9;
+  border-radius: 3px;
+}
+.modal .modal-body .assign-ticket-form::-webkit-scrollbar-thumb {
+  background: #5FBEBC;
+  border-radius: 3px;
+}
+.modal .modal-body .assign-ticket-form::-webkit-scrollbar-thumb:hover {
+  background: #5FBE6E;
+}
+.modal .modal-body .assign-ticket-form {
+  scrollbar-width: thin;
+  scrollbar-color: #5FBE6E #5FBEBC;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  gap: 5.5rem;
+  height: 410px;
+  overflow-y: auto;
+  width: 1500px;
+  max-width: 100%;
+  margin-bottom: 5rem;
+}
+.modal .modal-body .assign-ticket-form .custom-radio {
+  display: none;
+  height: 10px;
+  width: 10px;
+}
+.modal .modal-body .assign-ticket-form label {
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  background: #F9F9F9;
+  border-radius: 10px;
+  height: 100px;
+  width: 99%;
+  font-weight: 600;
+  justify-items: center;
+  align-items: center;
+  color: #2B777D;
+}
+.modal .modal-body .assign-ticket-form label:hover {
+  color: #5FBE6E;
+}
+.modal .modal-body .assign-ticket-form label:hover .assigned-image svg {
+  fill: #5FBE6E;
+}
+.modal .modal-body .assign-ticket-form label:hover .custom-radio-span {
+  border: 3px solid #5FBE6E;
+}
+.modal .modal-body .assign-ticket-form label .assigned-image {
+  height: 60px;
+  width: 60px;
+}
+.modal .modal-body .assign-ticket-form label .assigned-image svg {
+  fill: #2B777D;
+}
+.modal .modal-body .assign-ticket-form label .assigned-role {
+  font-weight: 400;
+}
+.modal .modal-body .assign-ticket-form label .custom-radio-span {
+  display: grid;
+  align-items: center;
+  justify-content: space-evenly;
+  border: 3px solid #2B777D;
+  border-radius: 5px;
+  width: 30px;
+  height: 30px;
+  transition: 300ms;
+}
+.modal .modal-body .assign-ticket-form label input:checked + .custom-radio-span {
+  border: 3px solid #5FBE6E;
+  background: #5FBE6E;
+  border-radius: 5px;
+  width: 30px;
+  height: 30px;
+}
+.modal .modal-body .note-ticket-form #note {
+  resize: none;
+}
+.modal .modal-body .note-ticket-form .note-buttons-container {
+  display: flex;
+  gap: 3rem;
+}
+.modal .modal-body .note-ticket-form .note-buttons-container .note-submit-button {
+  width: 740px;
+  color: #F9F9F9;
+  border: solid 2px #F9F9F9;
+}
+.modal .modal-body .note-ticket-form .note-buttons-container .note-submit-button:hover {
+  background: #5FBE6E;
+  border: solid 2px #5FBE6E;
+}
+.modal .modal-body .note-ticket-form .note-buttons-container .note-cancel-button {
+  width: 740px;
+  color: #F9F9F9;
+  border: solid 2px #F9F9F9;
+}
+.modal .modal-body .note-ticket-form .note-buttons-container .note-cancel-button:hover {
+  background: #C94242;
+  border: solid 2px #C94242;
 }
 
 .modal.active {
@@ -594,6 +831,10 @@ header .profile_container {
     width: 3rem;
   }
 }
+.username {
+  display: none;
+}
+
 @media only screen and (min-width: 768px) {
   .navbar:hover {
     width: 34rem;

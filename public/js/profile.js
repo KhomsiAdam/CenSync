@@ -72,5 +72,5 @@ const fetchUserProfile = async (method, endpoint) => {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    fetchUserProfile('readProfileUser', 'http://localhost:8080/user');
+    fetchUserProfile('readProfileUser', '/user');
 })

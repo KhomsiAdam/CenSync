@@ -24,7 +24,7 @@ const fetchNumbers = async (method, endpoint, data_number) => {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    fetchNumbers('readUsersNumber', 'http://localhost:8080/user', staff_number);
-    fetchNumbers('readTicketsNumber', 'http://localhost:8080/ticket', tickets_number);
-    fetchNumbers('readTicketsResolved', 'http://localhost:8080/ticket', tickets_resolved_number);
+    fetchNumbers('readUsersNumber', '/user', staff_number);
+    fetchNumbers('readTicketsNumber', '/ticket', tickets_number);
+    fetchNumbers('readTicketsResolved', '/ticket', tickets_resolved_number);
 })

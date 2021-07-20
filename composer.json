@@ -8,7 +8,8 @@
         }
     ],
     "config": {
-        "vendor-dir": "composer_vendor"
+        "vendor-dir": "composer_vendor",
+        "process-timeout": 3600
     },
     "require": {
         "firebase/php-jwt": "^5.3",
@@ -24,8 +25,11 @@
         }
     },
     "scripts": {
-        "serve": [
-            "@php -S localhost:8080 -t public public/index.php"
+        "serve:local": [
+            "@php -S localhost:8080 -t public"
+        ],
+        "serve:remote": [
+            "@php -S 0.0.0.0:8080 -t public"
         ]
     }
 }

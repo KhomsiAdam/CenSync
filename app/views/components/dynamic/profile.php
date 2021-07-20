@@ -26,7 +26,12 @@
             <div class="name-right">
                 John Doe
             </div>
-            <div class="staff-return">
+            <div class="profile-return">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30.705" height="13.5" viewBox="0 0 30.705 13.5">
+                    <path id="Icon_material-undo" data-name="Icon material-undo"
+                        d="M18.75,12A15.7,15.7,0,0,0,8.4,15.9L3,10.5V24H16.5l-5.43-5.43A11.956,11.956,0,0,1,30.15,24L33.7,22.83A15.771,15.771,0,0,0,18.75,12Z"
+                        transform="translate(-3 -10.5)" />
+                </svg>
             </div>
             <div class="email-role-right">
                 <span class="email-right">johndoe@email.com</span> - <span class="role-right">Employee</span>

@@ -36,6 +36,8 @@ class AuthApiController extends Middleware
 
                 // Storing the role in session for autorizations handling
                 $_SESSION['ACCOUNTS_ROLE'] = $this->account_info[$_ENV['ACCOUNTS_ROLE']];
+                $_SESSION['ACCOUNTS_FIRSTNAME'] = $this->account_info[$_ENV['ACCOUNTS_FIRSTNAME']];
+                $_SESSION['ACCOUNTS_LASTNAME'] = $this->account_info[$_ENV['ACCOUNTS_LASTNAME']];
         
                 // Generating a JWT token
                 $iss = $_ENV['HOST'];

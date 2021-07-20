@@ -70,7 +70,7 @@
         </div>
     </div>
 </section>
-
+<?php if ($_SESSION['ACCOUNTS_ROLE'] === 'Admin') { ?>
 <div class="modal" id="activatemodal">
     <div class="modal-header">
         <div class="title">Activate Account</div>
@@ -83,7 +83,7 @@
         </button>
     </div>
     <div class="modal-body">
-        <form method="POST" class="activate-account-form" action="/user">
+        <form class="activate-account-form">
             <label for="title">Department</label>
             <input type="text" name="department" id="department">
             <label for="title">Job title</label>
@@ -105,9 +105,10 @@
         </button>
     </div>
     <div class="modal-body">
-        <form method="POST" class="delete-account-form" action="/user">
+        <form class="delete-account-form">
             <button type="submit" class="delete-submit-button">Yes</button>
             <button type="button" data-close-button class="delete-cancel-button">No</button>
         </form>
     </div>
 </div>
+<?php } ?>

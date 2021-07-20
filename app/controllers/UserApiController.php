@@ -98,7 +98,9 @@ class UserApiController extends Middleware
 
     public function readAllUsers() {
         $this->validateToken();
+        $user_id = $this->validateParams('role', $this->user_id, STRING);
         $data = new UserModel;
+        $data->setUserId($user_id);
         if ($_ENV['DEV_MODE'] === 'ON') {
             if($data->readAll($_ENV['ACCOUNTS_TABLE']) != true) {
                 $message = 'Failed to fetch all Users.';
@@ -108,6 +110,23 @@ class UserApiController extends Middleware
             $this->returnResponse(RESPONSE_MESSAGE, $message);
         } else {
             $data->readAll($_ENV['ACCOUNTS_TABLE']);            
+        }
+    }
+
+    public function readAllUsersRole() {
+        $this->validateToken();
+        $role = $this->validateParams('role', $this->param['role'], STRING);
+        $data = new UserModel;
+        $data->setRole($role);
+        if ($_ENV['DEV_MODE'] === 'ON') {
+            if($data->readAllRole($_ENV['ACCOUNTS_TABLE']) != true) {
+                $message = 'Failed to fetch all Users.';
+            } else {
+                $message = "All Users fetched successfully.";
+            }
+            $this->returnResponse(RESPONSE_MESSAGE, $message);
+        } else {
+            $data->readAllRole($_ENV['ACCOUNTS_TABLE']);            
         }
     }
 

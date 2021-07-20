@@ -44,7 +44,7 @@
         case '/profile':?>
             <meta name="description" content="Profile page">
             <link rel="stylesheet" href="/css/layout.css">
-            <link rel="stylesheet" href="/css/staff.css">
+            <link rel="stylesheet" href="/css/profile.css">
             <script src="/js/layout.js" defer></script>
             <script src="/js/profile.js" defer></script>
         <?php break;

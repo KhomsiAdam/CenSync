@@ -55,3 +55,11 @@ SELECT COUNT(user_id) FROM user
 -- @block
 SELECT COUNT(*) AS [Staff Number]
 FROM user;
+
+-- @block
+SELECT * FROM user WHERE role = 'Developer'
+
+-- @block
+SELECT note.note_id, note.content, note.note_updated_at, user.firstname, user.lastname FROM note
+INNER JOIN user ON note.user_id = user.user_id
+WHERE (ticket_id = 'TKT4eeaad3')

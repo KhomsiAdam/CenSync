@@ -27,7 +27,7 @@ class NoteApiController extends Middleware
     public function createNote() {
         $this->validateToken();
         $note_id = $this->generateNoteId();
-        $user_id = $this->validateParams('user_id', $this->param['user_id'], STRING);
+        $user_id = $this->validateParams('user_id', $this->user_id, STRING);
         $ticket_id = $this->validateParams('ticket_id', $this->param['ticket_id'], STRING);
         $content = $this->validateParams('content', $this->param['content'], STRING);
         $data = new NoteModel;
@@ -64,18 +64,18 @@ class NoteApiController extends Middleware
 
     public function readUniqueNote() {
         $this->validateToken();
-        $note_id = $this->validateParams('note_id', $this->param['note_id'], STRING);
+        $ticket_id = $this->validateParams('ticket_id', $this->param['ticket_id'], STRING);
         $data = new NoteModel;
-        $data->setNoteId($note_id);
+        $data->setTicketId($ticket_id);
         if ($_ENV['DEV_MODE'] === 'ON') {
-            if($data->readUnique($_ENV['NOTES_TABLE']) != true) {
+            if($data->readUnique($_ENV['NOTES_TABLE'], $_ENV['ACCOUNTS_TABLE']) != true) {
                 $message = 'Failed to fetch unique Note.';
             } else {
                 $message = "Unique Note fetched successfully.";
             }
             $this->returnResponse(RESPONSE_MESSAGE, $message);
         } else {
-            $data->readUnique($_ENV['NOTES_TABLE']);
+            $data->readUnique($_ENV['NOTES_TABLE'], $_ENV['ACCOUNTS_TABLE']);
         }
     }
 

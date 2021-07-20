@@ -174,6 +174,13 @@ const fetchStaff = async (method, endpoint, staff_container) => {
 const yearInMs = 3.15576e+10;
 const getAge = birthDate => Math.floor((new Date() - new Date(birthDate).getTime()) / yearInMs)
 
+const activate_form = document.querySelector('.activate-account-form');
+const department = document.getElementById('department');
+const jobtitle = document.getElementById('jobtitle');
+const activate_button = document.querySelector('.activate-submit-button');
+const delete_form = document.querySelector('.delete-account-form');
+const delete_button = document.querySelector('.delete-submit-button');
+
 const fetchUserById = async (method, endpoint, user_id) => {
     const data = {
         "method": method,
@@ -203,9 +210,9 @@ const fetchUserById = async (method, endpoint, user_id) => {
         console.log(user);
 
         if (user['status'] != 'active') {
-            document.querySelector('.activate-submit-button').value = user['user_id'];
+            if(activate_button) activate_button.value = user['user_id'];
         } else {
-            document.querySelector('.delete-submit-button').value = user['user_id'];
+            if(delete_button) delete_button.value = user['user_id'];
         }
 
         // Department
@@ -270,13 +277,9 @@ const fetchUserById = async (method, endpoint, user_id) => {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    fetchStaff('readAllUsers', 'http://localhost:8080/user', staff_container);
+    fetchStaff('readAllUsers', '/user', staff_container);
 })
 
-const activate_form = document.querySelector('.activate-account-form');
-const department = document.getElementById('department');
-const jobtitle = document.getElementById('jobtitle');
-const activate_button = document.querySelector('.activate-submit-button');
 
 const activateUser = async (method, endpoint) => {
     const data = {
@@ -307,27 +310,27 @@ const activateUser = async (method, endpoint) => {
     }
 }
 
-activate_form.addEventListener('submit', async function (e) {
-    e.preventDefault();
+if (activate_form) {
+    activate_form.addEventListener('submit', async function (e) {
+        e.preventDefault();
 
-    if (department.value === '' || jobtitle.value === '') {
-        // activate_error.innerHTML = 'Please fill all the fields';
-        console.log('Please fill all the fields');
-    } else {
-        activateUser('updateUserStatus', 'http://localhost:8080/user');
-        fetchUserById('readUniqueUser', 'http://localhost:8080/user', activate_button.value);
-        staff_container.innerHTML = '';
-        fetchStaff('readAllUsers', 'http://localhost:8080/user', staff_container);
-        const modals = document.querySelectorAll('.modal.active');
-        modals.forEach(modal => {
-            closeModal(modal);
-        })
-        setTimeout(() => { captureAllStaff(); }, 400);
-    }
-})
-
-const delete_form = document.querySelector('.delete-account-form');
-const delete_button = document.querySelector('.delete-submit-button');
+        if (department.value === '' || jobtitle.value === '') {
+            // activate_error.innerHTML = 'Please fill all the fields';
+            console.log('Please fill all the fields');
+        } else {
+            activateUser('updateUserStatus', '/user');
+            activate_form.reset();
+            fetchUserById('readUniqueUser', '/user', activate_button.value);
+            staff_container.innerHTML = '';
+            fetchStaff('readAllUsers', '/user', staff_container);
+            const modals = document.querySelectorAll('.modal.active');
+            modals.forEach(modal => {
+                closeModal(modal);
+            })
+            setTimeout(() => { captureAllStaff(); }, 400);
+        }
+    })
+}
 
 const deleteUser = async (method, endpoint) => {
     const data = {
@@ -356,18 +359,20 @@ const deleteUser = async (method, endpoint) => {
     }
 }
 
-delete_form.addEventListener('submit', async function (e) {
-    e.preventDefault();
-
-    deleteUser('deleteUser', 'http://localhost:8080/user');
-    document.querySelector('.staff-details').style.display = 'none';
-    document.querySelector('.staff-container').style.display = 'grid';
-    document.querySelector('.main').style.overflowY = 'overlay';
-    staff_container.innerHTML = '';
-    fetchStaff('readAllUsers', 'http://localhost:8080/user', staff_container);
-    const modals = document.querySelectorAll('.modal.active');
-    modals.forEach(modal => {
-        closeModal(modal);
+if (delete_form) {
+    delete_form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+    
+        deleteUser('deleteUser', '/user');
+        document.querySelector('.staff-details').style.display = 'none';
+        document.querySelector('.staff-container').style.display = 'grid';
+        document.querySelector('.main').style.overflowY = 'overlay';
+        staff_container.innerHTML = '';
+        fetchStaff('readAllUsers', '/user', staff_container);
+        const modals = document.querySelectorAll('.modal.active');
+        modals.forEach(modal => {
+            closeModal(modal);
+        })
+        setTimeout(() => { captureAllStaff(); }, 400);
     })
-    setTimeout(() => { captureAllStaff(); }, 400);
-})
+}

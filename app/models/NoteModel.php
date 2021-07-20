@@ -52,6 +52,7 @@ class NoteModel {
     	$stmt->bindParam(':ticket_id', $this->ticket_id);
     	$stmt->bindParam(':content', $this->content);
     	if($stmt->execute()) {
+            echo json_encode('Note created successfully');
     		return true;
     	} else {
     		return false;
@@ -71,16 +72,22 @@ class NoteModel {
     	}
     }
 
-    public function readUnique($table) {
-        $sql = "SELECT * FROM $table WHERE (note_id = :note_id)";
+    public function readUnique($table, $usertable) {
+        $sql = "SELECT $table.note_id, $table.content, $table.note_updated_at, $usertable.firstname, $usertable.lastname FROM $table
+        INNER JOIN $usertable ON $table.user_id = $usertable.user_id
+        WHERE (ticket_id = :ticket_id)";
     	$stmt = $this->db_conn->prepare($sql);
-        $stmt->bindParam(':note_id', $this->note_id);
+        $stmt->bindParam(':ticket_id', $this->ticket_id);
         if($stmt->execute()) {
             $note = $stmt->fetch(PDO::FETCH_ASSOC);
+            if (is_array($note)) {
+                $note['note_updated_at'] = date("M d Y, H:m A", strtotime($note['note_updated_at']));
+            }
             header ("Content-Type: application/json");
             echo json_encode($note,JSON_PRETTY_PRINT|JSON_NUMERIC_CHECK);
     		return true;
     	} else {
+            echo json_encode('This ticket has no note attached to it');
     		return false;
     	}
     }
