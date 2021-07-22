@@ -1,3 +1,4 @@
+<!-- Overlay Part with Logo and Slogan -->
 <div class="hero" id="hero">
     <img src="/images/CenSync_Logo_Transparent.png" alt="CenSync Logo" class="logo_icon">
     <div class="logo_name">
@@ -5,6 +6,7 @@
     </div>
     <p class="hero_msg">"Standardize your incident management processes, centralized and synced in one place."</p>
 </div>
+<!-- Sign up section -->
 <section class="signup_section">
     <form class="signup_form">
         <div class="fullname">
@@ -37,6 +39,7 @@
         <span class="signin">Already having an account ? <span id="signin_btn_mob">Sign In</span><span id="signin_btn_desk">Sign In</span></span>
     </form>
 </section>
+<!-- Sign in section -->
 <section class="signin_section">
     <form class="signin_form">
         <label for="email">Email</label>

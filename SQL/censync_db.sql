@@ -2,10 +2,10 @@
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1
--- Généré le : sam. 03 juil. 2021 à 15:24
--- Version du serveur : 10.4.19-MariaDB
--- Version de PHP : 8.0.7
+-- Host: 127.0.0.1
+-- Generation Time: Jul 22, 2021 at 06:17 PM
+-- Server version: 10.4.19-MariaDB
+-- PHP Version: 8.0.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `censync_db`
+-- Database: `censync_db`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `note`
+-- Table structure for table `note`
 --
 
 CREATE TABLE `note` (
@@ -39,7 +39,7 @@ CREATE TABLE `note` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `ticket`
+-- Table structure for table `ticket`
 --
 
 CREATE TABLE `ticket` (
@@ -54,14 +54,23 @@ CREATE TABLE `ticket` (
   `assigned_by` varchar(32) NOT NULL,
   `assigned_to` varchar(32) NOT NULL,
   `ticket_created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `ticket_assigned_at` datetime DEFAULT NULL,
-  `ticket_resolved_at` datetime DEFAULT NULL
+  `ticket_assigned_at` datetime NOT NULL,
+  `ticket_resolved_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `ticket`
+--
+
+INSERT INTO `ticket` (`ticket_id`, `user_id`, `category`, `priority`, `title`, `content`, `status`, `reported_by`, `assigned_by`, `assigned_to`, `ticket_created_at`, `ticket_assigned_at`, `ticket_resolved_at`) VALUES
+('TKT2bde76d', 'EMPf66b52b155f88', 'Service', 'Low', 'Basketball court.', 'Can we have a basketball club ?', 'Resolved', 'Abdussabour Bourras', 'Adam Khomsi', 'Ayoub Mabrouk', '2021-07-21 22:50:36', '2021-07-22 16:48:14', '2021-07-22 16:48:29'),
+('TKT72a9176', 'EMP9033063ad6c35', 'Hardware', 'Medium', 'Mouse problem', 'Othmane always steals my mouse when I\'m not around.', 'Open', 'Mahdi Elboustani', 'Adam Khomsi', 'Ayoub Mabrouk', '2021-07-21 22:45:10', '2021-07-22 16:47:58', '0000-00-00 00:00:00'),
+('TKT7313f35', 'EMP423dbe4a7f54e', 'Software', 'High', 'Issue with backend framework', 'PHP, Composer, Laravel, Symphony, Blade', 'Pending', 'Yassine Ghouaj', '', '', '2021-07-21 22:48:16', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `user`
+-- Table structure for table `user`
 --
 
 CREATE TABLE `user` (
@@ -71,9 +80,9 @@ CREATE TABLE `user` (
   `lastname` varchar(16) NOT NULL,
   `email` varchar(32) NOT NULL,
   `password` varchar(128) NOT NULL,
-  `dateofbirth` date NOT NULL,
-  `department` varchar(16) DEFAULT NULL,
-  `jobtitle` varchar(16) DEFAULT NULL,
+  `dateofbirth` date DEFAULT NULL,
+  `department` varchar(32) DEFAULT NULL,
+  `jobtitle` varchar(32) DEFAULT NULL,
   `phone` varchar(16) DEFAULT NULL,
   `country` varchar(16) DEFAULT NULL,
   `city` varchar(16) DEFAULT NULL,
@@ -85,11 +94,30 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Index pour les tables déchargées
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`user_id`, `role`, `firstname`, `lastname`, `email`, `password`, `dateofbirth`, `department`, `jobtitle`, `phone`, `country`, `city`, `gender`, `bio`, `status`, `user_created_at`, `user_updated_at`) VALUES
+('ADMe769fbadacc23', 'Admin', 'Adam', 'Khomsi', 'adam.khomsi@censync.com', '$2y$10$VZzA0wc7SijjSdwr8cSP/uYDSqWr0t30iYebGS4QncUx9yITJPIh6', '1993-12-03', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '2021-07-04 21:28:14', '2021-07-04 21:28:14'),
+('DEV6ce9d0c9afde5', 'Developer', 'Hamza', 'Bouchikhi', 'hamza.bouchikhi@censync.com', '$2y$10$vlOvm0DB4kixg0yYMl75XOK/0m0vG2NK1rJ2nY5Jkg5Nww2UXAN66', NULL, 'Frontend', 'Web Designer', NULL, NULL, NULL, NULL, NULL, 'active', '2021-07-21 22:37:42', '2021-07-21 22:42:55'),
+('DEV76d004394b1ca', 'Developer', 'Othmane', 'Kahtal', 'othmane.kahtal@censync.com', '$2y$10$mEIratDkU4abcO3Z5MlpCu07x2m09ag9BSp1/5P9BTdXvQ2IE6SbC', NULL, 'CSS', 'Flexbox', NULL, NULL, NULL, NULL, NULL, 'active', '2021-07-21 22:45:58', '2021-07-21 22:46:21'),
+('DEV7f4ec66a2d01b', 'Developer', 'Walid', 'Moultamis', 'walid.moultamis@censync.com', '$2y$10$TRQ1nDTiBP4E6a2qtb.7ROm4BGCU9ir864ebSQBLl79EP8D7kJgme', NULL, 'Atlas Trip', 'CEO', NULL, NULL, NULL, NULL, NULL, 'active', '2021-07-18 19:33:15', '2021-07-18 19:34:03'),
+('DEV91c0c5fc2ad4c', 'Developer', 'Youssef', 'Hajjari', 'youssef.hajjari@censync.com', '$2y$10$dDAhf2.6LwzWcGkp8WHcYuI.agYWyJmFGFrp99l.M1FAhNgGYfdi6', NULL, 'Javascript', '7achwa', NULL, NULL, NULL, NULL, NULL, 'active', '2021-07-19 17:06:34', '2021-07-19 17:07:26'),
+('EMP423dbe4a7f54e', 'Employee', 'Yassine', 'Ghouaj', 'yassine.ghouaj@censync.com', '$2y$10$KgWZxwSHheM9OW1S9yv.W.Tt0voRxNeF6nN4/v7OZKwZ1hA7hUDrC', NULL, 'Backend', 'Python Developer', NULL, NULL, NULL, NULL, NULL, 'active', '2021-07-21 22:42:25', '2021-07-21 22:43:15'),
+('EMP9033063ad6c35', 'Employee', 'Mahdi', 'Elboustani', 'mahdi.elboustani@censync.com', '$2y$10$z3tRYUYlJuVdO5UN2irhfOImoNeHj2we2d04rAklmHRVOFUbX3z3m', NULL, 'LGBT', 'spolaya', NULL, NULL, NULL, NULL, NULL, 'active', '2021-07-18 22:46:21', '2021-07-18 22:46:37'),
+('EMPc3b106eb58d18', 'Employee', 'John', 'Doe', 'john.doe@censync.com', '$2y$10$vWmfQ72privMScldQvD1LulLK0QOpkqfOLbr1IdQiOAQnqjvNfgrW', NULL, 'Finances', 'Analyst', NULL, NULL, NULL, NULL, NULL, 'active', '2021-07-22 16:03:43', '2021-07-22 16:03:58'),
+('EMPf66b52b155f88', 'Employee', 'Abdussabour', 'Bourras', 'abdussabour.bourras@censync.com', '$2y$10$9I.Zue2trIe2gQ2hQ/aeb.SaTxbvkMQ/MIvaVN1SMX/SESul.WVn2', NULL, 'NBA', '2K', NULL, NULL, NULL, NULL, NULL, 'active', '2021-07-21 22:37:19', '2021-07-21 22:43:53'),
+('TCH0e14a91fb5a7c', 'Technician', 'Karim', 'Baggari', 'karim.baggari@censync.com', '$2y$10$Gyf6A7hWNWEQbLC87PY.weIBbNsKSz7jx3DnmOK8sKWt9exjhgygG', NULL, 'Cyber Security', 'Hacker', NULL, NULL, NULL, NULL, NULL, 'active', '2021-07-21 22:38:18', '2021-07-21 22:44:10'),
+('TCH29bb3caf40b1a', 'Technician', 'Elmahdi', 'Rammach', 'elmahdi.rammach@censync.com', '$2y$10$c7xWUESFO.ZkjIV5hIQ3R.jGKWQtfCL0tCOCzKqU5j7FWm4jlSnBq', NULL, 'Finances', 'Nessab', NULL, NULL, NULL, NULL, NULL, 'active', '2021-07-21 22:41:07', '2021-07-21 22:44:26'),
+('TCH4c49d86b7a1a4', 'Technician', 'Youness', 'Hassoune', 'youness.hassoune@censync.com', '$2y$10$MLKTGdfEjwNjUUZkw7cqN.8mvEHYDXSVPPbuaT5bb3/qhaODfV7Vi', NULL, 'La balena', 'Sigena', NULL, NULL, NULL, NULL, NULL, 'active', '2021-07-19 17:06:59', '2021-07-19 17:07:46'),
+('TCH7b15ae3b7739f', 'Technician', 'Ayoub', 'Mabrouk', 'ayoub.mabrouk@censync.com', '$2y$10$Sny78FD0E7s8mfkQaT1jbOdImPzDlGZP6YuteiZKLvVrWe.RNIzAe', NULL, 'Best Practice', 'PDO', NULL, NULL, NULL, NULL, NULL, 'active', '2021-07-18 18:13:44', '2021-07-18 18:18:41');
+
+--
+-- Indexes for dumped tables
 --
 
 --
--- Index pour la table `note`
+-- Indexes for table `note`
 --
 ALTER TABLE `note`
   ADD PRIMARY KEY (`note_id`),
@@ -97,32 +125,32 @@ ALTER TABLE `note`
   ADD KEY `ticket_id` (`ticket_id`);
 
 --
--- Index pour la table `ticket`
+-- Indexes for table `ticket`
 --
 ALTER TABLE `ticket`
   ADD PRIMARY KEY (`ticket_id`),
   ADD KEY `user_id` (`user_id`);
 
 --
--- Index pour la table `user`
+-- Indexes for table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`user_id`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- Contraintes pour les tables déchargées
+-- Constraints for dumped tables
 --
 
 --
--- Contraintes pour la table `note`
+-- Constraints for table `note`
 --
 ALTER TABLE `note`
   ADD CONSTRAINT `note_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE,
   ADD CONSTRAINT `note_ibfk_2` FOREIGN KEY (`ticket_id`) REFERENCES `ticket` (`ticket_id`) ON DELETE CASCADE;
 
 --
--- Contraintes pour la table `ticket`
+-- Constraints for table `ticket`
 --
 ALTER TABLE `ticket`
   ADD CONSTRAINT `ticket_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE;

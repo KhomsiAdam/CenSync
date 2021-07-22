@@ -50,7 +50,6 @@ class Router {
         return call_user_func($callback, $this->request);
     }
 
-    // ? Component View System is still work in progress 
     /** Component View System renderer: components like {{content}} & {{head}} are placeholders that gets replaced with code
     * @param string $component
     * @param array $params optional
@@ -66,7 +65,7 @@ class Router {
         array_push($this->arrView, $head, $content);
         return str_replace($this->arrComponents, $this->arrView, $layout);
     }
-    // Rendering the view with the dashboard layout with a navbar and header
+    // Rendering the view with the dashboard layout with a navbar, header and create ticket modal
     public function renderDashboardView($component, $params = []) {
 
         $layout = $this->dashboardlayout();

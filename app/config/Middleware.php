@@ -56,11 +56,6 @@ class Middleware
             $this->throwError(REQUEST_CONTENT_TYPE_NOT_VALID, 'Request Content-Type is unvalid.');
         }
 
-        // ? To allow access to api only with content-type json
-        // if($_SERVER['CONTENT_TYPE'] !== 'application/json') {
-        //     $this->throwError(REQUEST_CONTENT_TYPE_NOT_VALID, 'Request Content-Type is unvalid.');
-        // }
-
         // Convert data retrieved to php object
         $data = json_decode($this->request, true);
 
@@ -97,7 +92,7 @@ class Middleware
         $controllerMethod->invoke($controllerObj);
     }
     
-    //* This handles the authentication
+    //* This handles the authentication do not remove or modify
     // Process Authentication Methods
     public function processAuthMethods() {
         $this->processControllerMethods(AuthApiController::class);
@@ -159,17 +154,16 @@ class Middleware
         return $value;
     }
 
-    // 5.1) Get header Authorization
+    // 5.1) Get header Authorization : Handling Apache, NGINX, fast CGI etc...
     public function getAuthorizationHeader()
     {
         $headers = null;
         if (isset($_SERVER['Authorization'])) {
             $headers = trim($_SERVER["Authorization"]);
-        } else if (isset($_SERVER['HTTP_AUTHORIZATION'])) { //Nginx or fast CGI
+        } else if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
             $headers = trim($_SERVER["HTTP_AUTHORIZATION"]);
         } elseif (function_exists('apache_request_headers')) {
             $requestHeaders = apache_request_headers();
-            // Server-side fix for bug in old Android versions (a nice side-effect of this fix means we don't care about capitalization for Authorization)
             $requestHeaders = array_combine(array_map('ucwords', array_keys($requestHeaders)), array_values($requestHeaders));
             if (isset($requestHeaders['Authorization'])) {
                 $headers = trim($requestHeaders['Authorization']);

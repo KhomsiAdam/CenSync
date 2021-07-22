@@ -210,7 +210,7 @@ class UserModel
 
     public function readAll($table)
     {
-        $sql = "SELECT user_id, role, firstname, lastname, email, dateofbirth, jobtitle, phone, country, city, status, user_created_at FROM $table WHERE NOT (user_id = :user_id)";
+        $sql = "SELECT user_id, role, firstname, lastname, email, dateofbirth, jobtitle, phone, country, city, status, user_created_at FROM $table WHERE NOT (user_id = :user_id) AND NOT (role = 'admin')";
         $stmt = $this->db_conn->prepare($sql);
         $stmt->bindParam(':user_id', $this->user_id);
         if ($stmt->execute()) {
@@ -272,6 +272,21 @@ class UserModel
         	return false;
         }
     }
+
+    public function readRoles($table)
+    {
+        $sql = "SELECT role FROM $table WHERE NOT (role = 'admin')";
+        $stmt = $this->db_conn->prepare($sql);
+        if($stmt->execute()) {
+            $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            header ("Content-Type: application/json");
+            echo json_encode($users,JSON_PRETTY_PRINT|JSON_NUMERIC_CHECK);    
+        	return true;
+        } else {
+        	return false;
+        }
+    }
+
     public function updateStatus($table)
     {
         $sql = "UPDATE $table SET department = :department, jobtitle = :jobtitle, status = :status, user_updated_at = CURRENT_TIMESTAMP

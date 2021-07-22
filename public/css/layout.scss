@@ -1,5 +1,7 @@
+// Import variables
 @use "variables" as *;
 
+// Layout settings
 body {
     display: grid;
     height: 100vh;
@@ -40,6 +42,12 @@ main {
         font-size: 2.4rem;
     }
 }
+// If the browser is Firefox, overflow auto instead of overlay
+@-moz-document url-prefix() {
+    main {
+        overflow-y: auto;
+    }
+}
 // Header Component Styling
 header {
     grid-area: navbar header;
@@ -49,6 +57,7 @@ header {
     width: 100vw;
     align-items: center;
     border-bottom: solid 2px $gray;
+    // Searbar
     .search-container {
         width: 40%;
         height: 72px;
@@ -82,6 +91,7 @@ header {
             }
         }
     }
+    // Create Ticket Button
     .create_container {
         width: 20%;
         .create_ticket {
@@ -101,6 +111,7 @@ header {
             }
         }
     }
+    // Notifications Bell
     .bell_container {
         width: 5%;
         padding: 0 3em;
@@ -112,6 +123,7 @@ header {
             }
         }
     }
+    // Profile Image
     .profile_container {
         width: auto;
         height: 42%;
@@ -133,7 +145,6 @@ header {
     background: $white;
     border-right: solid 2px $gray;
     transition: width 200ms ease;
-
     .nav_menu {
         list-style: none;
         padding: 0;
@@ -271,10 +282,13 @@ header {
         font-size: 2.4rem;
         .create-ticket-form,
         .assign-ticket-form,
+        .resolve-ticket-form,
+        .delete-ticket-form,
         .activate-account-form,
         .delete-account-form,
-        .resolve-ticket-form,
-        .note-ticket-form {
+        .note-ticket-form,
+        .edit-note-ticket-form,
+        .delete-note-ticket-form {
             display: flex;
             flex-direction: column;
             justify-content: space-around;
@@ -398,9 +412,12 @@ header {
                 }
             }
         }
-        .delete-account-form {
+        .delete-account-form,
+        .delete-ticket-form,
+        .delete-note-ticket-form {
             flex-direction: row;
-            .delete-submit-button {
+            .delete-submit-button,
+            .delete-note-submit-button {
                 width: 740px;
                 color: $white;
                 border: solid 2px $white;
@@ -409,7 +426,8 @@ header {
                     border: solid 2px $red;
                 }
             }
-            .delete-cancel-button {
+            .delete-cancel-button,
+            .delete-note-cancel-button {
                 width: 740px;
                 color: $white;
                 border: solid 2px $white;
@@ -498,8 +516,10 @@ header {
                     }
                 }
                 .assigned-image {
-                    height: 60px;
+                    height: 100px;
                     width: 60px;
+                    display: grid;
+                    align-content: center;
                     svg {
                         fill: $blue;
                     }
@@ -526,14 +546,17 @@ header {
                 }
             }
         }
-        .note-ticket-form {
-            #note {
+        .note-ticket-form,
+        .edit-note-ticket-form {
+            #note,
+            #edit-note {
                 resize: none;
             }
             .note-buttons-container {
                 display: flex;
                 gap: 3rem;
-                .note-submit-button {
+                .note-submit-button,
+                .edit-note-submit-button {
                     width: 740px;
                     color: $white;
                     border: solid 2px $white;
@@ -542,7 +565,8 @@ header {
                         border: solid 2px $green;
                     }
                 }
-                .note-cancel-button {
+                .note-cancel-button,
+                .edit-note-cancel-button {
                     width: 740px;
                     color: $white;
                     border: solid 2px $white;
@@ -555,10 +579,11 @@ header {
         }
     }
 }
+// Modal handling
 .modal.active {
     transform: translate(-50%, -50%) scale(1);
 }
-
+// Modal overlay
 #overlay {
     position: fixed;
     opacity: 0;
@@ -574,6 +599,8 @@ header {
     pointer-events: all;
     opacity: 1;
 }
+
+// Mobile media query
 @media only screen and (max-width: 768px) {
     body {
         grid-template-areas:
@@ -721,6 +748,7 @@ header {
 .username {
     display: none;
 }
+// Navbar fixes for Desktop
 @media only screen and (min-width: 768px) {
     .navbar {
         &:hover {

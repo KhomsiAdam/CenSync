@@ -1,5 +1,6 @@
 const ticket_body = document.querySelector('.tbody');
 
+// Get all tickets with limited informations
 const fetchTickets = async (method, endpoint, ticket_body) => {
     const data = {
         "method": method
@@ -58,6 +59,12 @@ const fetchTickets = async (method, endpoint, ticket_body) => {
     }
 }
 
+// Show all tickets after the page loads
+document.addEventListener('DOMContentLoaded', () => {
+    fetchTickets('readAllTickets', '/ticket', ticket_body);
+})
+
+// Get the last created ticket
 const fetchLastTicket = async (method, endpoint, ticket_body) => {
     const data = {
         "method": method
@@ -115,6 +122,7 @@ const fetchLastTicket = async (method, endpoint, ticket_body) => {
     }
 }
 
+// Get individual ticket with all it's informations
 const fetchTicketById = async (method, endpoint, ticket_id) => {
     const data = {
         "method": method,
@@ -141,8 +149,7 @@ const fetchTicketById = async (method, endpoint, ticket_id) => {
         verifyTokenExp();
     } else {
 
-
-        // Assign user id to the buttons
+        // Assign ticket id to the buttons if they exist
         if (assign_button) assign_button.value = ticket['ticket_id'];
         if (delete_button) delete_button.value = ticket['ticket_id'];
         if (resolve_button) {
@@ -155,7 +162,6 @@ const fetchTicketById = async (method, endpoint, ticket_id) => {
             }
         }
         if (note_button) note_button.value = ticket['ticket_id'];
-
 
         // Fetch users depending on ticket category by role match: software = developer & hardware = technician
         if (assign_form) {
@@ -172,9 +178,17 @@ const fetchTicketById = async (method, endpoint, ticket_id) => {
             }
         }
 
+        // Style the reported by value with green if it matches the user connected
+        if (document.querySelector('.ticket-reported-by-value').innerHTML === user) {
+            document.querySelector('.ticket-reported-by-value').style.color = green;
+        } else {
+            document.querySelector('.ticket-reported-by-value').style.color = blue;
+        }
+
         let assigned_to = ticket['assigned_to'];
         placeholderAssignData(assigned_to, document.querySelector('.ticket-assigned-to-value'), '_________ _________');
 
+        // Style the assigned to value with green if it matches the user connected
         if (document.querySelector('.ticket-assigned-to-value').innerHTML === user) {
             document.querySelector('.ticket-assigned-to-value').style.color = green;
         } else {
@@ -184,12 +198,14 @@ const fetchTicketById = async (method, endpoint, ticket_id) => {
         let assigned_by = ticket['assigned_by'];
         placeholderAssignData(assigned_by, document.querySelector('.ticket-assigned-by-value'), '_________ _________');
 
+        // Style the assigned by value with green if it matches the user connected
         if (document.querySelector('.ticket-assigned-by-value').innerHTML === user) {
             document.querySelector('.ticket-assigned-by-value').style.color = green;
         } else {
             document.querySelector('.ticket-assigned-by-value').style.color = blue;
         }
 
+        // Handling the datetime format from database
         let ticket_assigned_at = ticket['ticket_assigned_at'];
         if (ticket_assigned_at == 'Nov 30 -0001, 00:11 AM') {
             ticket_assigned_at = '___ __ ____, __:__ __';
@@ -214,32 +230,26 @@ const fetchTicketById = async (method, endpoint, ticket_id) => {
             document.querySelector('.ticket-resolved-value').style.opacity = '1';
         }
 
+        // Status icon depending on Status value
         document.querySelector('.status-text').innerHTML = ticket['status'];
-
         switch (document.querySelector('.status-text').innerHTML) {
             case 'Pending':
                 document.querySelector('.status-text').parentElement.style.background = blue;
-                document.querySelector('.status-text').nextElementSibling.innerHTML = "🕗";
+                document.querySelector('.status-text').nextElementSibling.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 33 33"> <g id="Icon_feather-clock" data-name="Icon feather-clock" transform="translate(-1.5 -1.5)"> <path id="Path_13" data-name="Path 13" d="M33,18A15,15,0,1,1,18,3,15,15,0,0,1,33,18Z" fill="none" stroke="#F9F9F9" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/> <path id="Path_14" data-name="Path 14" d="M18,9v9l6,3" fill="none" stroke="#F9F9F9" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/> </g> </svg>';
                 break;
             case 'Open':
                 document.querySelector('.status-text').parentElement.style.background = lightblue;
-                document.querySelector('.status-text').nextElementSibling.innerHTML = "📂";
+                document.querySelector('.status-text').nextElementSibling.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20.228" height="15.084" viewBox="0 0 40.5 27"> <path id="Icon_awesome-folder-open" data-name="Icon awesome-folder-open" d="M40.268,20.538l-5.092,8.73A4.5,4.5,0,0,1,31.288,31.5H3.166a1.688,1.688,0,0,1-1.458-2.538L6.8,20.233A4.5,4.5,0,0,1,10.688,18H38.81a1.687,1.687,0,0,1,1.458,2.538ZM10.688,15.75H33.75V12.375A3.375,3.375,0,0,0,30.375,9H19.125l-4.5-4.5H3.375A3.375,3.375,0,0,0,0,7.875v19.55L4.857,19.1A6.773,6.773,0,0,1,10.688,15.75Z" transform="translate(0 -4.5)" fill="#F9F9F9"/> </svg>';
                 break;
             case 'Resolved':
                 document.querySelector('.status-text').parentElement.style.background = green;
-                document.querySelector('.status-text').nextElementSibling.innerHTML = "✔";
+                document.querySelector('.status-text').nextElementSibling.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20.228" height="15.084" viewBox="0 0 20.228 15.084"> <path id="Icon_awesome-check" data-name="Icon awesome-check" d="M6.87,19.365.3,12.791a1.011,1.011,0,0,1,0-1.43l1.43-1.43a1.011,1.011,0,0,1,1.43,0l4.429,4.428,9.485-9.485a1.011,1.011,0,0,1,1.43,0l1.43,1.43a1.011,1.011,0,0,1,0,1.43L8.3,19.365A1.011,1.011,0,0,1,6.87,19.365Z" transform="translate(0 -4.577)" fill="#F9F9F9"/> </svg>';
                 break;
         }
 
         document.querySelector('.ticket-priority-value').innerHTML = ticket['priority'];
         document.querySelector('.ticket-type-value').innerHTML = ticket['category'];
         document.querySelector('.ticket-reported-by-value').innerHTML = ticket['reported_by'];
-
-        if (document.querySelector('.ticket-reported-by-value').innerHTML === user) {
-            document.querySelector('.ticket-reported-by-value').style.color = green;
-        } else {
-            document.querySelector('.ticket-reported-by-value').style.color = blue;
-        }
 
         document.querySelector('.ticket-created-value').innerHTML = ticket['ticket_created_at'];
 
@@ -249,6 +259,7 @@ const fetchTicketById = async (method, endpoint, ticket_id) => {
         document.querySelector('.ticket-title').innerHTML = ticket['title'];
         document.querySelector('.ticket-content').innerHTML = ticket['content'];
 
+        // Ticket priority icon depending on priority value
         switch (document.querySelector('.ticket-priority-value').innerHTML) {
             case 'High':
                 document.querySelector('.ticket-priority-value').innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="33.423" height="29.154" viewBox="0 0 33.423 29.154"> <g id="High_Icon" data-name="High Icon" transform="translate(-886.461 -435.423)"> <path id="Icon_feather-triangle" data-name="Icon feather-triangle" d="M15.435,5.79,2.73,27A3,3,0,0,0,5.3,31.5H30.7A3,3,0,0,0,33.27,27L20.565,5.79a3,3,0,0,0-5.13,0Z" transform="translate(885.172 432.077)" fill="#C94242" stroke="#C94242" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/> <text id="H" transform="translate(898 459)" fill="#F9F9F9" font-size="15" font-family="Raleway-SemiBold, Raleway" font-weight="600"><tspan x="0" y="0">H</tspan></text> </g> </svg><span> High</span>';
@@ -263,38 +274,50 @@ const fetchTicketById = async (method, endpoint, ticket_id) => {
 
         // Get note
         fetchNoteByTicketId('readUniqueNote', '/note', ticket_selected_id);
-        
-        setTimeout(() => {
-            if (document.querySelector('.note-author').innerHTML === '') {
-                document.querySelector('.leave-note').classList.remove('ticket-button-disabled');
-                document.querySelector('.leave-note').classList.add('ticket-button');
-                document.querySelector('.leave-note').disabled = false;
-            } else {
-                document.querySelector('.leave-note').classList.remove('ticket-button');
-                document.querySelector('.leave-note').classList.add('ticket-button-disabled');
-                document.querySelector('.leave-note').disabled = true;            
-            }
-        }, 300);
+
+        // Render the Leave Note button if there's no note
+        if (document.querySelector('.note-author')) {
+            setTimeout(() => {
+                if (document.querySelector('.note-author').innerHTML === '') {
+                    if (document.querySelector('.leave-note')) {
+                        document.querySelector('.leave-note').classList.remove('ticket-button-disabled');
+                        document.querySelector('.leave-note').classList.add('ticket-button');
+                        document.querySelector('.leave-note').disabled = false;
+                    }
+                } else {
+                    if (document.querySelector('.leave-note')) {
+                        document.querySelector('.leave-note').classList.remove('ticket-button');
+                        document.querySelector('.leave-note').classList.add('ticket-button-disabled');
+                        document.querySelector('.leave-note').disabled = true;
+                    }
+                }
+            }, 300);
+        }
 
         document.querySelector('.tickets').style.display = "none";
         document.querySelector('.ticket-details').style.display = "grid";
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    fetchTickets('readAllTickets', '/ticket', ticket_body);
-})
-
 const assign_form = document.querySelector('.assign-ticket-form');
 const assign_button = document.querySelector('.assign-submit-button');
+
 const delete_form = document.querySelector('.delete-ticket-form');
 const delete_button = document.querySelector('.delete-submit-button');
+
 const resolve_form = document.querySelector('.resolve-ticket-form');
 const resolve_button = document.querySelector('.resolve-submit-button');
+
 const note_form = document.querySelector('.note-ticket-form');
 const note_button = document.querySelector('.note-submit-button');
 const note_content = document.querySelector('#note');
+const edit_note_form = document.querySelector('.edit-note-ticket-form');
+const edit_note_button = document.querySelector('.edit-note-submit-button');
+const edit_note_content = document.querySelector('#edit-note');
+const delete_note_form = document.querySelector('.delete-note-ticket-form');
+const delete_note_button = document.querySelector('.delete-note-submit-button');
 
+// Ticket deletion
 const deleteTicket = async (method, endpoint) => {
     const data = {
         "method": method,
@@ -326,23 +349,28 @@ if (delete_form) {
         e.preventDefault();
 
         deleteTicket('deleteTicket', '/ticket');
+        // Remove state classes from the assign button
         if (document.querySelector('.assign-ticket')) {
             document.querySelector('.assign-ticket').classList.remove('ticket-button-disabled');
             document.querySelector('.assign-ticket').classList.remove('ticket-button');
         }
+        // Back to normal view of all tickets
         document.querySelector('.tickets').style.display = 'grid';
         document.querySelector('.ticket-details').style.display = 'none';
-
+        // Emptying the ticket body then getting the updated list
         ticket_body.innerHTML = '';
         fetchTickets('readAllTickets', '/ticket', ticket_body);
+        // Close the delete ticket modal
         const modals = document.querySelectorAll('.modal.active');
         modals.forEach(modal => {
             closeModal(modal);
         })
+        // Capture all tickets
         setTimeout(() => { captureAllTickets(); }, 400);
     })
 }
 
+// Get users by role for the assign ticket form
 const fetchUserByRole = async (method, endpoint, role) => {
     const data = {
         "method": method,
@@ -406,6 +434,7 @@ const fetchUserByRole = async (method, endpoint, role) => {
     }
 }
 
+// Ticket assignement
 const assignTicket = async (method, endpoint) => {
     const data = {
         "method": method,
@@ -444,19 +473,25 @@ if (assign_button) {
         } else {
             assignTicket('updateTicketAssigned', '/ticket');
             assign_form.reset();
+            // Get the updated ticket informations
             fetchTicketById('readUniqueTicket', '/ticket', ticket_selected_id);
+            // Disable the assign button
             document.querySelector('.assign-ticket').classList.remove('ticket-button');
+            // Emptying the ticket body and get the updated list
             ticket_body.innerHTML = '';
             fetchTickets('readAllTickets', '/ticket', ticket_body);
+            // Close the assign ticket modal
             const modals = document.querySelectorAll('.modal.active');
             modals.forEach(modal => {
                 closeModal(modal);
             })
+            // Capture all tickets
             setTimeout(() => { captureAllTickets(); }, 400);
         }
     });
 }
 
+// Ticket resolution
 const resolveTicket = async (method, endpoint) => {
     const data = {
         "method": method,
@@ -489,17 +524,22 @@ if (resolve_form) {
         e.preventDefault();
 
         resolveTicket('updateTicketResolved', '/ticket');
+        // Get ticket updated informations
         fetchTicketById('readUniqueTicket', '/ticket', ticket_selected_id);
+        // Emptying the ticket body and get the updated list
         ticket_body.innerHTML = '';
         fetchTickets('readAllTickets', '/ticket', ticket_body);
+        // Close the resolve ticket modal
         const modals = document.querySelectorAll('.modal.active');
         modals.forEach(modal => {
             closeModal(modal);
         })
+        // Capture all tickets
         setTimeout(() => { captureAllTickets(); }, 400);
     });
 }
 
+// Note creation
 const leaveNote = async (method, endpoint) => {
     const data = {
         "method": method,
@@ -536,15 +576,119 @@ if (note_form) {
             console.log('Please fill all the fields');
         } else {
             leaveNote('createNote', '/note');
+            // Get the updated ticket informations
             fetchTicketById('readUniqueTicket', '/ticket', ticket_selected_id);
+            // Emptying the ticket body and get the updated list
             ticket_body.innerHTML = '';
             fetchTickets('readAllTickets', '/ticket', ticket_body);
+            // Close the note creation modal
             const modals = document.querySelectorAll('.modal.active');
             modals.forEach(modal => {
                 closeModal(modal);
             })
+            // Capture all tickets
             setTimeout(() => { captureAllTickets(); }, 400);
         }
+    });
+}
+
+// Note update
+const editNote = async (method, endpoint) => {
+    const data = {
+        "method": method,
+        "params": {
+            "note_id": edit_note_button.value,
+            "content": edit_note_content.value
+        }
+    }
+    const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify(data)
+    });
+    // Custom error message in case the status is not 200 : OK (ex:problem with ressource url)
+    if (response.status !== 200) {
+        throw new Error('cannot fetch data');
+    }
+    note = await response.json();
+    // Check for expired token to redirect to login page
+    if (note.error) {
+        verifyTokenExp();
+    }
+}
+
+if (edit_note_form) {
+    edit_note_form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        if (edit_note_content.value === '') {
+            // edit_note_error.innerHTML = 'Please fill all the fields';
+            console.log('Please fill all the fields');
+        } else {
+            editNote('updateNote', '/note');
+            // Get the updated ticket informations
+            fetchTicketById('readUniqueTicket', '/ticket', ticket_selected_id);
+            // Emptying the ticket body and get the updated list
+            ticket_body.innerHTML = '';
+            fetchTickets('readAllTickets', '/ticket', ticket_body);
+            // Close the note update modal
+            const modals = document.querySelectorAll('.modal.active');
+            modals.forEach(modal => {
+                closeModal(modal);
+            })
+            // Capture all tickets
+            setTimeout(() => { captureAllTickets(); }, 400);
+        }
+    });
+}
+
+// Note deletion
+const deleteNote = async (method, endpoint) => {
+    const data = {
+        "method": method,
+        "params": {
+            "note_id": delete_note_button.value
+        }
+    }
+    const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify(data)
+    });
+    // Custom error message in case the status is not 200 : OK (ex:problem with ressource url)
+    if (response.status !== 200) {
+        throw new Error('cannot fetch data');
+    }
+    note = await response.json();
+    // Check for expired token to redirect to login page
+    if (note.error) {
+        verifyTokenExp();
+    }
+}
+
+if (delete_note_form) {
+    delete_note_form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        deleteNote('deleteNote', '/note');
+        // Get the updated ticket informations
+        fetchTicketById('readUniqueTicket', '/ticket', ticket_selected_id);
+        // Emptying the ticket body and get the updated list
+        ticket_body.innerHTML = '';
+        fetchTickets('readAllTickets', '/ticket', ticket_body);
+        // Close the note creation modal
+        const modals = document.querySelectorAll('.modal.active');
+        modals.forEach(modal => {
+            closeModal(modal);
+        })
+        // Capture all tickets
+        setTimeout(() => { captureAllTickets(); }, 400);
     });
 }
 
@@ -555,6 +699,14 @@ const note_ticket_content = document.querySelector('.note-content');
 const note_edit = document.querySelector('.note-edit')
 const note_delete = document.querySelector('.note-delete')
 
+// Transfer note content to the note edit form
+if (note_edit) {
+    note_edit.addEventListener('click', () => {
+        edit_note_content.value = note_ticket_content.innerHTML;
+    })
+}
+
+// Get note related to specific ticket
 const fetchNoteByTicketId = async (method, endpoint, ticket_id) => {
     const data = {
         "method": method,
@@ -579,50 +731,38 @@ const fetchNoteByTicketId = async (method, endpoint, ticket_id) => {
     // Check for expired token to redirect to login page
     if (note.error) {
         verifyTokenExp();
+    // if a note exists
     } else if (note['note_id']) {
-
-        note_edit.style.display = 'unset';
-        note_delete.style.display = 'unset';
+        // If the note buttons exists, assign the note ID to them
+        if (edit_note_button) edit_note_button.value = note['note_id'];
+        if (delete_note_button) delete_note_button.value = note['note_id'];
+        // Reveal the edit and delete buttons if they were hidden
+        if (note_edit) note_edit.style.display = 'unset';
+        if (note_delete) note_delete.style.display = 'unset';
+        // Reseting the note elements
         clearNoteHTML();
-
+        // Assign the fetched informations to note elements
         note_author.innerHTML = note['firstname'] + ' ' + note['lastname'];
         note_time.innerHTML = note['note_updated_at'];
         note_ticket_content.innerHTML = note['content'];
-
+        // Displaying the note
         note_container.style.display = 'grid'
-
         setTimeout(() => { note_container.style.opacity = '1'; }, 200);
-
+        // Assign the note id to the edit and delete buttons
         if (note_container) {
-            note_edit.value = note['note_id'];
-            note_delete.value = note['note_id'];
+            if (note_edit) note_edit.value = note['note_id'];
+            if (note_delete) note_delete.value = note['note_id'];
         }
-
+    // If there's no note related to the ticket
     } else {
-        note_container.style.display = 'none'
-        note_container.style.opacity = '0';
-        note_edit.style.display = 'none';
-        note_delete.style.display = 'none';
-        clearNoteHTML();
+        if (note_container) {
+            // Hide the container and buttons if they exist
+            note_container.style.display = 'none'
+            note_container.style.opacity = '0';
+            if (note_edit) note_edit.style.display = 'none';
+            if (note_delete) note_delete.style.display = 'none';
+            // Clear the note elements
+            clearNoteHTML();
+        }
     }
 }
-
-// function radioCheck() {
-//     let radio_buttons = document.querySelectorAll('.custom-radio');
-//     for (let i = 0; i < radio_buttons.length; i++) {
-//         if(radio_buttons[i].checked === true) radio_button[i].parentElement.style.color = '#5FBE6E';
-//     }
-
-    // document.querySelectorAll('.custom-radio').forEach(radio_button => {
-    //     if (radio_button.checked === true) radio_button.parentElement.style.color = '#5FBE6E';
-    // });
-// }
-
-// assign_form.getElementsByTagName('label').forEach(label => {
-//     label.addEventListener('click', radioCheck);
-// });
-
-// let labels = assign_form.getElementsByTagName('label');
-// for (let i = 0; i < labels.length; i++) {
-//     labels[i].addEventListener('click', radioCheck);
-// }

@@ -5,10 +5,10 @@ CREATE TABLE user (
     firstname VARCHAR(16) NOT NULL,
     lastname VARCHAR(16) NOT NULL,
     email VARCHAR(32) NOT NULL UNIQUE,
-    password VARCHAR(32) NOT NULL,
+    password VARCHAR(128) NOT NULL,
     dateofbirth DATE NOT NULL,
-    department VARCHAR(16),
-    jobtitle VARCHAR(16),
+    department VARCHAR(32),
+    jobtitle VARCHAR(32),
     phone VARCHAR(16),
     country VARCHAR(16),
     city VARCHAR(16),
@@ -48,18 +48,3 @@ CREATE TABLE note (
     FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE,
     FOREIGN KEY (ticket_id) REFERENCES ticket(ticket_id) ON DELETE CASCADE
 )
-
--- @block
-SELECT COUNT(user_id) FROM user
-
--- @block
-SELECT COUNT(*) AS [Staff Number]
-FROM user;
-
--- @block
-SELECT * FROM user WHERE role = 'Developer'
-
--- @block
-SELECT note.note_id, note.content, note.note_updated_at, user.firstname, user.lastname FROM note
-INNER JOIN user ON note.user_id = user.user_id
-WHERE (ticket_id = 'TKT4eeaad3')

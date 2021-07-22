@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Config\Middleware;
@@ -17,14 +18,18 @@ class TicketApiController extends Middleware
 
     // * Add : '$this->validateToken();' as your first line in your method if it requires a token
 
+    // Generate random unique ID with a relevant prefix :
     public function generateTicketId($lenght = 7)
     {
         $bytes = random_bytes(ceil($lenght / 2));
-        $ticket_id = 'TKT'.substr(bin2hex($bytes), 0, $lenght);
+        $ticket_id = 'TKT' . substr(bin2hex($bytes), 0, $lenght);
         return $ticket_id;
     }
 
-    public function createTicket() {
+
+    // Ticket creation
+    public function createTicket()
+    {
         $this->validateToken();
         $ticket_id = $this->generateTicketId();
         $user_id = $this->validateParams('user_id', $this->user_id, STRING);
@@ -44,7 +49,7 @@ class TicketApiController extends Middleware
         $data->setStatus($status);
         $data->setReported_by($reported_by);
         if ($_ENV['DEV_MODE'] === 'ON') {
-            if($data->create($_ENV['AUDIENCE_TABLE']) != true) {
+            if ($data->create($_ENV['AUDIENCE_TABLE']) != true) {
                 $message = 'Failed to create Ticket.';
             } else {
                 $message = "Ticket created successfully.";
@@ -55,71 +60,145 @@ class TicketApiController extends Middleware
         }
     }
 
-    public function readAllTickets() {
+    // Show all tickets
+    public function readAllTickets()
+    {
         $this->validateToken();
         $data = new TicketModel;
         if ($_ENV['DEV_MODE'] === 'ON') {
-            if($data->readAll($_ENV['AUDIENCE_TABLE']) != true) {
+            if ($data->readAll($_ENV['AUDIENCE_TABLE']) != true) {
                 $message = 'Failed to fetch all Tickets.';
             } else {
                 $message = "All Tickets fetched successfully.";
             }
             $this->returnResponse(RESPONSE_MESSAGE, $message);
         } else {
-            $data->readAll($_ENV['AUDIENCE_TABLE']);            
+            $data->readAll($_ENV['AUDIENCE_TABLE']);
         }
     }
 
-    public function readLastTicket() {
+    // Get the last created ticket
+    public function readLastTicket()
+    {
         $this->validateToken();
         $data = new TicketModel;
         if ($_ENV['DEV_MODE'] === 'ON') {
-            if($data->readLast($_ENV['AUDIENCE_TABLE']) != true) {
+            if ($data->readLast($_ENV['AUDIENCE_TABLE']) != true) {
                 $message = 'Failed to fetch all Tickets.';
             } else {
                 $message = "All Tickets fetched successfully.";
             }
             $this->returnResponse(RESPONSE_MESSAGE, $message);
         } else {
-            $data->readLast($_ENV['AUDIENCE_TABLE']);            
+            $data->readLast($_ENV['AUDIENCE_TABLE']);
         }
     }
 
-    public function readTicketsNumber() {
+    // Get total number of tickets
+    public function readTicketsNumber()
+    {
         $data = new TicketModel;
         if ($_ENV['DEV_MODE'] === 'ON') {
-            if($data->readNumber($_ENV['AUDIENCE_TABLE']) != true) {
+            if ($data->readNumber($_ENV['AUDIENCE_TABLE']) != true) {
                 $message = 'Failed to fetch all Tickets number.';
             } else {
                 $message = "All Tickets number fetched successfully.";
             }
             $this->returnResponse(RESPONSE_MESSAGE, $message);
         } else {
-            $data->readNumber($_ENV['AUDIENCE_TABLE']);            
+            $data->readNumber($_ENV['AUDIENCE_TABLE']);
+        }
+    }
+    // Get created tickets by user
+    public function readTicketsNumberUser()
+    {
+        $user_id = $this->validateParams('user_id', $this->param['user_id'], STRING);
+        $data = new TicketModel;
+        $data->setUserId($user_id);
+        if ($_ENV['DEV_MODE'] === 'ON') {
+            if ($data->readNumberUser($_ENV['AUDIENCE_TABLE']) != true) {
+                $message = 'Failed to fetch all Tickets number by User.';
+            } else {
+                $message = "All Tickets number by User fetched successfully.";
+            }
+            $this->returnResponse(RESPONSE_MESSAGE, $message);
+        } else {
+            $data->readNumberUser($_ENV['AUDIENCE_TABLE']);
+        }
+    }
+    // Get assigned tickets to user
+    public function readAssignedNumberUser()
+    {
+        $assigned_to = $this->validateParams('user_id', $this->param['assigned_to'], STRING);
+        $data = new TicketModel;
+        $data->setAssigned_to($assigned_to);
+        if ($_ENV['DEV_MODE'] === 'ON') {
+            if ($data->readAssignedUser($_ENV['AUDIENCE_TABLE']) != true) {
+                $message = 'Failed to fetch all Tickets Assigned to User.';
+            } else {
+                $message = "All Tickets Assigned to User fetched successfully.";
+            }
+            $this->returnResponse(RESPONSE_MESSAGE, $message);
+        } else {
+            $data->readAssignedUser($_ENV['AUDIENCE_TABLE']);
+        }
+    }
+    // Get tickets by status
+    public function readStatusNumber()
+    {
+        $data = new TicketModel;
+        if ($_ENV['DEV_MODE'] === 'ON') {
+            if ($data->readStatus($_ENV['AUDIENCE_TABLE']) != true) {
+                $message = 'Failed to fetch all Statuses number.';
+            } else {
+                $message = "All Statuses number fetched successfully.";
+            }
+            $this->returnResponse(RESPONSE_MESSAGE, $message);
+        } else {
+            $data->readStatus($_ENV['AUDIENCE_TABLE']);
+        }
+    }
+    // Get tickets by priority
+    public function readPriorityNumber()
+    {
+        $data = new TicketModel;
+        if ($_ENV['DEV_MODE'] === 'ON') {
+            if ($data->readPriority($_ENV['AUDIENCE_TABLE']) != true) {
+                $message = 'Failed to fetch all Priorities number.';
+            } else {
+                $message = "All Priorities number fetched successfully.";
+            }
+            $this->returnResponse(RESPONSE_MESSAGE, $message);
+        } else {
+            $data->readPriority($_ENV['AUDIENCE_TABLE']);
         }
     }
 
-    public function readTicketsResolved() {
+    // Get tickets resolved
+    public function readTicketsResolved()
+    {
         $data = new TicketModel;
         if ($_ENV['DEV_MODE'] === 'ON') {
-            if($data->readResolved($_ENV['AUDIENCE_TABLE']) != true) {
+            if ($data->readResolved($_ENV['AUDIENCE_TABLE']) != true) {
                 $message = 'Failed to fetch all resolved Tickets.';
             } else {
                 $message = "All resolved Tickets fetched successfully.";
             }
             $this->returnResponse(RESPONSE_MESSAGE, $message);
         } else {
-            $data->readResolved($_ENV['AUDIENCE_TABLE']);            
+            $data->readResolved($_ENV['AUDIENCE_TABLE']);
         }
     }
 
-    public function readUniqueTicket() {
+    // Get unique ticket informations
+    public function readUniqueTicket()
+    {
         $this->validateToken();
         $ticket_id = $this->validateParams('ticket_id', $this->param['ticket_id'], STRING);
         $data = new TicketModel;
         $data->setTicketId($ticket_id);
         if ($_ENV['DEV_MODE'] === 'ON') {
-            if($data->readUnique($_ENV['AUDIENCE_TABLE']) != true) {
+            if ($data->readUnique($_ENV['AUDIENCE_TABLE']) != true) {
                 $message = 'Failed to fetch unique Ticket.';
             } else {
                 $message = "Unique Ticket fetched successfully.";
@@ -130,7 +209,9 @@ class TicketApiController extends Middleware
         }
     }
 
-    public function updateTicketAssigned() {
+    // Assign a ticket
+    public function updateTicketAssigned()
+    {
         $this->validateToken();
         $ticket_id = $this->validateParams('ticket_id', $this->param['ticket_id'], STRING);
         $status = $this->validateParams('status', 'Open', STRING);
@@ -142,7 +223,7 @@ class TicketApiController extends Middleware
         $data->setAssigned_by($assigned_by);
         $data->setAssigned_to($assigned_to);
         if ($_ENV['DEV_MODE'] === 'ON') {
-            if($data->updateAssigned($_ENV['AUDIENCE_TABLE']) != true) {
+            if ($data->updateAssigned($_ENV['AUDIENCE_TABLE']) != true) {
                 $message = 'Failed to assign Ticket.';
             } else {
                 $message = "Ticket assigned successfully.";
@@ -151,10 +232,11 @@ class TicketApiController extends Middleware
         } else {
             $data->updateAssigned($_ENV['AUDIENCE_TABLE']);
         }
-
     }
 
-    public function updateTicketResolved() {
+    // Resolve a ticket
+    public function updateTicketResolved()
+    {
         $this->validateToken();
         $ticket_id = $this->validateParams('ticket_id', $this->param['ticket_id'], STRING);
         $status = $this->validateParams('status', 'Resolved', STRING);
@@ -162,7 +244,7 @@ class TicketApiController extends Middleware
         $data->setTicketId($ticket_id);
         $data->setStatus($status);
         if ($_ENV['DEV_MODE'] === 'ON') {
-            if($data->updateResolved($_ENV['AUDIENCE_TABLE']) != true) {
+            if ($data->updateResolved($_ENV['AUDIENCE_TABLE']) != true) {
                 $message = 'Failed to resolve Ticket.';
             } else {
                 $message = "Ticket resolved successfully.";
@@ -173,13 +255,15 @@ class TicketApiController extends Middleware
         }
     }
 
-    public function deleteTicket() {
+    // Delete a ticket
+    public function deleteTicket()
+    {
         $this->validateToken();
         $ticket_id = $this->validateParams('ticket_id', $this->param['ticket_id'], STRING);
         $data = new TicketModel;
         $data->setTicketId($ticket_id);
         if ($_ENV['DEV_MODE'] === 'ON') {
-            if($data->delete($_ENV['AUDIENCE_TABLE']) != true) {
+            if ($data->delete($_ENV['AUDIENCE_TABLE']) != true) {
                 $message = 'Failed to delete Ticket.';
             } else {
                 $message = "Ticket deleted successfully.";

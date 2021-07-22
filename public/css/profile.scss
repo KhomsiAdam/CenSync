@@ -1,5 +1,7 @@
+// Import variables
 @use "variables" as *;
 
+// Connected User profile styling
 .staff-details {
     width: 93%;
     height: 75vh;
@@ -40,7 +42,7 @@
     }
     .staff-right {
         display: grid;
-        grid-template-rows: 20% 35% 45%;
+        grid-template-rows: 18% 25% 57%;
         align-items: center;
         padding: 0 4rem;
         font-size: 2.2rem;
@@ -83,7 +85,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-evenly;
-            height: 100%;
+            height: 85%;
             label {
                 font-size: 3.2rem;
                 font-weight: $semibold;
@@ -97,7 +99,7 @@
                 outline: none;
                 padding: 1rem;
                 &:focus {
-                    background: #ffffff;
+                    background: white;
                 }
             }
         }
@@ -120,6 +122,20 @@
                 }
                 .right-values {
                     align-items: flex-end;
+                }
+            }
+            .right-chart {
+                width: 75%;
+                height: 85%;
+                align-self: center;
+                justify-self: center;
+                text-align: center;
+                #titleChart {
+                    font-size: 2.2rem;
+                    color: $black;
+                    font-weight: $semibold;
+                    padding: 1rem 0;
+                    opacity: 0.5;
                 }
             }
         }

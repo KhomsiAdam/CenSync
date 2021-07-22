@@ -1,5 +1,6 @@
+<!-- Stats Cards -->
 <section class="stats">
-    <!-- Stats Cards -->
+    <!-- Total Staff -->
     <div class="staff-card">
         <div class="card-header">
             <div class="staff-number">0</div>
@@ -19,6 +20,7 @@
             </div>
         </a>
     </div>
+    <!-- Total Resolved -->
     <div class="inc-card">
         <div class="card-header">
             <div class="inc-number">0</div>
@@ -38,6 +40,7 @@
             </div>
         </a>
     </div>
+    <!-- Total Tickets -->
     <div class="tickets-card">
         <div class="card-header">
             <div class="tickets-number">0</div>
@@ -57,39 +60,8 @@
             </div>
         </a>
     </div>
-    <!-- Chart Legends -->
-    <div class="staff-legend">
-        <div class="color emp"></div>
-        <div class="legend emp">Employee</div>
-        <div class="color dev"></div>
-        <div class="legend dev">Developer</div>
-        <div class="color tech"></div>
-        <div class="legend tech">Technician</div>
-    </div>
-    <div class="inc-legend">
-        <div class="color resolved"></div>
-        <div class="legend resolved">Resolved</div>
-        <div class="color open"></div>
-        <div class="legend open">Open</div>
-        <div class="color pending"></div>
-        <div class="legend pending">Pending</div>
-    </div>
-    <div class="tickets-legend">
-        <div class="color low"></div>
-        <div class="legend low">Low</div>
-        <div class="color medium"></div>
-        <div class="legend medium">Medium</div>
-        <div class="color high"></div>
-        <div class="legend high">High</div>
-    </div>
     <!-- Stats Charts -->
-    <div class="staff-chart">
-
-    </div>
-    <div class="inc-chart">
-
-    </div>
-    <div class="tickets-chart">
-
-    </div>
+    <div class="staff-chart"></div>
+    <div class="inc-chart"></div>
+    <div class="tickets-chart"></div>
 </section>

@@ -99,6 +99,7 @@ class NoteModel {
         $stmt->bindParam(':note_id', $this->note_id);
     	$stmt->bindParam(':content', $this->content);	
     	if($stmt->execute()) {
+            echo json_encode('Note updated successfully');
     		return true;
     	} else {
     		return false;
@@ -110,6 +111,7 @@ class NoteModel {
     	$stmt = $this->db_conn->prepare($sql);
     	$stmt->bindParam(':note_id', $this->note_id);
     	if($stmt->execute()) {
+            echo json_encode('Note deleted successfully');
     		return true;
     	} else {
     		return false;

@@ -1,30 +1,9 @@
-// Modal Handling
+/* Modals Handling */
 const open_modal_buttons = document.querySelectorAll('[data-modal-target');
 const close_modal_buttons = document.querySelectorAll('[data-close-button');
 const overlay = document.getElementById('overlay');
 
-// Opening and Closing
-open_modal_buttons.forEach(button => {
-    button.addEventListener('click', () => {
-        const modal = document.querySelector(button.dataset.modalTarget);
-        openModal(modal);
-    })
-})
-
-close_modal_buttons.forEach(button => {
-    button.addEventListener('click', () => {
-        const modal = button.closest('.modal');
-        closeModal(modal);
-    })
-})
-// Closing when clicking outside the modal
-overlay.addEventListener('click', () => {
-    const modals = document.querySelectorAll('.modal.active');
-    modals.forEach(modal => {
-        closeModal(modal);
-    })
-})
-// Modal functions
+// Modals functions
 function openModal(modal) {
     if (modal == null) return;
     modal.classList.add('active');
@@ -46,7 +25,30 @@ function closeModal(modal) {
     });
 }
 
-// Handling Custom Select/Options
+// Opening and Closing Modals
+open_modal_buttons.forEach(button => {
+    button.addEventListener('click', () => {
+        const modal = document.querySelector(button.dataset.modalTarget);
+        openModal(modal);
+    })
+})
+
+close_modal_buttons.forEach(button => {
+    button.addEventListener('click', () => {
+        const modal = button.closest('.modal');
+        closeModal(modal);
+    })
+})
+
+// Closing when clicking outside the modal
+overlay.addEventListener('click', () => {
+    const modals = document.querySelectorAll('.modal.active');
+    modals.forEach(modal => {
+        closeModal(modal);
+    })
+})
+
+/* Handling Custom Select/Options */
 const custom_select = document.querySelectorAll('.custom_select');
 
 custom_select.forEach(select => {
@@ -110,6 +112,7 @@ custom_select.forEach(select => {
         }
     })
 });
+
 // Function that handles the styling on hover for the priority custom select options
 function priorityCustomSelect(custom_option, over_color, over_back, over_weight, out_color, out_back, out_weight) {
     custom_option.addEventListener("mouseover", () => {
@@ -123,7 +126,6 @@ function priorityCustomSelect(custom_option, over_color, over_back, over_weight,
         custom_option.style.fontWeight = out_weight;
     });
 }
-
 
 // Create a ticket
 let token = localStorage.getItem('token');
@@ -173,12 +175,23 @@ ticket_form.addEventListener('submit', async function (e) {
     } else {
         createTicket('createTicket', '/ticket');
         ticket_form.reset();
+        // If the current page is the tickets page
         if (document.querySelector('.tbody')) {
+            // Get the last inserted ticket and show it
             fetchLastTicket('readLastTicket', '/ticket', document.querySelector('.tbody'));
         }
+        // If the current page is the dashboard page
         if (document.querySelector('.stats')) {
+            // Get the updated number of tickets
             fetchNumbers('readTicketsNumber', '/ticket', tickets_number);
+            // Clear charts sections from canvas
+            document.querySelector('.inc-chart').innerHTML = '';
+            document.querySelector('.tickets-chart').innerHTML = '';
+            // Generating new charts with updated informations
+            fetchStatusNumbers('readStatusNumber', '/ticket');
+            fetchPriorityNumbers('readPriorityNumber', '/ticket');        
         }
+        // Closing the create ticket modal
         const modals = document.querySelectorAll('.modal.active');
         modals.forEach(modal => {
             closeModal(modal);

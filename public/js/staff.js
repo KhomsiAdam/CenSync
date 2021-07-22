@@ -1,5 +1,10 @@
 const staff_container = document.querySelector('.staff-container');
 
+// Calculate Age depending on Date of birth (YYYY-MM-DD)
+const yearInMs = 3.15576e+10;
+const getAge = birthDate => Math.floor((new Date() - new Date(birthDate).getTime()) / yearInMs)
+
+// Get all staff members
 const fetchStaff = async (method, endpoint, staff_container) => {
     const data = {
         "method": method
@@ -170,9 +175,10 @@ const fetchStaff = async (method, endpoint, staff_container) => {
     }
 }
 
-// Calculate Age depending on Date of birth (YYYY-MM-DD)
-const yearInMs = 3.15576e+10;
-const getAge = birthDate => Math.floor((new Date() - new Date(birthDate).getTime()) / yearInMs)
+// Get all staff members on page load
+document.addEventListener('DOMContentLoaded', () => {
+    fetchStaff('readAllUsers', '/user', staff_container);
+})
 
 const activate_form = document.querySelector('.activate-account-form');
 const department = document.getElementById('department');
@@ -181,6 +187,7 @@ const activate_button = document.querySelector('.activate-submit-button');
 const delete_form = document.querySelector('.delete-account-form');
 const delete_button = document.querySelector('.delete-submit-button');
 
+// Get unique staff member by his ID
 const fetchUserById = async (method, endpoint, user_id) => {
     const data = {
         "method": method,
@@ -210,9 +217,9 @@ const fetchUserById = async (method, endpoint, user_id) => {
         console.log(user);
 
         if (user['status'] != 'active') {
-            if(activate_button) activate_button.value = user['user_id'];
+            if (activate_button) activate_button.value = user['user_id'];
         } else {
-            if(delete_button) delete_button.value = user['user_id'];
+            if (delete_button) delete_button.value = user['user_id'];
         }
 
         // Department
@@ -269,6 +276,10 @@ const fetchUserById = async (method, endpoint, user_id) => {
         document.querySelector('.email-right').innerHTML = user['email'];
         document.querySelector('.role-right').innerHTML = user['role'];
 
+        // Chart
+        if (user['role'] === 'Employee') fetchTicketsNumbersUser('readTicketsNumberUser', '/ticket', user['user_id']);
+        if (user['role'] === 'Developer' || user['role'] === 'Technician') fetchAssignedNumbersUser('readAssignedNumberUser', '/ticket', user['firstname'] + ' ' + user['lastname']);
+
         // Hide Staff List and show Staff member selected
         document.querySelector('.staff-container').style.display = 'none';
         document.querySelector('.staff-details').style.display = 'grid';
@@ -276,11 +287,115 @@ const fetchUserById = async (method, endpoint, user_id) => {
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    fetchStaff('readAllUsers', '/user', staff_container);
-})
+// Initialization of tickets priorities numbers
+let n_high = 0, n_med = 0, n_low = 0;
 
+// Get tickets created by user
+const fetchTicketsNumbersUser = async (method, endpoint, user_id) => {
+    const data = {
+        "method": method,
+        "params": {
+            "user_id": user_id
+        }
+    };
+    const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+    // Custom error message in case the status is not 200 : OK (ex:problem with ressource url)
+    if (response.status !== 200) {
+        throw new Error('cannot fetch data');
+    }
+    tickets = await response.json();
+    console.log(tickets);
 
+    tickets.forEach(ticket => {
+        switch (ticket.priority) {
+            case 'High':
+                n_high++;
+                break;
+            case 'Medium':
+                n_med++;
+                break;
+            case 'Low':
+                n_low++;
+                break;
+        }
+    });
+
+    // Create a canvas for profile chart
+    let profileChart = document.createElement('canvas');
+    profileChart.setAttribute('id', 'profileChart');
+    document.querySelector('.right-chart').appendChild(profileChart);
+    // Create a title with the total number of tickets created
+    let titleChart = document.createElement('div');
+    titleChart.setAttribute('id', 'titleChart');
+    document.querySelector('.right-chart').appendChild(titleChart);
+    titleChart.innerHTML = 'Tickets submitted: ' + tickets.length;
+    // Render the chart
+    chartJs('profileChart', 'High', 'Medium', 'Low', n_high, n_med, n_low, '#C94242', '#BEBE5F', '#5FBE6E', 16)
+    // Reseting the numbers
+    n_high = 0, n_med = 0, n_low = 0;
+}
+
+// Initialization of tickets statuses numbers
+let n_pend = 0, n_open = 0, n_resolv = 0;
+
+// Get tickets assigned to user
+const fetchAssignedNumbersUser = async (method, endpoint, fullname) => {
+    const data = {
+        "method": method,
+        "params": {
+            "assigned_to": fullname
+        }
+    };
+    const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+    // Custom error message in case the status is not 200 : OK (ex:problem with ressource url)
+    if (response.status !== 200) {
+        throw new Error('cannot fetch data');
+    }
+    tickets = await response.json();
+
+    tickets.forEach(ticket => {
+        switch (ticket.status) {
+            case 'Pending':
+                n_pend++;
+                break;
+            case 'Open':
+                n_open++;
+                break;
+            case 'Resolved':
+                n_resolv++;
+                break;
+        }
+    });
+    // Create a canvas for profile chart
+    let profileChart = document.createElement('canvas');
+    profileChart.setAttribute('id', 'profileChart');
+    document.querySelector('.right-chart').appendChild(profileChart);
+    // Create a title with the total number of tickets assigned to user
+    let titleChart = document.createElement('div');
+    titleChart.setAttribute('id', 'titleChart');
+    document.querySelector('.right-chart').appendChild(titleChart);
+    titleChart.innerHTML = 'Tickets assigned: ' + tickets.length;
+    // Render the chart
+    chartJs('profileChart', 'Pending', 'Open', 'Resolved', n_pend, n_open, n_resolv, '#2B777D', '#5FBEBC', '#5FBE6E', 16)
+    // Reseting the numbers
+    n_pend = 0, n_open = 0, n_resolv = 0;
+}
+
+// User account activation
 const activateUser = async (method, endpoint) => {
     const data = {
         "method": method,
@@ -320,18 +435,23 @@ if (activate_form) {
         } else {
             activateUser('updateUserStatus', '/user');
             activate_form.reset();
+            // Get the updated information of user selected
             fetchUserById('readUniqueUser', '/user', activate_button.value);
+            // Emptying the staff container and get the updated list
             staff_container.innerHTML = '';
             fetchStaff('readAllUsers', '/user', staff_container);
+            // Close the activate account modal
             const modals = document.querySelectorAll('.modal.active');
             modals.forEach(modal => {
                 closeModal(modal);
             })
+            // Capture all staff members
             setTimeout(() => { captureAllStaff(); }, 400);
         }
     })
 }
 
+// User account deletion
 const deleteUser = async (method, endpoint) => {
     const data = {
         "method": method,
@@ -362,17 +482,25 @@ const deleteUser = async (method, endpoint) => {
 if (delete_form) {
     delete_form.addEventListener('submit', async function (e) {
         e.preventDefault();
-    
+
         deleteUser('deleteUser', '/user');
+        // Return to normal view with all staff members
         document.querySelector('.staff-details').style.display = 'none';
         document.querySelector('.staff-container').style.display = 'grid';
         document.querySelector('.main').style.overflowY = 'overlay';
+        // Detect Firefox and make overflow-y auto
+        let userAgentString = navigator.userAgent;
+        let firefoxAgent = userAgentString.indexOf("Firefox") > -1;
+        if (firefoxAgent === true) document.querySelector('.main').style.overflowY = 'auto';
+        // Emptying the staff container and get the updated list
         staff_container.innerHTML = '';
         fetchStaff('readAllUsers', '/user', staff_container);
+        // Close the delete account modal
         const modals = document.querySelectorAll('.modal.active');
         modals.forEach(modal => {
             closeModal(modal);
         })
+        // Capture all staff members
         setTimeout(() => { captureAllStaff(); }, 400);
     })
 }

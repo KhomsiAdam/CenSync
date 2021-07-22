@@ -1,5 +1,9 @@
+// Import variables
 @use "variables" as *;
+// Import font : Raleway
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+// General settings
 * {
     margin: 0;
     padding: 0;
@@ -7,6 +11,7 @@
     font-family: "Raleway", sans-serif;
 }
 
+// No transitions on preload
 .preload * {
     -webkit-transition: $null-transition;
     -moz-transition: $null-transition;
@@ -15,10 +20,12 @@
     transition: $null-transition;
 }
 
+// To initialize rem units for font sizes
 html {
     font-size: 62.5%;
 }
 
+// Placeholders settings
 ::placeholder {
     color: $black;
     opacity: 0.6;

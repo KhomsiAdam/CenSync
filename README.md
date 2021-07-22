@@ -119,16 +119,12 @@ SECRET_KEY=
 
 Run PHP's Local Development Server with this custom command in your terminal:
 ```bash
-composer serve
+composer serve:local
 ```
-or:
+
+If you want to run the server on your local network for testing:
 ```bash
-php -S localhost:8000 -t public
-```
-or navigate to public folder then run the server:
-```bash
-cd public
-php -S localhost:8080
+composer serve:remote
 ```
 
 * Backend made with: https://github.com/KhomsiAdam/PHP_MVC_API_Framework
@@ -136,20 +132,43 @@ php -S localhost:8080
 [Back to top](#table-of-contents)
 
 # Previews
-*Frontend: Work in progress
 
-Entry page (with both login and register) for desktop:
+## Desktop:
 
-![censync_desktop](https://user-images.githubusercontent.com/9354045/124360207-75e5f100-dc20-11eb-9d18-a55c978caa55.gif)
+Account creation:
 
-mobile:
+![censync_create_account_desktop](https://user-images.githubusercontent.com/9354045/126696279-c9ddc85d-d962-43f1-8794-6bf14c222dd5.gif)
+
+Dashboard preview:
+
+![censync_login_dashboard_desktop](https://user-images.githubusercontent.com/9354045/126696487-482570eb-9316-444e-9404-07fdaec70c43.gif)
+
+Account activation by Admin:
+
+![censync_activate_account_desktop](https://user-images.githubusercontent.com/9354045/126696562-ed9c334f-52a5-43f1-84de-939b21cd9062.gif)
+
+Ticket creation by Employee:
+
+![censync_create_ticket_desktop](https://user-images.githubusercontent.com/9354045/126696633-5c9497a1-f6f5-48b4-84a5-d5021a8d389a.gif)
+
+Ticket assignement and Note by Admin:
+
+![censync_assign_ticket_desktop](https://user-images.githubusercontent.com/9354045/126696688-94f54f21-33d3-4a60-b3d1-331b769380ac.gif)
+
+Ticket resolution by Developer or Technician:
+
+![censync_resolve_ticket_desktop](https://user-images.githubusercontent.com/9354045/126696765-998066a7-9ade-4d42-aa24-39fb684952f5.gif)
+
+Note update and deletion, Ticket deletion (by Admin):
+
+![censync_delete_ticket_desktop](https://user-images.githubusercontent.com/9354045/126696819-218d04a3-cae3-44b8-b64f-0e6eb5a689ba.gif)
+
+Account deletion by Admin:
+
+![censync_delete_account_desktop](https://user-images.githubusercontent.com/9354045/126696896-3d8471cf-c813-4032-a124-e53df5144069.gif)
+
+## Mobile:
+
+Entry page with login and register:
 
 ![censync_mobile](https://user-images.githubusercontent.com/9354045/124360359-45eb1d80-dc21-11eb-8d11-4499baa6548a.gif)
-
-Dashboard layout and main components done for desktop:
-
-![censync_dashboard_desktop](https://user-images.githubusercontent.com/9354045/124396409-45c24f00-dd01-11eb-9d6e-300519ce1197.gif)
-
-mobile:
-
-![censync_dashboard_mobile](https://user-images.githubusercontent.com/9354045/124396420-52df3e00-dd01-11eb-8542-42aa0671898f.gif)

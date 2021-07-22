@@ -9,7 +9,6 @@ use App\Controller\TicketApiController;
 use App\Controller\NoteApiController;
 use App\Application;
 
-// require_once __DIR__ . '../../composer_vendor/autoload.php';
 require_once dirname(__DIR__) . '/composer_vendor/autoload.php';
 
 $app = new Application(dirname(__DIR__));
@@ -34,5 +33,4 @@ $app->router->post('/ticket', [TicketApiController::class, 'processTicketMethods
 $app->router->post('/note', [NoteApiController::class, 'processNoteMethods']);
 
 $app->run();
-// echo $_SERVER['REQUEST_URI'];
 ?>

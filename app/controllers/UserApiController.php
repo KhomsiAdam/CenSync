@@ -16,24 +16,29 @@ class UserApiController extends Middleware
 
     // * Add : '$this->validateToken();' as your first line in your method if it requires a token
     
+    // Generate random unique ID based on role with a relevant prefix :
+    // Admin
     public function generateAdminId($lenght = 13)
     {
         $bytes = random_bytes(ceil($lenght / 2));
         $admin_id = 'ADM'.substr(bin2hex($bytes), 0, $lenght);
         return $admin_id;
     }
+    // Developer
     public function generateDevId($lenght = 13)
     {
         $bytes = random_bytes(ceil($lenght / 2));
         $dev_id = 'DEV'.substr(bin2hex($bytes), 0, $lenght);
         return $dev_id;
     }
+    // Technician
     public function generateTechId($lenght = 13)
     {
         $bytes = random_bytes(ceil($lenght / 2));
         $tech_id = 'TCH'.substr(bin2hex($bytes), 0, $lenght);
         return $tech_id;
     }
+    // Employee
     public function generateEmpId($lenght = 13)
     {
         $bytes = random_bytes(ceil($lenght / 2));
@@ -41,8 +46,10 @@ class UserApiController extends Middleware
         return $emp_id;
     }
 
+    // User register
     public function createUser() {
         $role = $this->validateParams('role', $this->param['role'], STRING);
+        // By default, any account other than admin should be inactive on account creation
         switch ($role) {
             case 'Admin':
                 $user_id = $this->generateAdminId();
@@ -96,6 +103,7 @@ class UserApiController extends Middleware
         }
     }
 
+    // Get all users except Admin and User currently connected
     public function readAllUsers() {
         $this->validateToken();
         $user_id = $this->validateParams('role', $this->user_id, STRING);
@@ -113,6 +121,7 @@ class UserApiController extends Middleware
         }
     }
 
+    // Get all users by role except admin
     public function readAllUsersRole() {
         $this->validateToken();
         $role = $this->validateParams('role', $this->param['role'], STRING);
@@ -130,6 +139,7 @@ class UserApiController extends Middleware
         }
     }
 
+    // Get unique user for their profiles
     public function readUniqueUser() {
         $this->validateToken();
         $user_id = $this->validateParams('user_id', $this->param['user_id'], STRING);
@@ -147,6 +157,7 @@ class UserApiController extends Middleware
         }
     }
 
+    // For user's own profile
     public function readProfileUser() {
         $this->validateToken();
         $user_id = $this->validateParams('user_id', $this->user_id, STRING);
@@ -164,6 +175,7 @@ class UserApiController extends Middleware
         }
     }
 
+    // Get total users number
     public function readUsersNumber() {
         $data = new UserModel;
         if ($_ENV['DEV_MODE'] === 'ON') {
@@ -177,7 +189,22 @@ class UserApiController extends Middleware
             $data->readNumber($_ENV['ACCOUNTS_TABLE']);            
         }
     }
+    // Get total numbers of each role
+    public function readRolesNumber() {
+        $data = new UserModel;
+        if ($_ENV['DEV_MODE'] === 'ON') {
+            if($data->readRoles($_ENV['ACCOUNTS_TABLE']) != true) {
+                $message = 'Failed to fetch all Users number.';
+            } else {
+                $message = "All Roles number fetched successfully.";
+            }
+            $this->returnResponse(RESPONSE_MESSAGE, $message);
+        } else {
+            $data->readRoles($_ENV['ACCOUNTS_TABLE']);            
+        }
+    }
 
+    // Activate user account
     public function updateUserStatus() {
         $this->validateToken();
         $user_id = $this->validateParams('user_id', $this->param['user_id'], STRING);
@@ -201,6 +228,7 @@ class UserApiController extends Middleware
         }
     }
 
+    // User optional informations edit
     public function updateUserInfo() {
         $this->validateToken();
         $user_id = $this->validateParams('user_id', $this->param['user_id'], STRING);
@@ -228,6 +256,7 @@ class UserApiController extends Middleware
         }
     }
 
+    // Account deletion
     public function deleteUser() {
         $this->validateToken();
         $user_id = $this->validateParams('user_id', $this->param['user_id'], STRING);

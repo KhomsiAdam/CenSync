@@ -1,7 +1,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<!-- Favicon -->
 <link rel="icon" href="/icons/favicon/favicon.ico">
 <link rel="apple-touch-icon" sizes="180x180" href="/icons/favicon/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon/favicon-32x32.png">
@@ -10,6 +10,7 @@
 
 <title>CenSync</title>
 <?php
+    // Meta description and linking relevant CSS and JS depending on current page
     switch($_SERVER['REQUEST_URI']) {
         case '/':?>
             <meta name="description" content="Entry page for either signing in or signin up to the platform">
@@ -51,6 +52,6 @@
 
     }
 ?>
-
+<!-- Global CSS and JS -->
 <link rel="stylesheet" href="/css/global.css">
 <script src="/js/global.js" defer></script>

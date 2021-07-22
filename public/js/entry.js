@@ -23,9 +23,11 @@ function slideRight() {
     logo.style.transform = "rotate(0deg)"
     signup_form.reset();
 }
+// Slide left to show Sign in section
 document.getElementById('signup_btn_desk').addEventListener('click', () => {
     slideLeft();
 })
+// Slide right to show Sign up section
 document.getElementById('signin_btn_desk').addEventListener('click', () => {
     slideRight();
 })
@@ -61,9 +63,11 @@ function signUpFade() {
         }, 100);
     }
 }
+// Fade out the Sign in section and show the Sign up section
 document.getElementById('signup_btn_mob').addEventListener('click', () => {
     signInFade();
 })
+// Fade out the Sign up section and show the Sign in section
 document.getElementById('signin_btn_mob').addEventListener('click', () => {
     signUpFade();
 })
@@ -118,7 +122,7 @@ const email_up = document.getElementById('email_up');
 const password_up = document.getElementById('password_up');
 const signup_error = document.getElementById('signup_error');
 
-// Sign in, generating a token and storing it in localstorage
+// Sign up, creating an account
 const register = async (method, endpoint) => {
     let data = {
         "method": method,

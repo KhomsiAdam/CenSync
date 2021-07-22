@@ -34,7 +34,7 @@ class AuthApiController extends Middleware
             $this->account_info = $authObj->sqlVerifyAccount($account_email, $_ENV['ACCOUNTS_EMAIL'], $account_password, $_ENV['ACCOUNTS_PASSWORD'], $_ENV['ACCOUNTS_TABLE']);
             if (is_array($this->account_info)) {
 
-                // Storing the role in session for autorizations handling
+                // Storing the role and fullname in session for autorizations handling
                 $_SESSION['ACCOUNTS_ROLE'] = $this->account_info[$_ENV['ACCOUNTS_ROLE']];
                 $_SESSION['ACCOUNTS_FIRSTNAME'] = $this->account_info[$_ENV['ACCOUNTS_FIRSTNAME']];
                 $_SESSION['ACCOUNTS_LASTNAME'] = $this->account_info[$_ENV['ACCOUNTS_LASTNAME']];
@@ -42,7 +42,7 @@ class AuthApiController extends Middleware
                 // Generating a JWT token
                 $iss = $_ENV['HOST'];
                 $iat = time();
-                // Token expiration time in seconds: 60 * 30 = 30min; 60 * 60 = 1hour...
+                // Token expiration time in seconds: 60 * 15 = 15min; 60 * 30 = 30min; 60 * 60 = 1hour...
                 $exp = $iat + (60 * 15);
                 $aud = $_ENV['AUDIENCE_TABLE'];
                 // Array containing any account data needed from token you can add an entry based on needs

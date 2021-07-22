@@ -41,7 +41,7 @@
 }
 .staff-details .staff-right {
   display: grid;
-  grid-template-rows: 20% 35% 45%;
+  grid-template-rows: 18% 25% 57%;
   align-items: center;
   padding: 0 4rem;
   font-size: 2.2rem;
@@ -83,7 +83,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  height: 100%;
+  height: 85%;
 }
 .staff-details .staff-right .bio-right label {
   font-size: 3.2rem;
@@ -99,7 +99,7 @@
   padding: 1rem;
 }
 .staff-details .staff-right .bio-right textarea:focus {
-  background: #ffffff;
+  background: white;
 }
 .staff-details .staff-right .bottom-right {
   display: grid;
@@ -122,4 +122,18 @@
 }
 .staff-details .staff-right .bottom-right .staff-right-info .right-values {
   align-items: flex-end;
+}
+.staff-details .staff-right .bottom-right .right-chart {
+  width: 75%;
+  height: 85%;
+  align-self: center;
+  justify-self: center;
+  text-align: center;
+}
+.staff-details .staff-right .bottom-right .right-chart #titleChart {
+  font-size: 2.2rem;
+  color: #262626;
+  font-weight: 600;
+  padding: 1rem 0;
+  opacity: 0.5;
 }/*# sourceMappingURL=profile.css.map */

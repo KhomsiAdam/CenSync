@@ -4,9 +4,9 @@
   width: 90%;
   height: 65vh;
   display: grid;
-  grid-template-areas: "staffcard inccard ticketcard" "stafflegend inclegend ticketlegend" "staffchart incchart ticketchart";
+  grid-template-areas: "staffcard inccard ticketcard" "staffchart incchart ticketchart";
   grid-template-columns: 33.33% 33.33% 33.33%;
-  grid-template-rows: 30% 10% 60%;
+  grid-template-rows: 30% 70%;
   grid-gap: 5rem;
 }
 .stats .staff-card {
@@ -17,6 +17,15 @@
 }
 .stats .tickets-card {
   grid-area: ticketcard;
+}
+.stats .staff-chart {
+  grid-area: staffchart;
+}
+.stats .inc-chart {
+  grid-area: incchart;
+}
+.stats .tickets-chart {
+  grid-area: ticketchart;
 }
 .stats .staff-card, .stats .inc-card, .stats .tickets-card {
   background: #F9F9F9;
@@ -68,81 +77,4 @@
 }
 .stats .staff-card .card-footer:hover svg, .stats .inc-card .card-footer:hover svg, .stats .tickets-card .card-footer:hover svg {
   fill: #F9F9F9;
-}
-.stats .staff-legend {
-  grid-area: stafflegend;
-}
-.stats .staff-legend .color.emp {
-  background-color: #2B365A;
-}
-.stats .staff-legend .legend.emp {
-  color: #2B365A;
-}
-.stats .staff-legend .color.dev {
-  background-color: #2B777D;
-}
-.stats .staff-legend .legend.dev {
-  color: #2B777D;
-}
-.stats .staff-legend .color.tech {
-  background-color: #5FBEBC;
-}
-.stats .staff-legend .legend.tech {
-  color: #5FBEBC;
-}
-.stats .inc-legend {
-  grid-area: inclegend;
-}
-.stats .inc-legend .color.resolved {
-  background-color: #5FBE6E;
-}
-.stats .inc-legend .legend.resolved {
-  color: #5FBE6E;
-}
-.stats .inc-legend .color.open {
-  background-color: #5FBEBC;
-}
-.stats .inc-legend .legend.open {
-  color: #5FBEBC;
-}
-.stats .inc-legend .color.pending {
-  background-color: #A35FBE;
-}
-.stats .inc-legend .legend.pending {
-  color: #A35FBE;
-}
-.stats .tickets-legend {
-  grid-area: ticketlegend;
-}
-.stats .tickets-legend .color.high {
-  background-color: #C94242;
-}
-.stats .tickets-legend .legend.high {
-  color: #C94242;
-}
-.stats .tickets-legend .color.medium {
-  background-color: #BEBE5F;
-}
-.stats .tickets-legend .legend.medium {
-  color: #BEBE5F;
-}
-.stats .tickets-legend .color.low {
-  background-color: #5FBE6E;
-}
-.stats .tickets-legend .legend.low {
-  color: #5FBE6E;
-}
-.stats .staff-legend, .stats .inc-legend, .stats .tickets-legend {
-  display: flex;
-  justify-content: space-between;
-  padding: 2rem 0;
-}
-.stats .staff-legend .color, .stats .inc-legend .color, .stats .tickets-legend .color {
-  width: 5.6rem;
-  height: 2.2rem;
-  border-radius: 10px;
-}
-.stats .staff-legend .legend, .stats .inc-legend .legend, .stats .tickets-legend .legend {
-  font-size: 1.8rem;
-  font-weight: 600;
 }/*# sourceMappingURL=dashboard.css.map */

@@ -142,6 +142,10 @@ main {
   color: #F9F9F9;
   border-radius: 5px;
 }
+.ticket-details .ticket-status-container .ticket-status .status-icon {
+  width: 20px;
+  height: 20px;
+}
 .ticket-details .ticket-info-container {
   grid-area: tkinfo;
   border-right: 1px solid #EBEBEB;

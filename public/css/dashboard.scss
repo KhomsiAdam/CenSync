@@ -6,10 +6,9 @@
     display: grid;
     grid-template-areas:
         "staffcard inccard ticketcard"
-        "stafflegend inclegend ticketlegend"
         "staffchart incchart ticketchart";
     grid-template-columns: 33.33% 33.33% 33.33%;
-    grid-template-rows: 30% 10% 60%;
+    grid-template-rows: 30% 70%;
     grid-gap: 5rem;
     .staff-card {
         grid-area: staffcard;  
@@ -19,6 +18,15 @@
     }
     .tickets-card {
         grid-area: ticketcard;  
+    }
+    .staff-chart {
+        grid-area: staffchart;  
+    }
+    .inc-chart {
+        grid-area: incchart;  
+    }
+    .tickets-chart {
+        grid-area: ticketchart;  
     }
     .staff-card, .inc-card, .tickets-card {
         background: $white;
@@ -69,83 +77,6 @@
                     fill: $white;
                 }
             }
-        }
-    }
-    .staff-legend {
-        grid-area: stafflegend;
-        .color.emp {
-            background-color: $darkblue;
-        }
-        .legend.emp {
-            color: $darkblue;
-        }
-        .color.dev {
-            background-color: $blue;
-        }
-        .legend.dev {
-            color: $blue;
-        }
-        .color.tech {
-            background-color: $lightblue;
-        }
-        .legend.tech {
-            color: $lightblue;
-        }
-    }
-    .inc-legend {
-        grid-area: inclegend;
-        .color.resolved {
-            background-color: $green;
-        }
-        .legend.resolved {
-            color: $green;
-        }
-        .color.open {
-            background-color: $lightblue;
-        }
-        .legend.open {
-            color: $lightblue;
-        }
-        .color.pending {
-            background-color: $purple;
-        }
-        .legend.pending {
-            color: $purple;
-        }
-    }
-    .tickets-legend {
-        grid-area: ticketlegend;
-        .color.high {
-            background-color: $red;
-        }
-        .legend.high {
-            color: $red;
-        }
-        .color.medium {
-            background-color: $yellow;
-        }
-        .legend.medium {
-            color: $yellow;
-        }
-        .color.low {
-            background-color: $green;
-        }
-        .legend.low {
-            color: $green;
-        }
-    }
-    .staff-legend, .inc-legend, .tickets-legend {
-        display: flex;
-        justify-content: space-between;
-        padding: 2rem 0;
-        .color {
-            width: 5.6rem;
-            height: 2.2rem;
-            border-radius: 10px;
-        }
-        .legend {
-            font-size: 1.8rem;
-            font-weight: $semibold;
         }
     }
 }

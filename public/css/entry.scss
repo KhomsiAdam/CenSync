@@ -1,5 +1,7 @@
+// Import variables
 @use "variables" as *;
 
+// Login & Register forms
 .entry_forms {
     display: flex;
     flex-direction: column;
@@ -149,7 +151,7 @@
         }
     }
 }
-
+// Overlay part with Logo and Slogan
 .hero {
     display: flex;
     justify-content: space-evenly;
@@ -185,6 +187,7 @@
     }
 }
 
+// Mobile & Tablet media query
 @media only screen and (min-width: 1280px) {
     .signup_section,
     .signin_section {

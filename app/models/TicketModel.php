@@ -151,6 +151,60 @@ class TicketModel {
         }
     }
 
+    public function readNumberUser($table) {
+        $sql = "SELECT priority FROM $table WHERE (user_id = :user_id)";
+    	$stmt = $this->db_conn->prepare($sql);
+        $stmt->bindParam(':user_id', $this->user_id);
+        if($stmt->execute()) {
+            $priorities = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            header ("Content-Type: application/json");
+            echo json_encode($priorities,JSON_PRETTY_PRINT|JSON_NUMERIC_CHECK);
+    		return true;
+    	} else {
+    		return false;
+    	}
+    }
+
+    public function readAssignedUser($table) {
+        $sql = "SELECT status FROM $table WHERE (assigned_to = :assigned_to)";
+    	$stmt = $this->db_conn->prepare($sql);
+        $stmt->bindParam(':assigned_to', $this->assigned_to);
+        if($stmt->execute()) {
+            $statuses = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            header ("Content-Type: application/json");
+            echo json_encode($statuses,JSON_PRETTY_PRINT|JSON_NUMERIC_CHECK);
+    		return true;
+    	} else {
+    		return false;
+    	}
+    }
+
+    public function readStatus($table) {
+        $sql = "SELECT status FROM $table";
+    	$stmt = $this->db_conn->prepare($sql);
+        if($stmt->execute()) {
+            $statuses = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            header ("Content-Type: application/json");
+            echo json_encode($statuses,JSON_PRETTY_PRINT|JSON_NUMERIC_CHECK);
+    		return true;
+    	} else {
+    		return false;
+    	}
+    }
+
+    public function readPriority($table) {
+        $sql = "SELECT priority FROM $table";
+    	$stmt = $this->db_conn->prepare($sql);
+        if($stmt->execute()) {
+            $priorities = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            header ("Content-Type: application/json");
+            echo json_encode($priorities,JSON_PRETTY_PRINT|JSON_NUMERIC_CHECK);
+    		return true;
+    	} else {
+    		return false;
+    	}
+    }
+
     public function readResolved($table) {
         $sql = "SELECT * FROM $table WHERE status = 'resolved'";
         $stmt = $this->db_conn->prepare($sql);

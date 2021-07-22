@@ -1,3 +1,4 @@
+<!-- Searchbar -->
 <div class="search-container">
     <div class="search-bar">
         <input type="text" placeholder="Search.." class="search">
@@ -6,16 +7,19 @@
         </svg>
     </div>
 </div>
+<!-- Create ticket button -->
 <div class="create_container">
     <?php if ($_SESSION['ACCOUNTS_ROLE'] === 'Employee') { ?>
         <button class="create_ticket" data-modal-target="#modal">Create Ticket</button>
     <?php } ?>
 </div>
+<!-- Bell notifications -->
 <div class="bell_container">
     <svg class="bell" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 31.5 36">
         <path id="Icon_awesome-bell" data-name="Icon awesome-bell" d="M15.75,36a4.5,4.5,0,0,0,4.5-4.5h-9A4.5,4.5,0,0,0,15.75,36ZM30.895,25.474c-1.358-1.46-3.9-3.656-3.9-10.849a11.1,11.1,0,0,0-9-10.91V2.25a2.249,2.249,0,1,0-4.5,0V3.715a11.1,11.1,0,0,0-9,10.91c0,7.193-2.542,9.389-3.9,10.849A2.2,2.2,0,0,0,0,27a2.252,2.252,0,0,0,2.257,2.25H29.243A2.252,2.252,0,0,0,31.5,27a2.2,2.2,0,0,0-.605-1.526Z" transform="translate(0)" />
     </svg>
 </div>
+<!-- Profile image -->
 <div class="profile_container">
     <a href="/profile">
         <svg class="profile" xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 34.875 34.875">

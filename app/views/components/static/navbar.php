@@ -1,4 +1,5 @@
 <ul class="nav_menu">
+    <!-- Logo -->
     <li class="logo">
         <a href="/dashboard" class="nav_link">
             <div class="logo_link">
@@ -9,6 +10,7 @@
             </p>
         </a>
     </li>
+    <!-- Navigation links -->
     <li class="nav_item">
         <a href="/dashboard" class="nav_link <?php if ($_SERVER['REQUEST_URI'] === "/dashboard") { ?> active_link <?php } ?>">
             <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
@@ -33,6 +35,7 @@
             <span class="text_link">Staff</span>
         </a>
     </li>
+    <!-- Mobile Create ticket button and other links -->
     <li class="nav_item">
         <div class="create_container_mobile">
             <button class="create_ticket_mobile" data-modal-target="#modal">+</button>

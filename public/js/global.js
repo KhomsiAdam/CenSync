@@ -29,6 +29,8 @@ const bold = 700;
 const extrabold = 800;
 const blackbold = 900;
 
+/* Global functions */
+
 // Select all tickets rows and get id depending clicked on ticket row
 function captureAllTickets() {
     let ticket_rows = document.querySelectorAll(".ticket_row");
@@ -61,6 +63,7 @@ function placeholderData(data, value, placeholder) {
     }
     value.innerHTML = data;
 }
+
 // Handle empty string data for ticket informations, render placeholders
 function placeholderAssignData(data, value, placeholder) {
     if (data == '') {
@@ -85,10 +88,45 @@ function clearNoteHTML() {
     note_author.innerHTML = '';
     note_time.innerHTML = '';
     note_ticket_content.innerHTML = '';
-    note_edit.value = '';
-    note_delete.value = '';
+    if (note_edit) note_edit.value = '';
+    if (note_delete) note_delete.value = '';
 }
 
+// Chart creation
+function chartJs(chart, label1, label2, label3, data1, data2, data3, color1, color2, color3, font_size) {
+    let ctx = document.getElementById(chart).getContext('2d');
+    let labels = [label1, label2, label3];
+    let colors = [color1, color2, color3];
+    let myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            datasets: [{
+                data: [data1, data2, data3],
+                backgroundColor: colors
+            }],
+            labels: labels
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    labels: {
+                        usePointStyle: true,
+                        pointStyle: 'rectRounded',
+                        pointRadius: 10,
+                        font: {
+                            size: font_size,
+                            family: "'Raleway', sans-serif",
+                            weight: 600
+                        }
+                    }
+                }
+            }
+        }
+    })
+}
+
+// Handle content after the page loads completely
 document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
         // Chrome Bug Workaround: Select body tag and remove preload class to re enable animations after the page load
@@ -110,7 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (document.querySelector('.leave-note')) {
                     document.querySelector('.leave-note').classList.remove('ticket-button');
                     document.querySelector('.leave-note').classList.add('ticket-button-disabled');
-                    document.querySelector('.leave-note').disabled = true;    
+                    document.querySelector('.leave-note').disabled = true;
                 }
                 document.querySelector('.tickets').style.display = 'grid';
                 document.querySelector('.ticket-details').style.display = 'none';
@@ -130,12 +168,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.querySelector('.staff-details').style.display = 'none';
                 document.querySelector('.staff-container').style.display = 'grid';
                 document.querySelector('.main').style.overflowY = 'overlay';
+                // Detect Firefox and make overflow-y auto
+                let userAgentString = navigator.userAgent;
+                let firefoxAgent = userAgentString.indexOf("Firefox") > -1;
+                if (firefoxAgent === true) document.querySelector('.main').style.overflowY = 'auto';
+                document.querySelector('.right-chart').innerHTML = '';
             });
         }
 
         // Return to previous page from profile
         if (document.querySelector('.profile-return')) {
             document.querySelector('.profile-return').addEventListener('click', () => {
+                // document.querySelector('.right-chart').innerHTML = '';
                 window.history.back();
             });
         }
@@ -148,6 +192,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
 
-        if(document.querySelector('.username')) user = document.querySelector('.username').innerHTML;
+        // Get the username
+        if (document.querySelector('.username')) user = document.querySelector('.username').innerHTML;
     }, 400);
 })
