@@ -15,10 +15,10 @@ function closeModal(modal) {
     modal.classList.remove('active');
     overlay.classList.remove('active');
     // Clear all forms in modals upon closing
-    let forms = document.querySelector('.modal-body').getElementsByTagName('form');
-    for (let i = 0; i < forms.length; i++) {
-        forms[i].reset();
-    }
+    let modal_bodies = document.querySelectorAll('.modal-body');
+    modal_bodies.forEach(modal_body => {
+        modal_body.children[0].reset();
+    });
     // Uncheck Radio buttons
     document.querySelectorAll('.custom-radio').forEach(radio_button => {
         radio_button.checked = false;

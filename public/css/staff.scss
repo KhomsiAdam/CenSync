@@ -258,3 +258,186 @@
         }
     }
 }
+@media only screen and (max-width: 768px) {
+    main {
+        padding-top: 3rem;
+        overflow: auto;
+    }
+    .staff-container {
+        padding: 0 0 3rem 0;
+        justify-content: center;
+        .staff-card {
+            width: 329px;
+            .card-header {
+                width: 329px;
+                grid-template-columns: 25% 70%;
+                position: relative;
+                .fullname {
+                    font-size: 2rem;
+                }
+                .role {
+                    font-size: 1.4rem;
+                }
+                .card-status {
+                    position: absolute;
+                    bottom: 33%;
+                    font-size: 1.4rem;
+                    left: 50%;
+                }
+            }
+            .card-body {
+                font-size: 1.4rem;
+                padding: 0.5rem 1.5rem;
+            }
+        }
+    }
+    .staff-container:last-child {
+        margin-bottom: 3rem;
+    }
+    .staff-details {
+        width: 90%;
+        height: 290%;
+        grid-template-areas:
+            "linfo"
+            "rinfo";
+        grid-template-rows: 50% 50%;
+        grid-template-columns: 100%;
+        position: relative;
+        margin: 0 2rem 3rem 2rem;
+        .staff-left {
+            height: 100%;
+            font-size: 1.6rem;
+            border-right: none;
+            padding: 0 3rem;
+            .staff-left-info {
+                height: 80%;
+            }
+        }
+        .staff-right {
+            grid-template-rows: 30% 70%;
+            height: 100%;
+            font-size: 1.6rem;
+            padding: 0 3rem;
+            .top-right {
+                grid-template-rows: 80% 10% 10%;
+                grid-template-columns: 75% 25%;
+                grid-template-areas:
+                    "return return"
+                    "name setting"
+                    "email email";
+                width: 100%;
+                height: 21%;
+                align-items: center;
+                text-align: center;
+                position: absolute;
+                bottom: 79%;
+                left: 0%;
+                .name-right {
+                    font-size: 2.2rem;
+                }
+                .account-settings {
+                    padding-right: 1.3rem;
+                    button {
+                        width: 60px;
+                        height: 30px;
+                        font-size: 1.2rem;
+                    }
+                    .activate-account {
+                        background: $green;
+                        border: $green;
+                        color: $white;
+                    }
+                    .delete-account {
+                        background: $red;
+                        border: $red;
+                        color: $white;
+                    }
+                }
+                .staff-return {
+                    align-self: start;
+                    padding: 2rem 1.5rem;
+                    justify-self: end;
+                    text-align: unset;
+                    position: fixed;
+                    height: 52px;
+                    width: 60px;
+                    left: 74%;
+                    bottom: 73.8%;
+                    background: $blue;
+                    z-index: 5;
+                    border-radius: 5px;
+                    svg {
+                        height: 15px;
+                        width: 30px;
+                        fill: $white;
+                    }
+                }
+                .email-role-right {
+                    grid-area: email;
+                    font-size: 1.4rem;
+                }
+            }
+            .bio-right {
+                label {
+                    font-size: 1.6rem;
+                }
+            }
+            .bottom-right {
+                grid-template-columns: 100%;
+                grid-template-rows: 50% 50%;
+                .right-chart {
+                    width: 90%;
+                    height: 100%;
+                    #titleChart {
+                        font-size: 1.6rem;
+                    }
+                }
+            }
+            @-moz-document url-prefix() {
+                .bio-right,
+                .bottom-right {
+                    width: 90%;
+                }
+            }
+        }
+    }
+    #deletemodal {
+        height: 74%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 20rem;
+        .modal-header {
+            grid-gap: 12rem;
+        }
+        .modal-body {
+            .delete-submit-button {
+                background: $red;
+                border: $red;
+                color: $white;
+            }
+            .delete-cancel-button {
+                background: $lightblue;
+                border: $lightblue;
+                color: $white;
+            }
+        }
+    }
+    #activatemodal {
+        height: 74%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 7rem;
+        .modal-header {
+            grid-gap: 2rem;
+        }
+        .modal-body {
+            .activate-submit-button {
+                background: $green;
+                border: $green;
+                color: $white;
+            }
+        }
+    }
+}

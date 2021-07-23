@@ -105,9 +105,18 @@ main {
                 overflow: hidden;
                 white-space: nowrap;
             }
+            li {
+                .mobile-span {
+                    display: none;
+                }
+            }
         }
     }
-
+    @-moz-document url-prefix() {
+        .tbody {
+            overflow-y: auto;
+        }
+    }
     // Scrollbar Styling Chrome & Safari & Opera
     ::-webkit-scrollbar {
         width: 1.5rem;
@@ -361,6 +370,388 @@ main {
             &:hover {
                 color: $white;
                 background: $green;
+            }
+        }
+    }
+}
+@media only screen and (max-width: 768px) {
+    main {
+        overflow: auto;
+        padding-top: 3rem;
+    }
+    .tickets {
+        width: 100%;
+        height: 65vh;
+        grid-template-areas: "tbody";
+        grid-template-rows: auto;
+        grid-template-columns: 100%;
+        grid-gap: 2rem;
+        .thead {
+            display: none;
+        }
+        .tbody {
+            font-size: 1.6rem;
+            scrollbar-width: none;
+            ul {
+                height: 50.6%;
+                width: 86%;
+                margin: 0 2.5rem;
+                padding: 2rem;
+                grid-template-columns: 100%;
+                text-align: right;
+                li {
+                    display: flex;
+                    justify-content: space-between;
+                    gap: 3rem;
+                    .mobile-span {
+                        display: unset;
+                        font-weight: $semibold;
+                        color: $blue !important;
+                    }
+                }
+                .reported_by {
+                    font-weight: $semibold;
+                }
+                .priority {
+                    svg {
+                        width: 25px;
+                        height: 20px;
+                    }
+                    .medium-icon {
+                        width: 25px;
+                        height: 25px;
+                    }
+                    #High_Icon {
+                        #Icon_feather-triangle {
+                            fill: $red;
+                            stroke: $red;
+                        }
+                        #H {
+                            fill: $white;
+                        }
+                    }
+                    #Medium_Icon {
+                        #Icon_awesome-square {
+                            fill: $yellow;
+                            stroke: $yellow;
+                        }
+                        #M {
+                            fill: $white;
+                        }
+                    }
+                    #Low_Icon {
+                        #Icon_feather-triangle {
+                            fill: $green;
+                            stroke: $green;
+                        }
+                        #L {
+                            fill: $white;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .tickets ::-webkit-scrollbar {
+        width: 0.5rem;
+    }
+    .tickets ::-webkit-scrollbar-thumb {
+        background: $green;
+    }
+    .ticket-details {
+        width: 89%;
+        height: 200vh;
+        grid-template-areas:
+            "tkstatus"
+            "tkinfo"
+            "tktitle"
+            "tkcontent"
+            "tkbuttons"
+            "tknote";
+        grid-template-columns: 100%;
+        grid-template-rows: 5.3% 29% 7% 7% 17% 33%;
+        margin: 0 2rem 3rem 2rem;
+        border-radius: 10px;
+        .ticket-status-container {
+            justify-content: start;
+            padding-left: 2.2rem;
+            border-right: none;
+        }
+        .ticket-info-container {
+            padding: 2rem 1rem 2rem 0.6rem;
+            height: 100%;
+            .info-values {
+                text-align: right;
+                .ticket-priority-value {
+                    display: flex;
+                    gap: 1rem;
+                    justify-self: end;
+                    align-items: center;
+                }
+            }
+        }
+        .ticket-title-container {
+            grid-template-columns: 100%;
+            font-size: 2.6rem;
+            text-align: center;
+            border-top: 1px solid $gray;
+            .ticket-title {
+                padding-left: 0;
+            }
+            .tickets-return {
+                align-self: start;
+                padding: 1.1rem 1.4rem;
+                justify-self: end;
+                text-align: unset;
+                position: fixed;
+                left: 74%;
+                bottom: 73.8%;
+                height: 52px;
+                width: 60px;
+                background: $blue;
+                z-index: 5;
+                border-radius: 5px;
+                svg {
+                    height: 15px;
+                    width: 30px;
+                    fill: $white;
+                }
+            }
+        }
+        .ticket-content-container {
+            font-size: 1.8rem;
+            .ticket-content {
+                padding: 0 2.5rem;
+                text-align: center;
+            }
+        }
+        .ticket-buttons-container {
+            flex-direction: column;
+            gap: 1.5rem;
+            .ticket-button {
+                color: $white;
+                background: $green;
+                border: $green;
+            }
+            .assign-ticket,
+            .leave-note {
+                color: $white;
+                background: $green;
+                border: $green;
+            }
+            .delete-ticket {
+                color: $white;
+                background: $red;
+                border: $red;
+            }
+        }
+        .ticket-note-container {
+            width: 88%;
+            height: 100%;
+            padding: 2rem;
+            grid-template-columns: 100%;
+            grid-template-rows: 6% 49% 6% 11% 11%;
+            gap: 2rem;
+            grid-template-areas:
+                "author"
+                "ncontent"
+                "time"
+                "edit"
+                "delete";
+            justify-self: center;
+            .note-content {
+                font-size: 2.2rem;
+                overflow-y: auto;
+                height: 100%;
+                align-self: start;
+            }
+            .note-edit,
+            .note-delete {
+                width: 249px;
+            }
+            .note-edit {
+                background: $green;
+                border: $green;
+                color: $white;
+            }
+            .note-delete {
+                background: $red;
+                border: $red;
+                color: $white;
+            }
+        }
+    }
+    #assignmodal {
+        .modal-body {
+            .assign-ticket-form {
+                label {
+                    grid-template-columns: 70.66% 10.33%;
+                    grid-template-rows: 50% 50%;
+                    grid-template-areas:
+                        "aname radio"
+                        "arole radio";
+                    justify-content: center;
+                    justify-items: start;
+                    .assigned-image {
+                        display: none;
+                    }
+                    .assigned-name {
+                        grid-area: aname;
+                        align-self: end;
+                    }
+                    .assigned-role {
+                        grid-area: arole;
+                        align-self: start;
+                    }
+                    .custom-radio-span {
+                        grid-area: radio;
+                    }
+                    @-moz-document url-prefix() {
+                        .assigned-name {
+                            height: 50px;
+                            padding-top: 2rem;
+                        }
+                        .assigned-role {
+                            height: 50px;
+                        }
+                    }
+                }
+                @-moz-document url-prefix() {
+                    label {
+                        width: 95%;
+                    }
+                }
+            }
+            .assign-ticket-form::-webkit-scrollbar {
+                width: 1rem;
+            }
+            .assign-ticket-form::-webkit-scrollbar-thumb {
+                background: $green;
+            }
+            .assign-submit-button {
+                background: $green;
+                border: $green;
+                color: $white;
+            }
+        }
+    }
+    #deletemodal {
+        height: 74%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 20rem;
+        .modal-header {
+            grid-gap: 12rem;
+        }
+        .modal-body {
+            .delete-submit-button {
+                background: $red;
+                border: $red;
+                color: $white;
+            }
+            .delete-cancel-button {
+                background: $lightblue;
+                border: $lightblue;
+                color: $white;
+            }
+        }
+    }
+    #notemodal {
+        height: 74%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 0;
+        .modal-header {
+            grid-gap: 2rem;
+        }
+        .modal-body {
+            .note-ticket-form {
+                #note {
+                    height: 315px;
+                }
+            }
+            .note-submit-button {
+                background: $green;
+                border: $green;
+                color: $white;
+            }
+            .note-cancel-button {
+                background: $red;
+                border: $red;
+                color: $white;
+            }
+        }
+    }
+    #editnotemodal {
+        height: 74%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 0;
+        .modal-header {
+            grid-gap: 2rem;
+        }
+        .modal-body {
+            .edit-note-ticket-form {
+                #edit-note {
+                    height: 315px;
+                }
+            }
+            .edit-note-submit-button {
+                background: $green;
+                border: $green;
+                color: $white;
+            }
+            .edit-note-cancel-button {
+                background: $red;
+                border: $red;
+                color: $white;
+            }
+        }
+    }
+    #deletenotemodal {
+        height: 74%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 20rem;
+        .modal-header {
+            grid-gap: 12rem;
+        }
+        .modal-body {
+            .delete-note-submit-button {
+                background: $red;
+                border: $red;
+                color: $white;
+            }
+            .delete-note-cancel-button {
+                background: $lightblue;
+                border: $lightblue;
+                color: $white;
+            }
+        }
+    }
+    #resolvemodal {
+        height: 74%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 20rem;
+        .modal-header {
+            grid-gap: 12rem;
+        }
+        .modal-body {
+            .resolve-submit-button {
+                background: $green;
+                border: $green;
+                color: $white;
+            }
+            .resolve-cancel-button {
+                background: $lightblue;
+                border: $lightblue;
+                color: $white;
             }
         }
     }

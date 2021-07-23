@@ -71,8 +71,6 @@ const fetchUserProfile = async (method, endpoint) => {
         // Chart depending on role
         if (user['role'] === 'Employee') fetchTicketsNumbersUser('readTicketsNumberUser', '/ticket', user['user_id']);
         if (user['role'] === 'Developer' || user['role'] === 'Technician') fetchAssignedNumbersUser('readAssignedNumberUser', '/ticket', user['firstname'] + ' ' + user['lastname']);
-
-        document.querySelector('.main').style.overflowY = 'hidden';
     }
 }
 

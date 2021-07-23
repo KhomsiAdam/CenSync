@@ -66,7 +66,8 @@ const fetchRolesNumbers = async (method, endpoint) => {
     staffChart.setAttribute('id', 'staffChart');
     document.querySelector('.staff-chart').appendChild(staffChart);
     // Generate a chart
-    chartJs('staffChart', 'Employee', 'Developer', 'Technician', n_emp, n_dev, n_tech, '#2B365A', '#2B777D', '#5FBEBC', 20)
+    if (screenWidth <= 768) chartJs('staffChart', 'Employee', 'Developer', 'Technician', n_emp, n_dev, n_tech, '#2B365A', '#2B777D', '#5FBEBC', 17)
+    if (screenWidth > 768) chartJs('staffChart', 'Employee', 'Developer', 'Technician', n_emp, n_dev, n_tech, '#2B365A', '#2B777D', '#5FBEBC', 20)
     // Reset the numbers
     n_emp = 0, n_dev = 0, n_tech = 0;
 }
@@ -110,7 +111,8 @@ const fetchPriorityNumbers = async (method, endpoint) => {
     ticketsChart.setAttribute('id', 'ticketsChart');
     document.querySelector('.tickets-chart').appendChild(ticketsChart);
     // Generate a chart
-    chartJs('ticketsChart', 'High', 'Medium', 'Low', n_high, n_med, n_low, '#C94242', '#BEBE5F', '#5FBE6E', 20)
+    if (screenWidth <= 768) chartJs('ticketsChart', 'High', 'Medium', 'Low', n_high, n_med, n_low, '#C94242', '#BEBE5F', '#5FBE6E', 17)
+    if (screenWidth > 768) chartJs('ticketsChart', 'High', 'Medium', 'Low', n_high, n_med, n_low, '#C94242', '#BEBE5F', '#5FBE6E', 20)
     // Reset the numbers
     n_high = 0, n_med = 0, n_low = 0;
 }
@@ -154,7 +156,8 @@ const fetchStatusNumbers = async (method, endpoint) => {
     incChart.setAttribute('id', 'incChart');
     document.querySelector('.inc-chart').appendChild(incChart);
     // Generate a chart
-    chartJs('incChart', 'Pending', 'Open', 'Resolved', n_pend, n_open, n_resolv, '#2B777D', '#5FBEBC', '#5FBE6E', 20)
+    if (screenWidth <= 768) chartJs('incChart', 'Pending', 'Open', 'Resolved', n_pend, n_open, n_resolv, '#2B777D', '#5FBEBC', '#5FBE6E', 17)
+    if (screenWidth > 768) chartJs('incChart', 'Pending', 'Open', 'Resolved', n_pend, n_open, n_resolv, '#2B777D', '#5FBEBC', '#5FBE6E', 20)
     // Reset the numbers
     n_pend = 0, n_open = 0, n_resolv = 0;
 }

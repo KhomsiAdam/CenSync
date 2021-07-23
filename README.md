@@ -117,12 +117,12 @@ SECRET_KEY=
 
 # Usage
 
-Run PHP's Local Development Server with this custom command in your terminal:
+Run PHP's Local Development Server with this custom command in your terminal (localhost:8080):
 ```bash
 composer serve:local
 ```
 
-If you want to run the server on your local network for testing:
+If you want to run the server on your local network for testing (your local IP address, ex: 192.168.1.2:8080):
 ```bash
 composer serve:remote
 ```
@@ -167,8 +167,40 @@ Account deletion by Admin:
 
 ![censync_delete_account_desktop](https://user-images.githubusercontent.com/9354045/126696896-3d8471cf-c813-4032-a124-e53df5144069.gif)
 
+[Back to top](#table-of-contents)
+
 ## Mobile:
 
-Entry page with login and register:
+Account creation:
 
-![censync_mobile](https://user-images.githubusercontent.com/9354045/124360359-45eb1d80-dc21-11eb-8d11-4499baa6548a.gif)
+![censync_create_account_mobile](https://user-images.githubusercontent.com/9354045/126840066-115ae5c7-1dfc-428b-ae05-1eb42f39fcba.gif)
+
+Dashboard preview:
+
+![censync_login_dashboard_mobile](https://user-images.githubusercontent.com/9354045/126840076-89b10ab5-9570-4bfa-b77f-09fb2bad1033.gif)
+
+Account activation by Admin:
+
+![censync_activate_account_mobile](https://user-images.githubusercontent.com/9354045/126840092-46fb29ec-b99d-4626-bda6-db4f79f75937.gif)
+
+Ticket creation by Employee:
+
+![censync_create_ticket_mobile](https://user-images.githubusercontent.com/9354045/126840107-d48a797d-58ed-4623-9710-1deebf3d8a33.gif)
+
+Ticket assignement and Note by Admin:
+
+![censync_assign_ticket_mobile](https://user-images.githubusercontent.com/9354045/126840120-1b3c49f0-ea7f-4451-869e-294b6f836a8f.gif)
+
+Ticket resolution by Developer or Technician:
+
+![censync_resolve_ticket_mobile](https://user-images.githubusercontent.com/9354045/126840128-66c40f5c-903e-4b8d-936a-22bf2ca46277.gif)
+
+Note update and deletion, Ticket deletion (by Admin):
+
+![censync_delete_ticket_mobile](https://user-images.githubusercontent.com/9354045/126840133-27f09f63-5c80-428b-8f8a-81c33e359f8f.gif)
+
+Account deletion by Admin:
+
+![censync_delete_account_mobile](https://user-images.githubusercontent.com/9354045/126840148-c79661b7-c4a7-4cad-a8b5-0e18eb61407b.gif)
+
+[Back to top](#table-of-contents)

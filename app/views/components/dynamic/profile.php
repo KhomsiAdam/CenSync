@@ -25,6 +25,12 @@
         <div class="top-right">
             <!-- Fullname -->
             <div class="name-right"></div>
+            <!-- Mobile Logout -->
+            <div class="logout-right">
+                <a href="/logout">
+                    <button class="logout-button">Sign Out</button>
+                </a>
+            </div>
             <!-- Return previous page -->
             <div class="profile-return">
                 <svg xmlns="http://www.w3.org/2000/svg" width="30.705" height="13.5" viewBox="0 0 30.705 13.5">

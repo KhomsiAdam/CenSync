@@ -31,15 +31,18 @@ const fetchTickets = async (method, endpoint, ticket_body) => {
             ticket_body.appendChild(ticket_row);
 
             // Create an li element as a column and append it to the created ul row
-            function createTicketCol(ticket_col, col_name) {
+            function createTicketCol(ticket_col, col_name, span) {
                 ticket_col = document.createElement('li');
                 ticket_col.innerHTML = ticket[col_name];
+
+                if(ticket[col_name] === document.querySelector('.username').innerHTML) ticket_col.style.color = green;
+
                 switch (ticket_col.innerHTML) {
                     case 'High':
                         ticket_col.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="33.423" height="29.154" viewBox="0 0 33.423 29.154"> <g id="High_Icon" data-name="High Icon" transform="translate(-886.461 -435.423)"> <path id="Icon_feather-triangle" data-name="Icon feather-triangle" d="M15.435,5.79,2.73,27A3,3,0,0,0,5.3,31.5H30.7A3,3,0,0,0,33.27,27L20.565,5.79a3,3,0,0,0-5.13,0Z" transform="translate(885.172 432.077)" fill="none" stroke="#2b777d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/> <text id="H" transform="translate(898 459)" fill="#2b777d" font-size="15" font-family="Raleway-SemiBold, Raleway" font-weight="600"><tspan x="0" y="0">H</tspan></text> </g> </svg>';
                         break;
                     case 'Medium':
-                        ticket_col.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="37.639" height="37.639" viewBox="0 0 37.639 37.639"> <g id="Medium_Icon" data-name="Medium Icon" transform="translate(-884.086 -505.103)"> <path id="Icon_awesome-square" data-name="Icon awesome-square" d="M21.981,2.25H2.638A2.638,2.638,0,0,0,0,4.888V24.231a2.638,2.638,0,0,0,2.638,2.638H21.981a2.638,2.638,0,0,0,2.638-2.638V4.888A2.638,2.638,0,0,0,21.981,2.25Z" transform="matrix(0.719, 0.695, -0.695, 0.719, 904.165, 504.899)" fill="none" stroke="#2b777d" stroke-width="2"/> <text id="M" transform="translate(896 529)" fill="#2b777d" font-size="15" font-family="Raleway-SemiBold, Raleway" font-weight="600"><tspan x="0" y="0">M</tspan></text> </g> </svg>';
+                        ticket_col.innerHTML = '<svg class="medium-icon" xmlns="http://www.w3.org/2000/svg" width="37.639" height="37.639" viewBox="0 0 37.639 37.639"> <g id="Medium_Icon" data-name="Medium Icon" transform="translate(-884.086 -505.103)"> <path id="Icon_awesome-square" data-name="Icon awesome-square" d="M21.981,2.25H2.638A2.638,2.638,0,0,0,0,4.888V24.231a2.638,2.638,0,0,0,2.638,2.638H21.981a2.638,2.638,0,0,0,2.638-2.638V4.888A2.638,2.638,0,0,0,21.981,2.25Z" transform="matrix(0.719, 0.695, -0.695, 0.719, 904.165, 504.899)" fill="none" stroke="#2b777d" stroke-width="2"/> <text id="M" transform="translate(896 529)" fill="#2b777d" font-size="15" font-family="Raleway-SemiBold, Raleway" font-weight="600"><tspan x="0" y="0">M</tspan></text> </g> </svg>';
                         break;
                     case 'Low':
                         ticket_col.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="33.423" height="29.154" viewBox="0 0 33.423 29.154"> <g id="Low_Icon" data-name="Low Icon" transform="translate(-886.459 -585.5)"> <path id="Icon_feather-triangle" data-name="Icon feather-triangle" d="M15.435,5.79,2.73,27A3,3,0,0,0,5.3,31.5H30.7A3,3,0,0,0,33.27,27L20.565,5.79a3,3,0,0,0-5.13,0Z" transform="translate(921.172 618) rotate(180)" fill="none" stroke="#2b777d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/> <text id="L" transform="translate(899 602)" fill="#2b777d" font-size="15" font-family="Raleway-SemiBold, Raleway" font-weight="600"><tspan x="0" y="0">L</tspan></text> </g> </svg>';
@@ -47,14 +50,24 @@ const fetchTickets = async (method, endpoint, ticket_body) => {
                 }
                 ticket_col.setAttribute('class', col_name);
                 ticket_row.appendChild(ticket_col);
+
+                ticket_span = document.createElement('span');
+                ticket_span.setAttribute('class', 'mobile-span');
+                ticket_col.prepend(ticket_span);
+                ticket_span.innerHTML = span;
             }
-            createTicketCol('ticket_id', 'ticket_id');
-            createTicketCol('ticket_category', 'category');
-            createTicketCol('ticket_priority', 'priority');
-            createTicketCol('ticket_title', 'title');
-            createTicketCol('ticket_reported_by', 'reported_by');
-            createTicketCol('ticket_created_at', 'ticket_created_at');
-            createTicketCol('ticket_status', 'status');
+
+            ticket_id = document.createElement('li');
+            ticket_id.innerHTML = ticket['ticket_id'];
+            ticket_id.setAttribute('class', 'ticket_id');
+            ticket_row.appendChild(ticket_id);
+
+            createTicketCol('ticket_category', 'category', 'Category');
+            createTicketCol('ticket_priority', 'priority', 'Priority');
+            createTicketCol('ticket_title', 'title', 'Title');
+            createTicketCol('ticket_reported_by', 'reported_by', 'Employee');
+            createTicketCol('ticket_created_at', 'ticket_created_at', 'Created');
+            createTicketCol('ticket_status', 'status', 'Status');
         });
     }
 }
@@ -94,7 +107,7 @@ const fetchLastTicket = async (method, endpoint, ticket_body) => {
         ticket_body.prepend(ticket_row);
 
         // Create an li element as a column and append it to the created ul row
-        function createTicketCol(ticket_col, col_name) {
+        function createTicketCol(ticket_col, col_name, span) {
             ticket_col = document.createElement('li');
             ticket_col.innerHTML = ticket[col_name];
             switch (ticket_col.innerHTML) {
@@ -102,7 +115,7 @@ const fetchLastTicket = async (method, endpoint, ticket_body) => {
                     ticket_col.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="33.423" height="29.154" viewBox="0 0 33.423 29.154"> <g id="High_Icon" data-name="High Icon" transform="translate(-886.461 -435.423)"> <path id="Icon_feather-triangle" data-name="Icon feather-triangle" d="M15.435,5.79,2.73,27A3,3,0,0,0,5.3,31.5H30.7A3,3,0,0,0,33.27,27L20.565,5.79a3,3,0,0,0-5.13,0Z" transform="translate(885.172 432.077)" fill="none" stroke="#2b777d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/> <text id="H" transform="translate(898 459)" fill="#2b777d" font-size="15" font-family="Raleway-SemiBold, Raleway" font-weight="600"><tspan x="0" y="0">H</tspan></text> </g> </svg>';
                     break;
                 case 'Medium':
-                    ticket_col.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="37.639" height="37.639" viewBox="0 0 37.639 37.639"> <g id="Medium_Icon" data-name="Medium Icon" transform="translate(-884.086 -505.103)"> <path id="Icon_awesome-square" data-name="Icon awesome-square" d="M21.981,2.25H2.638A2.638,2.638,0,0,0,0,4.888V24.231a2.638,2.638,0,0,0,2.638,2.638H21.981a2.638,2.638,0,0,0,2.638-2.638V4.888A2.638,2.638,0,0,0,21.981,2.25Z" transform="matrix(0.719, 0.695, -0.695, 0.719, 904.165, 504.899)" fill="none" stroke="#2b777d" stroke-width="2"/> <text id="M" transform="translate(896 529)" fill="#2b777d" font-size="15" font-family="Raleway-SemiBold, Raleway" font-weight="600"><tspan x="0" y="0">M</tspan></text> </g> </svg>';
+                    ticket_col.innerHTML = '<svg class="medium-icon" xmlns="http://www.w3.org/2000/svg" width="37.639" height="37.639" viewBox="0 0 37.639 37.639"> <g id="Medium_Icon" data-name="Medium Icon" transform="translate(-884.086 -505.103)"> <path id="Icon_awesome-square" data-name="Icon awesome-square" d="M21.981,2.25H2.638A2.638,2.638,0,0,0,0,4.888V24.231a2.638,2.638,0,0,0,2.638,2.638H21.981a2.638,2.638,0,0,0,2.638-2.638V4.888A2.638,2.638,0,0,0,21.981,2.25Z" transform="matrix(0.719, 0.695, -0.695, 0.719, 904.165, 504.899)" fill="none" stroke="#2b777d" stroke-width="2"/> <text id="M" transform="translate(896 529)" fill="#2b777d" font-size="15" font-family="Raleway-SemiBold, Raleway" font-weight="600"><tspan x="0" y="0">M</tspan></text> </g> </svg>';
                     break;
                 case 'Low':
                     ticket_col.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="33.423" height="29.154" viewBox="0 0 33.423 29.154"> <g id="Low_Icon" data-name="Low Icon" transform="translate(-886.459 -585.5)"> <path id="Icon_feather-triangle" data-name="Icon feather-triangle" d="M15.435,5.79,2.73,27A3,3,0,0,0,5.3,31.5H30.7A3,3,0,0,0,33.27,27L20.565,5.79a3,3,0,0,0-5.13,0Z" transform="translate(921.172 618) rotate(180)" fill="none" stroke="#2b777d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/> <text id="L" transform="translate(899 602)" fill="#2b777d" font-size="15" font-family="Raleway-SemiBold, Raleway" font-weight="600"><tspan x="0" y="0">L</tspan></text> </g> </svg>';
@@ -110,14 +123,24 @@ const fetchLastTicket = async (method, endpoint, ticket_body) => {
             }
             ticket_col.setAttribute('class', col_name);
             ticket_row.appendChild(ticket_col);
+
+            ticket_span = document.createElement('span');
+            ticket_span.setAttribute('class', 'mobile-span');
+            ticket_col.prepend(ticket_span);
+            ticket_span.innerHTML = span;
         }
-        createTicketCol('ticket_id', 'ticket_id');
-        createTicketCol('ticket_category', 'category');
-        createTicketCol('ticket_priority', 'priority');
-        createTicketCol('ticket_title', 'title');
-        createTicketCol('ticket_reported_by', 'reported_by');
-        createTicketCol('ticket_created_at', 'ticket_created_at');
-        createTicketCol('ticket_status', 'status');
+
+        ticket_id = document.createElement('li');
+        ticket_id.innerHTML = ticket['ticket_id'];
+        ticket_id.setAttribute('class', 'ticket_id');
+        ticket_row.appendChild(ticket_id);
+
+        createTicketCol('ticket_category', 'category', 'Category');
+        createTicketCol('ticket_priority', 'priority', 'Priority');
+        createTicketCol('ticket_title', 'title', 'Title');
+        createTicketCol('ticket_reported_by', 'reported_by', 'Employee');
+        createTicketCol('ticket_created_at', 'ticket_created_at', 'Created');
+        createTicketCol('ticket_status', 'status', 'Status');
         captureAllTickets();
     }
 }
@@ -153,7 +176,7 @@ const fetchTicketById = async (method, endpoint, ticket_id) => {
         if (assign_button) assign_button.value = ticket['ticket_id'];
         if (delete_button) delete_button.value = ticket['ticket_id'];
         if (resolve_button) {
-            if (ticket['status'] !== 'Open' || ticket['assigned_to'] != user) {
+            if (ticket['status'] !== 'Open' || ticket['assigned_to'] != username) {
                 document.querySelector('.ticket-button').style.display = 'none';
                 resolve_button.value = '';
             } else {
@@ -178,8 +201,10 @@ const fetchTicketById = async (method, endpoint, ticket_id) => {
             }
         }
 
+        document.querySelector('.ticket-reported-by-value').innerHTML = ticket['reported_by'];
+
         // Style the reported by value with green if it matches the user connected
-        if (document.querySelector('.ticket-reported-by-value').innerHTML === user) {
+        if (document.querySelector('.ticket-reported-by-value').innerHTML === username) {
             document.querySelector('.ticket-reported-by-value').style.color = green;
         } else {
             document.querySelector('.ticket-reported-by-value').style.color = blue;
@@ -189,7 +214,7 @@ const fetchTicketById = async (method, endpoint, ticket_id) => {
         placeholderAssignData(assigned_to, document.querySelector('.ticket-assigned-to-value'), '_________ _________');
 
         // Style the assigned to value with green if it matches the user connected
-        if (document.querySelector('.ticket-assigned-to-value').innerHTML === user) {
+        if (document.querySelector('.ticket-assigned-to-value').innerHTML === username) {
             document.querySelector('.ticket-assigned-to-value').style.color = green;
         } else {
             document.querySelector('.ticket-assigned-to-value').style.color = blue;
@@ -199,7 +224,7 @@ const fetchTicketById = async (method, endpoint, ticket_id) => {
         placeholderAssignData(assigned_by, document.querySelector('.ticket-assigned-by-value'), '_________ _________');
 
         // Style the assigned by value with green if it matches the user connected
-        if (document.querySelector('.ticket-assigned-by-value').innerHTML === user) {
+        if (document.querySelector('.ticket-assigned-by-value').innerHTML === username) {
             document.querySelector('.ticket-assigned-by-value').style.color = green;
         } else {
             document.querySelector('.ticket-assigned-by-value').style.color = blue;
@@ -249,7 +274,6 @@ const fetchTicketById = async (method, endpoint, ticket_id) => {
 
         document.querySelector('.ticket-priority-value').innerHTML = ticket['priority'];
         document.querySelector('.ticket-type-value').innerHTML = ticket['category'];
-        document.querySelector('.ticket-reported-by-value').innerHTML = ticket['reported_by'];
 
         document.querySelector('.ticket-created-value').innerHTML = ticket['ticket_created_at'];
 
@@ -265,10 +289,10 @@ const fetchTicketById = async (method, endpoint, ticket_id) => {
                 document.querySelector('.ticket-priority-value').innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="33.423" height="29.154" viewBox="0 0 33.423 29.154"> <g id="High_Icon" data-name="High Icon" transform="translate(-886.461 -435.423)"> <path id="Icon_feather-triangle" data-name="Icon feather-triangle" d="M15.435,5.79,2.73,27A3,3,0,0,0,5.3,31.5H30.7A3,3,0,0,0,33.27,27L20.565,5.79a3,3,0,0,0-5.13,0Z" transform="translate(885.172 432.077)" fill="#C94242" stroke="#C94242" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/> <text id="H" transform="translate(898 459)" fill="#F9F9F9" font-size="15" font-family="Raleway-SemiBold, Raleway" font-weight="600"><tspan x="0" y="0">H</tspan></text> </g> </svg><span> High</span>';
                 break;
             case 'Medium':
-                document.querySelector('.ticket-priority-value').innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="37.639" height="37.639" viewBox="0 0 37.639 37.639"> <g id="Medium_Icon" data-name="Medium Icon" transform="translate(-884.086 -505.103)"> <path id="Icon_awesome-square" data-name="Icon awesome-square" d="M21.981,2.25H2.638A2.638,2.638,0,0,0,0,4.888V24.231a2.638,2.638,0,0,0,2.638,2.638H21.981a2.638,2.638,0,0,0,2.638-2.638V4.888A2.638,2.638,0,0,0,21.981,2.25Z" transform="matrix(0.719, 0.695, -0.695, 0.719, 904.165, 504.899)" fill="#BEBE5F" stroke="#BEBE5F" stroke-width="2"/> <text id="M" transform="translate(896 529)" fill="#F9F9F9" font-size="15" font-family="Raleway-SemiBold, Raleway" font-weight="600"><tspan x="0" y="0">M</tspan></text> </g> </svg>';
+                document.querySelector('.ticket-priority-value').innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="37.639" height="37.639" viewBox="0 0 37.639 37.639"> <g id="Medium_Icon" data-name="Medium Icon" transform="translate(-884.086 -505.103)"> <path id="Icon_awesome-square" data-name="Icon awesome-square" d="M21.981,2.25H2.638A2.638,2.638,0,0,0,0,4.888V24.231a2.638,2.638,0,0,0,2.638,2.638H21.981a2.638,2.638,0,0,0,2.638-2.638V4.888A2.638,2.638,0,0,0,21.981,2.25Z" transform="matrix(0.719, 0.695, -0.695, 0.719, 904.165, 504.899)" fill="#BEBE5F" stroke="#BEBE5F" stroke-width="2"/> <text id="M" transform="translate(896 529)" fill="#F9F9F9" font-size="15" font-family="Raleway-SemiBold, Raleway" font-weight="600"><tspan x="0" y="0">M</tspan></text> </g> </svg><span> Medium</span>';
                 break;
             case 'Low':
-                document.querySelector('.ticket-priority-value').innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="33.423" height="29.154" viewBox="0 0 33.423 29.154"> <g id="Low_Icon" data-name="Low Icon" transform="translate(-886.459 -585.5)"> <path id="Icon_feather-triangle" data-name="Icon feather-triangle" d="M15.435,5.79,2.73,27A3,3,0,0,0,5.3,31.5H30.7A3,3,0,0,0,33.27,27L20.565,5.79a3,3,0,0,0-5.13,0Z" transform="translate(921.172 618) rotate(180)" fill="#5FBE6E" stroke="#5FBE6E" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/> <text id="L" transform="translate(899 602)" fill="#F9F9F9" font-size="15" font-family="Raleway-SemiBold, Raleway" font-weight="600"><tspan x="0" y="0">L</tspan></text> </g> </svg>';
+                document.querySelector('.ticket-priority-value').innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="33.423" height="29.154" viewBox="0 0 33.423 29.154"> <g id="Low_Icon" data-name="Low Icon" transform="translate(-886.459 -585.5)"> <path id="Icon_feather-triangle" data-name="Icon feather-triangle" d="M15.435,5.79,2.73,27A3,3,0,0,0,5.3,31.5H30.7A3,3,0,0,0,33.27,27L20.565,5.79a3,3,0,0,0-5.13,0Z" transform="translate(921.172 618) rotate(180)" fill="#5FBE6E" stroke="#5FBE6E" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/> <text id="L" transform="translate(899 602)" fill="#F9F9F9" font-size="15" font-family="Raleway-SemiBold, Raleway" font-weight="600"><tspan x="0" y="0">L</tspan></text> </g> </svg><span> Low</span>';
                 break;
         }
 
@@ -731,7 +755,7 @@ const fetchNoteByTicketId = async (method, endpoint, ticket_id) => {
     // Check for expired token to redirect to login page
     if (note.error) {
         verifyTokenExp();
-    // if a note exists
+        // if a note exists
     } else if (note['note_id']) {
         // If the note buttons exists, assign the note ID to them
         if (edit_note_button) edit_note_button.value = note['note_id'];
@@ -753,7 +777,7 @@ const fetchNoteByTicketId = async (method, endpoint, ticket_id) => {
             if (note_edit) note_edit.value = note['note_id'];
             if (note_delete) note_delete.value = note['note_id'];
         }
-    // If there's no note related to the ticket
+        // If there's no note related to the ticket
     } else {
         if (note_container) {
             // Hide the container and buttons if they exist

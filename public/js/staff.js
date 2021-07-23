@@ -246,9 +246,9 @@ const fetchUserById = async (method, endpoint, user_id) => {
         if (document.querySelector('.activate-account')) {
             if (user['status'] == 'active') {
                 document.querySelector('.activate-account').style.display = 'none';
-                document.querySelector('.delete-account').style.display = 'block';
+                document.querySelector('.delete-account').style.display = 'unset';
             } else {
-                document.querySelector('.activate-account').style.display = 'block';
+                document.querySelector('.activate-account').style.display = 'unset';
                 document.querySelector('.delete-account').style.display = 'none';
             }
         }
@@ -283,7 +283,6 @@ const fetchUserById = async (method, endpoint, user_id) => {
         // Hide Staff List and show Staff member selected
         document.querySelector('.staff-container').style.display = 'none';
         document.querySelector('.staff-details').style.display = 'grid';
-        document.querySelector('.main').style.overflowY = 'hidden';
     }
 }
 
@@ -337,7 +336,8 @@ const fetchTicketsNumbersUser = async (method, endpoint, user_id) => {
     document.querySelector('.right-chart').appendChild(titleChart);
     titleChart.innerHTML = 'Tickets submitted: ' + tickets.length;
     // Render the chart
-    chartJs('profileChart', 'High', 'Medium', 'Low', n_high, n_med, n_low, '#C94242', '#BEBE5F', '#5FBE6E', 16)
+    if (screenWidth <= 768) chartJs('profileChart', 'High', 'Medium', 'Low', n_high, n_med, n_low, '#C94242', '#BEBE5F', '#5FBE6E', 13)
+    if (screenWidth > 768) chartJs('profileChart', 'High', 'Medium', 'Low', n_high, n_med, n_low, '#C94242', '#BEBE5F', '#5FBE6E', 16)
     // Reseting the numbers
     n_high = 0, n_med = 0, n_low = 0;
 }
@@ -390,7 +390,8 @@ const fetchAssignedNumbersUser = async (method, endpoint, fullname) => {
     document.querySelector('.right-chart').appendChild(titleChart);
     titleChart.innerHTML = 'Tickets assigned: ' + tickets.length;
     // Render the chart
-    chartJs('profileChart', 'Pending', 'Open', 'Resolved', n_pend, n_open, n_resolv, '#2B777D', '#5FBEBC', '#5FBE6E', 16)
+    if (screenWidth <= 768) chartJs('profileChart', 'Pending', 'Open', 'Resolved', n_pend, n_open, n_resolv, '#2B777D', '#5FBEBC', '#5FBE6E', 13)
+    if (screenWidth > 768) chartJs('profileChart', 'Pending', 'Open', 'Resolved', n_pend, n_open, n_resolv, '#2B777D', '#5FBEBC', '#5FBE6E', 16)
     // Reseting the numbers
     n_pend = 0, n_open = 0, n_resolv = 0;
 }

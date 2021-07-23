@@ -177,6 +177,9 @@ header {
                     fill: $blue;
                     transition: 600ms;
                 }
+                .dashboard-icon {
+                    height: 4.5rem;
+                }
                 &:hover {
                     color: $green;
                     transition: 600ms;
@@ -188,6 +191,7 @@ header {
             }
             .active_link {
                 color: $green;
+                fill: $green !important; 
                 svg {
                     fill: $green;
                 }
@@ -598,6 +602,7 @@ header {
 #overlay.active {
     pointer-events: all;
     opacity: 1;
+    z-index: 9;
 }
 
 // Mobile media query
@@ -637,6 +642,9 @@ header {
                         width: 3rem;
                         height: 3rem;
                     }
+                    .dashboard-icon {
+                        height: 2.5rem;
+                    }
                 }
                 .create_container_mobile {
                     .create_ticket_mobile {
@@ -673,6 +681,9 @@ header {
             }
             .nav_item:last-child {
                 margin: 0;
+            }
+            .logout-icon {
+                display: none;
             }
         }
     }

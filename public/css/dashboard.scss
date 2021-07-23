@@ -20,13 +20,16 @@
         grid-area: ticketcard;  
     }
     .staff-chart {
-        grid-area: staffchart;  
+        grid-area: staffchart;
+        width: 100%;
     }
     .inc-chart {
-        grid-area: incchart;  
+        grid-area: incchart;
+        width: 100%;
     }
     .tickets-chart {
-        grid-area: ticketchart;  
+        grid-area: ticketchart;
+        width: 100%;
     }
     .staff-card, .inc-card, .tickets-card {
         background: $white;
@@ -78,5 +81,31 @@
                 }
             }
         }
+    }
+}
+@media only screen and (max-width: 768px) {
+    main {
+        padding-top: 2rem;
+    }
+    .stats {
+        width: 100%;
+        grid-template-areas:
+            "staffcard"
+            "staffchart"
+            "inccard"
+            "incchart" 
+            "ticketcard"
+            "ticketchart";
+        grid-template-columns: 100%;
+        grid-template-rows: auto;
+        grid-gap: 5rem;
+        align-items: center;
+        justify-items: center;
+        .staff-card, .inc-card, .tickets-card {
+            width: 88%;
+        }
+    }
+    .tickets-chart {
+        padding-bottom: 3rem;
     }
 }

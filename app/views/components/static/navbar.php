@@ -13,7 +13,7 @@
     <!-- Navigation links -->
     <li class="nav_item">
         <a href="/dashboard" class="nav_link <?php if ($_SERVER['REQUEST_URI'] === "/dashboard") { ?> active_link <?php } ?>">
-            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
+            <svg class="dashboard-icon" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
                 <path id="Icon_material-dashboard" data-name="Icon material-dashboard" d="M4.5,32.278H26.722V4.5H4.5ZM4.5,54.5H26.722V37.833H4.5Zm27.778,0H54.5V26.722H32.278Zm0-50V21.167H54.5V4.5Z" transform="translate(-4.5 -4.5)" />
             </svg>
             <span class="text_link">Dashboard</span>
@@ -27,6 +27,14 @@
             <span class="text_link">Tickets</span>
         </a>
     </li>
+    <!-- Mobile Create ticket button and other links -->
+    <?php if ($_SESSION['ACCOUNTS_ROLE'] === 'Employee') { ?>
+        <li class="nav_item">
+            <div class="create_container_mobile">
+                <button class="create_ticket_mobile" data-modal-target="#modal">+</button>
+            </div>
+        </li>
+    <?php } ?>
     <li class="nav_item">
         <a href="/staff" class="nav_link <?php if ($_SERVER['REQUEST_URI'] === "/staff") { ?> active_link <?php } ?>">
             <svg xmlns="http://www.w3.org/2000/svg" width="125" height="87.5" viewBox="0 0 125 87.5">
@@ -35,27 +43,23 @@
             <span class="text_link">Staff</span>
         </a>
     </li>
-    <!-- Mobile Create ticket button and other links -->
-    <li class="nav_item">
-        <div class="create_container_mobile">
-            <button class="create_ticket_mobile" data-modal-target="#modal">+</button>
-        </div>
-    </li>
-    <li class="nav_item">
+    <!-- <li class="nav_item">
         <div class="bell_container_mobile">
             <svg class="bell" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 31.5 36">
                 <path id="Icon_awesome-bell" data-name="Icon awesome-bell" d="M15.75,36a4.5,4.5,0,0,0,4.5-4.5h-9A4.5,4.5,0,0,0,15.75,36ZM30.895,25.474c-1.358-1.46-3.9-3.656-3.9-10.849a11.1,11.1,0,0,0-9-10.91V2.25a2.249,2.249,0,1,0-4.5,0V3.715a11.1,11.1,0,0,0-9,10.91c0,7.193-2.542,9.389-3.9,10.849A2.2,2.2,0,0,0,0,27a2.252,2.252,0,0,0,2.257,2.25H29.243A2.252,2.252,0,0,0,31.5,27a2.2,2.2,0,0,0-.605-1.526Z" transform="translate(0)" />
             </svg>
         </div>
-    </li>
+    </li> -->
     <li class="nav_item">
-        <div class="profile_container_mobile">
-            <svg class="profile" xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 34.875 34.875">
-                <path id="Icon_awesome-user-circle" data-name="Icon awesome-user-circle" d="M17.438.563A17.438,17.438,0,1,0,34.875,18,17.434,17.434,0,0,0,17.438.563Zm0,6.75A6.188,6.188,0,1,1,11.25,13.5,6.188,6.188,0,0,1,17.438,7.313Zm0,24.188a13.474,13.474,0,0,1-10.3-4.8,7.839,7.839,0,0,1,6.926-4.2,1.72,1.72,0,0,1,.5.077,9.309,9.309,0,0,0,2.876.485,9.274,9.274,0,0,0,2.876-.485,1.72,1.72,0,0,1,.5-.077,7.839,7.839,0,0,1,6.926,4.2A13.474,13.474,0,0,1,17.438,31.5Z" transform="translate(0 -0.563)" />
-            </svg>
-        </div>
+        <a href="/profile">
+            <div class="profile_container_mobile">
+                <svg class="profile <?php if ($_SERVER['REQUEST_URI'] === "/profile") { ?> active_link <?php } ?>" xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 34.875 34.875">
+                    <path id="Icon_awesome-user-circle" data-name="Icon awesome-user-circle" d="M17.438.563A17.438,17.438,0,1,0,34.875,18,17.434,17.434,0,0,0,17.438.563Zm0,6.75A6.188,6.188,0,1,1,11.25,13.5,6.188,6.188,0,0,1,17.438,7.313Zm0,24.188a13.474,13.474,0,0,1-10.3-4.8,7.839,7.839,0,0,1,6.926-4.2,1.72,1.72,0,0,1,.5.077,9.309,9.309,0,0,0,2.876.485,9.274,9.274,0,0,0,2.876-.485,1.72,1.72,0,0,1,.5-.077,7.839,7.839,0,0,1,6.926,4.2A13.474,13.474,0,0,1,17.438,31.5Z" transform="translate(0 -0.563)" />
+                </svg>
+            </div>
+        </a>
     </li>
-    <li class="nav_item">
+    <li class="nav_item logout-icon">
         <a href="/logout" class="nav_link" id="logout">
             <svg xmlns="http://www.w3.org/2000/svg" width="35.436" height="27.004" viewBox="0 0 35.436 27.004">
                 <path id="Icon_awesome-sign-out-alt" data-name="Icon awesome-sign-out-alt" d="M34.945,19.2,23.133,31.008a1.69,1.69,0,0,1-2.883-1.2v-6.75H10.688A1.683,1.683,0,0,1,9,21.375v-6.75a1.683,1.683,0,0,1,1.688-1.687H20.25V6.188a1.691,1.691,0,0,1,2.883-1.2L34.945,16.8A1.7,1.7,0,0,1,34.945,19.2ZM13.5,30.656V27.844A.846.846,0,0,0,12.656,27H6.75A2.248,2.248,0,0,1,4.5,24.75V11.25A2.248,2.248,0,0,1,6.75,9h5.906a.846.846,0,0,0,.844-.844V5.344a.846.846,0,0,0-.844-.844H6.75A6.752,6.752,0,0,0,0,11.25v13.5A6.752,6.752,0,0,0,6.75,31.5h5.906A.846.846,0,0,0,13.5,30.656Z" transform="translate(0 -4.499)" />

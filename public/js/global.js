@@ -2,7 +2,8 @@
 let ticket_selected_id;
 let ticket;
 let user_selected_id;
-let user;
+let username;
+let screenWidth = window.innerWidth;
 /* Colors */
 // Main
 const green = '#5FBE6E';
@@ -38,6 +39,7 @@ function captureAllTickets() {
         ticket_row.addEventListener('click', () => {
             ticket_selected_id = ticket_row.children[0].innerHTML;
             fetchTicketById('readUniqueTicket', '/ticket', ticket_selected_id);
+            document.querySelector('.main').scroll(0, 0);
         })
     });
 }
@@ -49,6 +51,7 @@ function captureAllStaff() {
         staff_card.addEventListener('click', () => {
             user_selected_id = staff_card.children[0].innerHTML;
             fetchUserById('readUniqueUser', '/user', user_selected_id);
+            document.querySelector('.main').scroll(0, 0);
         })
     });
 }
@@ -193,6 +196,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // Get the username
-        if (document.querySelector('.username')) user = document.querySelector('.username').innerHTML;
+        if (document.querySelector('.username')) username = document.querySelector('.username').innerHTML;
     }, 400);
 })

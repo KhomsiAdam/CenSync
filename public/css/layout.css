@@ -174,6 +174,9 @@ header .profile_container .profile:hover {
   fill: #2B777D;
   transition: 600ms;
 }
+.navbar .nav_menu .nav_item .nav_link .dashboard-icon {
+  height: 4.5rem;
+}
 .navbar .nav_menu .nav_item .nav_link:hover {
   color: #5FBE6E;
   transition: 600ms;
@@ -184,6 +187,7 @@ header .profile_container .profile:hover {
 }
 .navbar .nav_menu .nav_item .active_link {
   color: #5FBE6E;
+  fill: #5FBE6E !important;
 }
 .navbar .nav_menu .nav_item .active_link svg {
   fill: #5FBE6E;
@@ -811,6 +815,7 @@ header .profile_container .profile:hover {
 #overlay.active {
   pointer-events: all;
   opacity: 1;
+  z-index: 9;
 }
 
 @media only screen and (max-width: 768px) {
@@ -853,6 +858,9 @@ header .profile_container .profile:hover {
     width: 3rem;
     height: 3rem;
   }
+  .navbar .nav_menu .nav_item .nav_link .dashboard-icon {
+    height: 2.5rem;
+  }
   .navbar .nav_menu .nav_item .create_container_mobile .create_ticket_mobile {
     width: 6rem;
     height: 6rem;
@@ -885,6 +893,9 @@ header .profile_container .profile:hover {
   }
   .navbar .nav_menu .nav_item:last-child {
     margin: 0;
+  }
+  .navbar .nav_menu .logout-icon {
+    display: none;
   }
 
   header .create_container,

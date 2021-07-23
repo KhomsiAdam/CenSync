@@ -75,6 +75,9 @@
   font-weight: 600;
   color: #2B777D;
 }
+.staff-details .staff-right .top-right .logout-right {
+  display: none;
+}
 .staff-details .staff-right .top-right .email-right {
   grid-area: email;
   color: #5FBE6E;
@@ -136,4 +139,143 @@
   font-weight: 600;
   padding: 1rem 0;
   opacity: 0.5;
+}
+
+@media only screen and (max-width: 768px) {
+  main {
+    padding-top: 3rem;
+    overflow: auto;
+  }
+
+  .staff-container {
+    padding: 0 0 3rem 0;
+    justify-content: center;
+  }
+  .staff-container .staff-card {
+    width: 329px;
+  }
+  .staff-container .staff-card .card-header {
+    width: 329px;
+    grid-template-columns: 25% 70%;
+    position: relative;
+  }
+  .staff-container .staff-card .card-header .fullname {
+    font-size: 2rem;
+  }
+  .staff-container .staff-card .card-header .role {
+    font-size: 1.4rem;
+  }
+  .staff-container .staff-card .card-header .card-status {
+    position: absolute;
+    bottom: 33%;
+    font-size: 1.4rem;
+    left: 50%;
+  }
+  .staff-container .staff-card .card-body {
+    font-size: 1.4rem;
+    padding: 0.5rem 1.5rem;
+  }
+
+  .staff-container:last-child {
+    margin-bottom: 3rem;
+  }
+
+  .staff-details {
+    width: 90%;
+    height: 290%;
+    grid-template-areas: "linfo" "rinfo";
+    grid-template-rows: 50% 50%;
+    grid-template-columns: 100%;
+    position: relative;
+    margin: 0 2rem 3rem 2rem;
+  }
+  .staff-details .staff-left {
+    height: 100%;
+    font-size: 1.6rem;
+    border-right: none;
+    padding: 0 3rem;
+  }
+  .staff-details .staff-left .staff-left-info {
+    height: 80%;
+  }
+  .staff-details .staff-right {
+    grid-template-rows: 30% 70%;
+    height: 100%;
+    font-size: 1.6rem;
+    padding: 0 3rem;
+  }
+  .staff-details .staff-right .top-right {
+    grid-template-rows: 80% 10% 10%;
+    grid-template-columns: 75% 25%;
+    grid-template-areas: "return return" "name logout" "email email";
+    width: 100%;
+    height: 21%;
+    align-items: center;
+    text-align: center;
+    position: absolute;
+    bottom: 79%;
+    left: 0%;
+  }
+  .staff-details .staff-right .top-right .name-right {
+    font-size: 2.2rem;
+  }
+  .staff-details .staff-right .top-right .logout-right {
+    grid-area: logout;
+    display: block;
+    padding-right: 1.3rem;
+  }
+  .staff-details .staff-right .top-right .logout-right .logout-button {
+    width: 60px;
+    height: 30px;
+    border-radius: 5px;
+    outline: none;
+    font-size: 1.2rem;
+    font-weight: 600;
+    background: #C94242;
+    border: #C94242;
+    color: #F9F9F9;
+  }
+  .staff-details .staff-right .top-right .profile-return {
+    align-self: start;
+    padding: 2rem 1.5rem;
+    justify-self: end;
+    text-align: unset;
+    position: fixed;
+    height: 52px;
+    width: 60px;
+    left: 74%;
+    bottom: 73.8%;
+    background: #2B777D;
+    z-index: 5;
+    border-radius: 5px;
+  }
+  .staff-details .staff-right .top-right .profile-return svg {
+    height: 15px;
+    width: 30px;
+    fill: #F9F9F9;
+  }
+  .staff-details .staff-right .top-right .email-role-right {
+    grid-area: email;
+    font-size: 1.4rem;
+  }
+  .staff-details .staff-right .bio-right label {
+    font-size: 1.6rem;
+  }
+  .staff-details .staff-right .bottom-right {
+    grid-template-columns: 100%;
+    grid-template-rows: 50% 50%;
+  }
+  .staff-details .staff-right .bottom-right .right-chart {
+    width: 90%;
+    height: 100%;
+  }
+  .staff-details .staff-right .bottom-right .right-chart #titleChart {
+    font-size: 1.6rem;
+  }
+  @-moz-document url-prefix() {
+    .staff-details .staff-right .bio-right,
+.staff-details .staff-right .bottom-right {
+      width: 90%;
+    }
+  }
 }/*# sourceMappingURL=profile.css.map */
