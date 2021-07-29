@@ -129,6 +129,37 @@ function chartJs(chart, label1, label2, label3, data1, data2, data3, color1, col
     })
 }
 
+// Get unique staff member by his ID
+const fetchImageById = async (method, endpoint, user_id) => {
+    const data = {
+        "method": method,
+        "params": {
+            "user_id": user_id
+        }
+    }
+    const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify(data)
+    });
+    // Custom error message in case the status is not 200 : OK (ex:problem with ressource url)
+    if (response.status !== 200) {
+        throw new Error('cannot fetch data');
+    }
+    user = await response.json();
+    // Check for expired token to redirect to login page
+    if (user.error) {
+        verifyTokenExp();
+    } else {
+        console.log(user);
+        document.querySelector('.header-image').setAttribute('src', user['profile_img']);
+    }
+}
+
 // Handle content after the page loads completely
 document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
@@ -197,5 +228,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Get the username
         if (document.querySelector('.username')) username = document.querySelector('.username').innerHTML;
-    }, 400);
+
+    }, 300);
 })

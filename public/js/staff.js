@@ -50,10 +50,17 @@ const fetchStaff = async (method, endpoint, staff_container) => {
             let staff_header = document.createElement('div');
             staffCardElement(staff_card, staff_header, 'card-header', '');
 
-            // Create Staff Image
-            let staff_image = document.createElement('div');
-            staffCardElement(staff_header, staff_image, 'card-image', '<svg class="card-profile" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 34.875 34.875"> <path id="Icon_awesome-user-circle" data-name="Icon awesome-user-circle" d="M17.438.563A17.438,17.438,0,1,0,34.875,18,17.434,17.434,0,0,0,17.438.563Zm0,6.75A6.188,6.188,0,1,1,11.25,13.5,6.188,6.188,0,0,1,17.438,7.313Zm0,24.188a13.474,13.474,0,0,1-10.3-4.8,7.839,7.839,0,0,1,6.926-4.2,1.72,1.72,0,0,1,.5.077,9.309,9.309,0,0,0,2.876.485,9.274,9.274,0,0,0,2.876-.485,1.72,1.72,0,0,1,.5-.077,7.839,7.839,0,0,1,6.926,4.2A13.474,13.474,0,0,1,17.438,31.5Z" transform="translate(0 -0.563)"/> </svg>');
+            // Create Staff Image Container            
+            let staff_image_container = document.createElement('div');
+            staff_image_container.setAttribute('class', 'card-image-container');
+            staff_header.appendChild(staff_image_container);
 
+            // Render Profile Image in the Image Container
+            let staff_image = document.createElement('img');
+            staff_image.setAttribute('class', 'card-image');
+            staff_image.setAttribute('src', user['profile_img']);
+            staff_image_container.appendChild(staff_image);
+            
             // Create Staff Info
             let staff_info = document.createElement('div');
             staffCardElement(staff_header, staff_info, 'card-info', '');
@@ -186,6 +193,7 @@ const jobtitle = document.getElementById('jobtitle');
 const activate_button = document.querySelector('.activate-submit-button');
 const delete_form = document.querySelector('.delete-account-form');
 const delete_button = document.querySelector('.delete-submit-button');
+const delete_image_button = document.getElementById('delete-profile-image-submit');
 
 // Get unique staff member by his ID
 const fetchUserById = async (method, endpoint, user_id) => {
@@ -221,6 +229,8 @@ const fetchUserById = async (method, endpoint, user_id) => {
         } else {
             if (delete_button) delete_button.value = user['user_id'];
         }
+        
+        if (delete_image_button) delete_image_button.value = user['user_id'];
 
         // Department
         let user_department = user['department'];
@@ -276,6 +286,8 @@ const fetchUserById = async (method, endpoint, user_id) => {
         document.querySelector('.email-right').innerHTML = user['email'];
         document.querySelector('.role-right').innerHTML = user['role'];
 
+        document.querySelector('.profile-image').setAttribute('src',user['profile_img']);
+
         // Chart
         if (user['role'] === 'Employee') fetchTicketsNumbersUser('readTicketsNumberUser', '/ticket', user['user_id']);
         if (user['role'] === 'Developer' || user['role'] === 'Technician') fetchAssignedNumbersUser('readAssignedNumberUser', '/ticket', user['firstname'] + ' ' + user['lastname']);
@@ -285,6 +297,20 @@ const fetchUserById = async (method, endpoint, user_id) => {
         document.querySelector('.staff-details').style.display = 'grid';
     }
 }
+
+// const sendUserId = async (endpoint, user_id) => {
+//     const formData = new FormData();
+//     formData.append('user_id', user_id);
+
+//     const response = await fetch(endpoint, {
+//         method: 'POST',
+//         body: formData
+//     });
+//     // Custom error message in case the status is not 200 : OK (ex:problem with ressource url)
+//     if (response.status !== 200) {
+//         throw new Error('cannot fetch data');
+//     }
+// } 
 
 // Initialization of tickets priorities numbers
 let n_high = 0, n_med = 0, n_low = 0;

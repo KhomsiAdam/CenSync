@@ -59,6 +59,7 @@ class TicketModel {
 
     // * Define your methods below
 
+    // Create ticket
     public function create($table) {
         // $sql = "SELECT * FROM $table WHERE title = :title AND content = :content AND reported_by = :reported_by";
         // $stmt = $this->db_conn->prepare($sql);
@@ -109,6 +110,7 @@ class TicketModel {
     // }
     }
 
+    // View all tickets
     public function readAll($table) {
         $sql = "SELECT ticket_id, category, priority, title, reported_by, ticket_created_at, status FROM $table ORDER BY ticket_created_at DESC";
     	$stmt = $this->db_conn->prepare($sql);
@@ -125,6 +127,7 @@ class TicketModel {
     	}
     }
 
+    // View last created ticket
     public function readLast($table) {
         $sql = "SELECT ticket_id, category, priority, title, reported_by, ticket_created_at, status FROM $table ORDER BY ticket_created_at DESC LIMIT 1";
     	$stmt = $this->db_conn->prepare($sql);
@@ -139,6 +142,7 @@ class TicketModel {
     	}
     }
 
+    // Count how many tickets are they
     public function readNumber($table) {
         $sql = "SELECT * FROM $table";
         $stmt = $this->db_conn->prepare($sql);
@@ -151,6 +155,7 @@ class TicketModel {
         }
     }
 
+    // Read all tickets by priority made by user
     public function readNumberUser($table) {
         $sql = "SELECT priority FROM $table WHERE (user_id = :user_id)";
     	$stmt = $this->db_conn->prepare($sql);
@@ -165,6 +170,7 @@ class TicketModel {
     	}
     }
 
+    // Read all tickets by status assigned to user
     public function readAssignedUser($table) {
         $sql = "SELECT status FROM $table WHERE (assigned_to = :assigned_to)";
     	$stmt = $this->db_conn->prepare($sql);
@@ -179,6 +185,7 @@ class TicketModel {
     	}
     }
 
+    // Read number of tickets by status
     public function readStatus($table) {
         $sql = "SELECT status FROM $table";
     	$stmt = $this->db_conn->prepare($sql);
@@ -192,6 +199,7 @@ class TicketModel {
     	}
     }
 
+    // Read number of tickets by priority
     public function readPriority($table) {
         $sql = "SELECT priority FROM $table";
     	$stmt = $this->db_conn->prepare($sql);
@@ -205,6 +213,7 @@ class TicketModel {
     	}
     }
 
+    // Read number of tickets by status
     public function readResolved($table) {
         $sql = "SELECT * FROM $table WHERE status = 'resolved'";
         $stmt = $this->db_conn->prepare($sql);
@@ -217,6 +226,7 @@ class TicketModel {
         }
     }
 
+    // Read single ticket with all it's informations
     public function readUnique($table) {
         $sql = "SELECT * FROM $table WHERE (ticket_id = :ticket_id)";
     	$stmt = $this->db_conn->prepare($sql);
@@ -234,6 +244,7 @@ class TicketModel {
     	}
     }
 
+    // Assign ticket
     public function updateAssigned($table) {
         $sql = "UPDATE $table SET status = :status, assigned_by = :assigned_by, assigned_to = :assigned_to, ticket_assigned_at = CURRENT_TIMESTAMP
         WHERE ticket_id = :ticket_id";
@@ -250,6 +261,7 @@ class TicketModel {
     	}
     }
     
+    // Resolve ticket
     public function updateResolved($table) {
         $sql = "UPDATE $table SET status = :status, ticket_resolved_at = CURRENT_TIMESTAMP
         WHERE ticket_id = :ticket_id";
@@ -264,6 +276,7 @@ class TicketModel {
     	}
     }
 
+    // Delete ticket
     public function delete($table) {
         $sql = "DELETE FROM $table WHERE ticket_id = :ticket_id";
     	$stmt = $this->db_conn->prepare($sql);

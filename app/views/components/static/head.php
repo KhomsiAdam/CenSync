@@ -24,6 +24,7 @@
             <link rel="stylesheet" href="/css/dashboard.css">
             <script src="/js/layout.js" defer></script>
             <script src="/js/dashboard.js" defer></script>
+            <script src="node_modules\chart.js\dist\chart.min.js" defer></script>
         <?php break;
 
         case '/tickets':?>
@@ -40,6 +41,7 @@
             <link rel="stylesheet" href="/css/staff.css">
             <script src="/js/layout.js" defer></script>
             <script src="/js/staff.js" defer></script>
+            <script src="node_modules\chart.js\dist\chart.min.js" defer></script>
         <?php break;
 
         case '/profile':?>
@@ -48,8 +50,8 @@
             <link rel="stylesheet" href="/css/profile.css">
             <script src="/js/layout.js" defer></script>
             <script src="/js/profile.js" defer></script>
+            <script src="node_modules\chart.js\dist\chart.min.js" defer></script>
         <?php break;
-
     }
 ?>
 <!-- Global CSS and JS -->

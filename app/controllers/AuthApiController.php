@@ -34,7 +34,8 @@ class AuthApiController extends Middleware
             $this->account_info = $authObj->sqlVerifyAccount($account_email, $_ENV['ACCOUNTS_EMAIL'], $account_password, $_ENV['ACCOUNTS_PASSWORD'], $_ENV['ACCOUNTS_TABLE']);
             if (is_array($this->account_info)) {
 
-                // Storing the role and fullname in session for autorizations handling
+                // Storing the id, role and fullname in session for some autorizations handling
+                $_SESSION['ACCOUNTS_ID'] = $this->account_info[$_ENV['ACCOUNTS_ID']];
                 $_SESSION['ACCOUNTS_ROLE'] = $this->account_info[$_ENV['ACCOUNTS_ROLE']];
                 $_SESSION['ACCOUNTS_FIRSTNAME'] = $this->account_info[$_ENV['ACCOUNTS_FIRSTNAME']];
                 $_SESSION['ACCOUNTS_LASTNAME'] = $this->account_info[$_ENV['ACCOUNTS_LASTNAME']];

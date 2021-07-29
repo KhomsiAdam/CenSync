@@ -14,7 +14,7 @@
 }
 .staff-details .staff-left {
   display: grid;
-  grid-template-rows: 35% 65%;
+  grid-template-rows: 60% 40%;
   align-items: center;
   padding: 0 4rem;
   font-size: 2.2rem;
@@ -38,6 +38,94 @@
 }
 .staff-details .staff-left .staff-left-info .left-values {
   align-items: flex-end;
+}
+.staff-details .staff-left .left-picture .profile-image-form {
+  display: grid;
+  grid-template-columns: 47.5% 47.5%;
+  grid-template-rows: 81% 13%;
+  grid-template-areas: "pimage pimage" "upload delete";
+  width: 100%;
+  justify-items: center;
+  gap: 2rem;
+  margin: 0 auto;
+}
+.staff-details .staff-left .left-picture .profile-image-form label {
+  grid-area: pimage;
+  cursor: pointer;
+  transition: opacity 300ms;
+  position: relative;
+}
+.staff-details .staff-left .left-picture .profile-image-form label #profile_image_input {
+  display: none;
+}
+.staff-details .staff-left .left-picture .profile-image-form label .profile-image {
+  height: 300px;
+  width: 300px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 100%;
+}
+.staff-details .staff-left .left-picture .profile-image-form label .change-profile-image {
+  opacity: 0;
+  position: absolute;
+  transition: opacity 300ms;
+  top: 50%;
+  left: 28%;
+  font-weight: 600;
+  z-index: 1;
+  color: #F9F9F9;
+}
+.staff-details .staff-left .left-picture .profile-image-form label:hover .change-profile-image {
+  opacity: 1;
+  transition: opacity 300ms;
+}
+.staff-details .staff-left .left-picture .profile-image-form label:before {
+  content: "";
+  width: 280px;
+  height: 280px;
+  position: absolute;
+  border: 10px solid #2B777D;
+  border-radius: 50%;
+  transition: 300ms;
+}
+.staff-details .staff-left .left-picture .profile-image-form label:hover:before {
+  border: 10px solid #5FBE6E;
+  background: rgba(38, 38, 38, 0.5);
+  transition: 300ms;
+}
+.staff-details .staff-left .left-picture .profile-image-form .profile-image-submit,
+.staff-details .staff-left .left-picture .profile-image-form .disabled-image-submit,
+.staff-details .staff-left .left-picture .profile-image-form .delete-profile-image {
+  height: 50px;
+  width: 199px;
+  background: none;
+  outline: none;
+  border: 2px solid #2B777D;
+  border-radius: 10px;
+  color: #2B777D;
+  font-size: 2rem;
+  font-weight: 600;
+}
+.staff-details .staff-left .left-picture .profile-image-form .profile-image-submit {
+  grid-area: upload;
+  cursor: pointer;
+}
+.staff-details .staff-left .left-picture .profile-image-form .delete-profile-image {
+  grid-area: delete;
+  cursor: pointer;
+}
+.staff-details .staff-left .left-picture .profile-image-form .profile-image-submit:hover {
+  color: #F9F9F9;
+  background: #5FBE6E;
+  border: #5FBE6E;
+}
+.staff-details .staff-left .left-picture .profile-image-form .delete-profile-image:hover {
+  color: #F9F9F9;
+  background: #C94242;
+  border: #C94242;
+}
+.staff-details .staff-left .left-picture .profile-image-form .disabled-image-submit {
+  opacity: 0.5;
 }
 .staff-details .staff-right {
   display: grid;

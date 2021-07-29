@@ -67,6 +67,8 @@ const fetchUserProfile = async (method, endpoint) => {
         document.querySelector('.email-right').innerHTML = user['email'];
         document.querySelector('.role-right').innerHTML = user['role'];
         document.querySelector('.left-joined-value').innerHTML = user['user_created_at'];
+        
+        document.querySelector('.profile-image').setAttribute('src',user['profile_img']);
 
         // Chart depending on role
         if (user['role'] === 'Employee') fetchTicketsNumbersUser('readTicketsNumberUser', '/ticket', user['user_id']);
@@ -186,3 +188,45 @@ const fetchAssignedNumbersUser = async (method, endpoint, fullname) => {
     // Reseting the numbers
     n_tickets = 0, n_pend = 0, n_open = 0, n_resolv = 0;
 }
+
+document.getElementById('profile_image_submit').addEventListener('click', function (e) {
+
+    if (document.getElementById('profile_image_input').value === '') {
+        e.preventDefault();
+        console.log('Please select an image to upload');
+    } else {
+        console.log(document.getElementById('profile_image_input').value);
+        document.querySelector('.profile-image-form').submit();
+    }
+})
+
+document.getElementById('profile_image_input').addEventListener('change', () => {
+    if (document.getElementById('profile_image_input').value !== '') {
+        document.getElementById('profile_image_submit').classList.remove('disabled-image-submit');
+        document.getElementById('profile_image_submit').classList.add('profile-image-submit');
+        document.getElementById('profile_image_submit').disabled = false;
+    } else {
+        document.getElementById('profile_image_submit').classList.remove('profile-image-submit');
+        document.getElementById('profile_image_submit').classList.add('disabled-image-submit');
+        document.getElementById('profile_image_submit').disabled = true;
+    }
+})
+
+// document.getElementById('profile-image-submit').addEventListener('click', uploadImage);
+// async function uploadImage(e) {
+//     e.preventDefault();
+
+//     const formData = new FormData();
+//     formData.append('profile_image', (document.getElementById('profile-image-input').files[0]));
+
+//     try {
+//         const response = await fetch('/upload', {
+//             method: 'POST',
+//             body: formData
+//         });
+//         const result = await response.json();
+//         console.log(result);
+//     } catch (e) {
+//         console.log(e);
+//     }
+// }

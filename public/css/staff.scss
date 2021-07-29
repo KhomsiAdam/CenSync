@@ -39,11 +39,23 @@
             width: 100%;
             height: 100%;
             text-align: left;
-            .card-image {
+            .card-image-container {
+                position: relative;
                 text-align: center;
-                .card-profile {
-                    fill: $blue;
+                .card-image {
+                    width: 48px;
+                    height: 48px;
+                    object-fit: cover;
+                    border-radius: 100%;
                 }
+            }
+            .card-image-container:before {
+                content: "";
+                width: 42px;
+                height: 42px;
+                position: absolute;
+                border: 3px solid $blue;
+                border-radius: 50%;
             }
             .fullname {
                 font-size: 2.4rem;
@@ -104,7 +116,7 @@
     border-radius: 10px;
     .staff-left {
         display: grid;
-        grid-template-rows: 35% 65%;
+        grid-template-rows: 60% 40%;
         align-items: center;
         padding: 0 4rem;
         font-size: 2.2rem;
@@ -127,6 +139,53 @@
             .left-values {
                 align-items: flex-end;
             }
+        }
+        .left-picture {
+            display: grid;
+            grid-template-columns: 100%;
+            grid-template-rows: auto;
+            grid-template-areas: 
+                "pimg"
+                "dimg";
+            gap: 2rem;
+            width: 100%;
+            justify-items: center;
+            margin: 0 auto;
+            position: relative;
+            .profile-image {
+                height: 300px;
+                width: 300px;
+                object-fit: cover;
+                border-radius: 100%;
+                grid-area: pimg;
+            }
+            .delete-profile-image {
+                height: 50px;
+                width: 199px;
+                background: none;
+                outline: none;
+                border: 2px solid $blue;
+                border-radius: 10px;
+                color: $blue;
+                font-size: 2rem;
+                font-weight: 600;
+                grid-area: dimg;
+                cursor: pointer;
+            }
+            .delete-profile-image:hover {
+                color: $white;
+                background: $red;
+                border: $red;
+            }
+        }
+        .left-picture:before {
+            content: "";
+            width: 280px;
+            height: 280px;
+            position: absolute;
+            border: 10px solid $blue;
+            border-radius: 50%;
+            transition: 300ms;
         }
     }
     .staff-right {
@@ -232,6 +291,7 @@
                     display: flex;
                     flex-direction: column;
                     justify-content: space-evenly;
+                    padding-top: 5rem;
                 }
                 .right-info {
                     font-weight: $semibold;

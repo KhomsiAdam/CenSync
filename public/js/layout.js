@@ -189,7 +189,7 @@ ticket_form.addEventListener('submit', async function (e) {
             document.querySelector('.tickets-chart').innerHTML = '';
             // Generating new charts with updated informations
             fetchStatusNumbers('readStatusNumber', '/ticket');
-            fetchPriorityNumbers('readPriorityNumber', '/ticket');        
+            fetchPriorityNumbers('readPriorityNumber', '/ticket');
         }
         // Closing the create ticket modal
         const modals = document.querySelectorAll('.modal.active');
@@ -198,3 +198,8 @@ ticket_form.addEventListener('submit', async function (e) {
         })
     }
 })
+
+// Get the profile image for the header
+setTimeout(() => {
+if (document.querySelector('.header-image')) fetchImageById('readProfileImage', '/user', user_selected_id);
+}, 50);

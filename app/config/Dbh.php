@@ -3,6 +3,9 @@ namespace App\Config;
 
 use PDO;
 use Exception;
+use Dotenv\Dotenv;
+$dotenv = Dotenv::createImmutable('../');
+$dotenv->load();
 
 // Database Handler
 class Dbh {

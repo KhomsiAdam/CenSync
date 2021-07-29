@@ -2,8 +2,9 @@
 
 namespace App\Model;
 
-use App\Config\Dbh;
 use PDO;
+use App\Config\Dbh;
+use App\Controller\UploadController;
 
 class UserModel
 {
@@ -175,6 +176,7 @@ class UserModel
 
     // * Define your methods below
 
+    // User creation
     public function create($table)
     {
         $sql = "INSERT INTO $table (
@@ -208,15 +210,24 @@ class UserModel
         }
     }
 
+    // View all Users
     public function readAll($table)
     {
-        $sql = "SELECT user_id, role, firstname, lastname, email, dateofbirth, jobtitle, phone, country, city, status, user_created_at FROM $table WHERE NOT (user_id = :user_id) AND NOT (role = 'admin')";
+        $sql = "SELECT user_id, role, firstname, lastname, email, dateofbirth, jobtitle, phone, country, city, status, profile_img, user_created_at FROM $table WHERE NOT (user_id = :user_id) AND NOT (role = 'admin')";
         $stmt = $this->db_conn->prepare($sql);
         $stmt->bindParam(':user_id', $this->user_id);
         if ($stmt->execute()) {
             $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
             for ($i = 0; $i < count($users); $i++) {
+                // Format date for all users to a readable format
                 $users[$i]['user_created_at'] = (date("M d Y, H:m A", strtotime($users[$i]['user_created_at'])));
+                if (!empty($users[$i]['profile_img'])) {
+                    // Replace the image name for each user with the full real path to render it in the frontend
+                    $users[$i]['profile_img'] = $this->renderProfileImage(dirname(__DIR__) . '/uploads/' . $users[$i]['profile_img']);
+                } else {
+                    // Show a default avatar image
+                    $users[$i]['profile_img'] = $this->renderProfileImage(dirname(__DIR__) . '/uploads/' . 'Avatar.png');
+                }
             }
             header("Content-Type: application/json");
             echo json_encode($users, JSON_PRETTY_PRINT | JSON_NUMERIC_CHECK);
@@ -226,6 +237,7 @@ class UserModel
         }
     }
 
+    // View all roles
     public function readAllRole($table)
     {
         $sql = "SELECT user_id, role, firstname, lastname FROM $table WHERE role = :role";
@@ -241,52 +253,105 @@ class UserModel
         }
     }
 
+    // View User and render his image profile if it exists, if not render a default avatar image
     public function readUnique($table)
     {
-        $sql = "SELECT user_id, role, firstname, lastname, email, dateofbirth, department, jobtitle, phone, country, city, status, gender, bio, user_created_at FROM $table WHERE (user_id = :user_id)";
+        $sql = "SELECT user_id, role, firstname, lastname, email, dateofbirth, department, jobtitle, phone, country, city, status, gender, bio, user_created_at, profile_img FROM $table WHERE (user_id = :user_id)";
         $stmt = $this->db_conn->prepare($sql);
         $stmt->bindParam(':user_id', $this->user_id);
         if ($stmt->execute()) {
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
             unset($user['password']);
+
+            // For deleting selected user's profile image
+            $_SESSION['USER_ID'] = $user['user_id'];
+            $_SESSION['USER_FIRSTNAME'] = $user['firstname'];
+            $_SESSION['USER_LASTNAME'] = $user['lastname'];
+
+            // Format the date to a better readable format
             $user['user_created_at'] = (date("M d Y, H:m A", strtotime($user['user_created_at'])));
             header("Content-Type: application/json");
-            echo json_encode($user, JSON_PRETTY_PRINT | JSON_NUMERIC_CHECK);
+            // If no file path is found return a default avatar image path
+            if (!empty($user['profile_img'])) {
+                // Replace the image name with the full real path to render it in the frontend
+                $user['profile_img'] = $this->renderProfileImage(dirname(__DIR__) . '/uploads/' . $user['profile_img']);
+                echo json_encode($user, JSON_PRETTY_PRINT | JSON_NUMERIC_CHECK);
+            } else {
+                // Show a default avatar image
+                $user['profile_img'] = $this->renderProfileImage(dirname(__DIR__) . '/uploads/' . 'Avatar.png');
+                echo json_encode($user, JSON_PRETTY_PRINT | JSON_NUMERIC_CHECK);
+            }
             return true;
         } else {
             return false;
         }
     }
 
+    // Get the profile image of user by id for the header
+    public function getProfileImage($table)
+    {
+        $sql = "SELECT profile_img FROM $table WHERE (user_id = :user_id)";
+        $stmt = $this->db_conn->prepare($sql);
+        $stmt->bindParam(':user_id', $this->user_id);
+        if ($stmt->execute()) {
+            $image = $stmt->fetch(PDO::FETCH_ASSOC);
+            header("Content-Type: application/json");
+            // If no file path is found return a default avatar image path
+            if (!empty($image['profile_img'])) {
+                // Replace the image name with the full real path to render it in the frontend
+                $image['profile_img'] = $this->renderProfileImage(dirname(__DIR__) . '/uploads/' . $image['profile_img']);
+                echo json_encode($image, JSON_PRETTY_PRINT | JSON_NUMERIC_CHECK);
+            } else {
+                // Show a default avatar image
+                $image['profile_img'] = $this->renderProfileImage(dirname(__DIR__) . '/uploads/' . 'Avatar.png');
+                echo json_encode($image, JSON_PRETTY_PRINT | JSON_NUMERIC_CHECK);
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // Read image into a string an encode it
+    public function renderProfileImage($filename)
+    {
+        $content = file_get_contents($filename);
+        $base64   = base64_encode($content);
+        return ('data:' . ';base64,' . $base64);
+    }
+
+    // Count how many users are they besides the admin
     public function readNumber($table)
     {
         $sql = "SELECT COUNT(role) FROM $table WHERE NOT (role = 'admin')";
         $stmt = $this->db_conn->prepare($sql);
-        if($stmt->execute()) {
+        if ($stmt->execute()) {
             $users = $stmt->fetch(PDO::FETCH_OBJ);
             $number = 'COUNT(role)';
-            header ("Content-Type: application/json");
-            echo json_encode($users->$number,JSON_PRETTY_PRINT|JSON_NUMERIC_CHECK);    
-        	return true;
+            header("Content-Type: application/json");
+            echo json_encode($users->$number, JSON_PRETTY_PRINT | JSON_NUMERIC_CHECK);
+            return true;
         } else {
-        	return false;
+            return false;
         }
     }
 
+    // Get all roles for chart JS
     public function readRoles($table)
     {
         $sql = "SELECT role FROM $table WHERE NOT (role = 'admin')";
         $stmt = $this->db_conn->prepare($sql);
-        if($stmt->execute()) {
+        if ($stmt->execute()) {
             $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            header ("Content-Type: application/json");
-            echo json_encode($users,JSON_PRETTY_PRINT|JSON_NUMERIC_CHECK);    
-        	return true;
+            header("Content-Type: application/json");
+            echo json_encode($users, JSON_PRETTY_PRINT | JSON_NUMERIC_CHECK);
+            return true;
         } else {
-        	return false;
+            return false;
         }
     }
 
+    // Account activation
     public function updateStatus($table)
     {
         $sql = "UPDATE $table SET department = :department, jobtitle = :jobtitle, status = :status, user_updated_at = CURRENT_TIMESTAMP
@@ -304,6 +369,7 @@ class UserModel
         }
     }
 
+    // Edit optional informations of user
     public function updateInfo($table)
     {
         $sql = "UPDATE $table SET phone = :phone, country = :country, city = :city, gender = :gender, bio = :bio, user_updated_at = CURRENT_TIMESTAMP
@@ -323,6 +389,7 @@ class UserModel
         }
     }
 
+    // Delete user account
     public function delete($table)
     {
         $sql = "DELETE FROM $table WHERE user_id = :user_id";

@@ -51,10 +51,10 @@ class UserApiController extends Middleware
         $role = $this->validateParams('role', $this->param['role'], STRING);
         // By default, any account other than admin should be inactive on account creation
         switch ($role) {
-            case 'Admin':
-                $user_id = $this->generateAdminId();
-                $status = 'active';
-                break;
+            // case 'Admin':
+            //     $user_id = $this->generateAdminId();
+            //     $status = 'active';
+            //     break;
             case 'Developer':
                 $user_id = $this->generateDevId();
                 $status = 'inactive';
@@ -68,8 +68,8 @@ class UserApiController extends Middleware
                 $status = 'inactive';
                 break;
             default:
-                // $user_id = $this->generateEmpId();
-                // $status = 'inactive';
+                $user_id = $this->generateEmpId();
+                $status = 'inactive';
                 break;
         }
         $firstname = $this->validateParams('firstname', $this->param['firstname'], STRING);
@@ -145,11 +145,12 @@ class UserApiController extends Middleware
         $user_id = $this->validateParams('user_id', $this->param['user_id'], STRING);
         $data = new UserModel;
         $data->setUserId($user_id);
+        // $_SESSION['user_id'] = $user_id;
         if ($_ENV['DEV_MODE'] === 'ON') {
             if($data->readUnique($_ENV['ACCOUNTS_TABLE']) != true) {
                 $message = 'Failed to fetch unique User.';
             } else {
-                $message = "Unique User fetched successfully.";
+                $message = 'Unique User fetched successfully.';
             }
             $this->returnResponse(RESPONSE_MESSAGE, $message);
         } else {
@@ -162,16 +163,34 @@ class UserApiController extends Middleware
         $this->validateToken();
         $user_id = $this->validateParams('user_id', $this->user_id, STRING);
         $data = new UserModel;
-        $data->setUserId($user_id);
+        $data->setUserId($user_id);    
         if ($_ENV['DEV_MODE'] === 'ON') {
             if($data->readUnique($_ENV['ACCOUNTS_TABLE']) != true) {
                 $message = 'Failed to fetch unique User.';
             } else {
-                $message = "Unique User fetched successfully.";
+                $message = 'Unique User fetched successfully.';
             }
             $this->returnResponse(RESPONSE_MESSAGE, $message);
         } else {
             $data->readUnique($_ENV['ACCOUNTS_TABLE']);
+        }
+    }
+
+    // For user's profile image only
+    public function readProfileImage() {
+        $this->validateToken();
+        $user_id = $this->validateParams('user_id', $this->user_id, STRING);
+        $data = new UserModel;
+        $data->setUserId($user_id);    
+        if ($_ENV['DEV_MODE'] === 'ON') {
+            if($data->getProfileImage($_ENV['ACCOUNTS_TABLE']) != true) {
+                $message = 'Failed to fetch unique User image.';
+            } else {
+                $message = "Unique User image fetched successfully.";
+            }
+            $this->returnResponse(RESPONSE_MESSAGE, $message);
+        } else {
+            $data->getProfileImage($_ENV['ACCOUNTS_TABLE']);
         }
     }
 
@@ -189,6 +208,7 @@ class UserApiController extends Middleware
             $data->readNumber($_ENV['ACCOUNTS_TABLE']);            
         }
     }
+    
     // Get total numbers of each role
     public function readRolesNumber() {
         $data = new UserModel;

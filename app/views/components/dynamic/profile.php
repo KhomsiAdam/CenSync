@@ -1,7 +1,17 @@
 <section class="staff-details">
     <div class="staff-left">
         <!-- Profile image -->
-        <div class="left-picture"></div>
+        <div class="left-picture">
+            <form class="profile-image-form" action="/upload" method="POST" enctype="multipart/form-data">
+                <label for="profile_image_input">
+                    <input type="file" name="profile_image" id="profile_image_input" />
+                    <img class="profile-image" />
+                    <span class="change-profile-image">Select image</span>
+                </label>
+                <button type="submit" name="profile_image_submit" id="profile_image_submit" disabled class="disabled-image-submit">Upload image</button>
+                <button type="button" class="delete-profile-image" data-modal-target="#deleteimagemodal">Delete image</button>
+            </form>
+        </div>
         <!-- Informations -->
         <div class="staff-left-info">
             <div class="left-info">
@@ -68,3 +78,20 @@
         </div>
     </div>
 </section>
+<!-- Delete profile image modal -->
+<div class="modal" id="deleteimagemodal">
+    <div class="modal-header">
+        <div class="title">Are you sure you wanna delete your profile picture ?</div>
+        <button data-close-button class="close-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                <path id="Icon_material-close" data-name="Icon material-close" d="M27.5,9.514,25.486,7.5,17.5,15.486,9.514,7.5,7.5,9.514,15.486,17.5,7.5,25.486,9.514,27.5,17.5,19.514,25.486,27.5,27.5,25.486,19.514,17.5Z" transform="translate(-7.5 -7.5)" fill="#f9f9f9" />
+            </svg>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form class="delete-profile-image-form" action="/delete" method="POST">
+            <button type="submit" class="delete-submit-button" id="delete-profile-image-submit">Yes</button>
+            <button type="button" data-close-button class="delete-cancel-button">No</button>
+        </form>
+    </div>
+</div>

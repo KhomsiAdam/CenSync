@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Application;
+use App\Config\Dbh;
 
 class ViewsController {
     /** Views renderer controller

@@ -6,7 +6,12 @@
     <!-- Left part -->
     <div class="staff-left">
         <!-- Profile image -->
-        <div class="left-picture"></div>
+        <div class="left-picture">
+            <img class="profile-image" />
+            <?php if ($_SESSION['ACCOUNTS_ROLE'] === 'Admin') { ?>
+                <button type="button" class="delete-profile-image" data-modal-target="#deleteimagemodal">Delete image</button>
+            <?php } ?>
+        </div>
         <!-- Informations -->
         <div class="staff-left-info">
             <div class="left-info">
@@ -110,6 +115,23 @@
         <div class="modal-body">
             <form class="delete-account-form">
                 <button type="submit" class="delete-submit-button">Yes</button>
+                <button type="button" data-close-button class="delete-cancel-button">No</button>
+            </form>
+        </div>
+    </div>
+    <!-- Delete profile image modal -->
+    <div class="modal" id="deleteimagemodal">
+        <div class="modal-header">
+            <div class="title">Are you sure you wanna delete this user's profile picture ?</div>
+            <button data-close-button class="close-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                    <path id="Icon_material-close" data-name="Icon material-close" d="M27.5,9.514,25.486,7.5,17.5,15.486,9.514,7.5,7.5,9.514,15.486,17.5,7.5,25.486,9.514,27.5,17.5,19.514,25.486,27.5,27.5,25.486,19.514,17.5Z" transform="translate(-7.5 -7.5)" fill="#f9f9f9" />
+                </svg>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form class="delete-profile-image-form" action="/deleteimg" method="POST">
+                <button type="submit" class="delete-submit-button" id="delete-profile-image-submit">Yes</button>
                 <button type="button" data-close-button class="delete-cancel-button">No</button>
             </form>
         </div>

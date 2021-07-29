@@ -38,11 +38,24 @@
   height: 100%;
   text-align: left;
 }
-.staff-container .staff-card .card-header .card-image {
+.staff-container .staff-card .card-header .card-image-container {
+  position: relative;
   text-align: center;
 }
-.staff-container .staff-card .card-header .card-image .card-profile {
-  fill: #2B777D;
+.staff-container .staff-card .card-header .card-image-container .card-image {
+  width: 48px;
+  height: 48px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 100%;
+}
+.staff-container .staff-card .card-header .card-image-container:before {
+  content: "";
+  width: 42px;
+  height: 42px;
+  position: absolute;
+  border: 3px solid #2B777D;
+  border-radius: 50%;
 }
 .staff-container .staff-card .card-header .fullname {
   font-size: 2.4rem;
@@ -101,7 +114,7 @@
 }
 .staff-details .staff-left {
   display: grid;
-  grid-template-rows: 35% 65%;
+  grid-template-rows: 60% 40%;
   align-items: center;
   padding: 0 4rem;
   font-size: 2.2rem;
@@ -125,6 +138,52 @@
 }
 .staff-details .staff-left .staff-left-info .left-values {
   align-items: flex-end;
+}
+.staff-details .staff-left .left-picture {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: auto;
+  grid-template-areas: "pimg" "dimg";
+  gap: 2rem;
+  width: 100%;
+  justify-items: center;
+  margin: 0 auto;
+  position: relative;
+}
+.staff-details .staff-left .left-picture .profile-image {
+  height: 300px;
+  width: 300px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 100%;
+  grid-area: pimg;
+}
+.staff-details .staff-left .left-picture .delete-profile-image {
+  height: 50px;
+  width: 199px;
+  background: none;
+  outline: none;
+  border: 2px solid #2B777D;
+  border-radius: 10px;
+  color: #2B777D;
+  font-size: 2rem;
+  font-weight: 600;
+  grid-area: dimg;
+  cursor: pointer;
+}
+.staff-details .staff-left .left-picture .delete-profile-image:hover {
+  color: #F9F9F9;
+  background: #C94242;
+  border: #C94242;
+}
+.staff-details .staff-left .left-picture:before {
+  content: "";
+  width: 280px;
+  height: 280px;
+  position: absolute;
+  border: 10px solid #2B777D;
+  border-radius: 50%;
+  transition: 300ms;
 }
 .staff-details .staff-right {
   display: grid;
@@ -230,6 +289,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  padding-top: 5rem;
 }
 .staff-details .staff-right .bottom-right .staff-right-info .right-info {
   font-weight: 600;

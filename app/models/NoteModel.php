@@ -35,6 +35,7 @@ class NoteModel {
 
     // * Define your methods below
 
+    // Create note
     public function create($table) {
     	$sql = "INSERT INTO $table (
         note_id,
@@ -59,6 +60,7 @@ class NoteModel {
     	}
     }
 
+    //? View all notes
     public function readAll($table) {
         $sql = "SELECT * FROM $table";
     	$stmt = $this->db_conn->prepare($sql);
@@ -72,6 +74,7 @@ class NoteModel {
     	}
     }
 
+    // View note related to ticket
     public function readUnique($table, $usertable) {
         $sql = "SELECT $table.note_id, $table.content, $table.note_updated_at, $usertable.firstname, $usertable.lastname FROM $table
         INNER JOIN $usertable ON $table.user_id = $usertable.user_id
@@ -92,6 +95,7 @@ class NoteModel {
     	}
     }
     
+    // Edit note
     public function update($table) {
         $sql = "UPDATE $table SET content = :content, note_updated_at = CURRENT_TIMESTAMP
         WHERE note_id = :note_id";
@@ -106,6 +110,7 @@ class NoteModel {
     	}
     }
 
+    // Delete note
     public function delete($table) {
         $sql = "DELETE FROM $table WHERE note_id = :note_id";
     	$stmt = $this->db_conn->prepare($sql);

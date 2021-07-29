@@ -29,7 +29,7 @@ main {
   display: grid;
   align-items: center;
   list-style: none;
-  grid-template-columns: 16% 12% 24% 15% 19% 13%;
+  grid-template-columns: 16% 12% 24% 17% 17% 14%;
   text-align: center;
 }
 .tickets .tbody {
@@ -50,7 +50,7 @@ main {
   border: 1px solid #EBEBEB;
   display: grid;
   align-items: center;
-  grid-template-columns: 16% 12% 24% 15% 19% 13%;
+  grid-template-columns: 16% 12% 24% 17% 18% 13%;
   text-align: center;
   list-style: none;
   border-bottom: 1px solid #EBEBEB;
