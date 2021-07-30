@@ -56,6 +56,7 @@
                     cursor: pointer;
                     transition: opacity 300ms;
                     position: relative;
+                    z-index: 5;
                     #profile_image_input {
                         display: none;
                     }
@@ -130,7 +131,6 @@
                 .disabled-image-submit {
                     opacity: 0.5;
                 }
-
             }
         }
     }
@@ -195,6 +195,7 @@
                 border-radius: 5px;
                 outline: none;
                 padding: 1rem;
+                height: 100%;
                 &:focus {
                     background: white;
                 }
@@ -289,6 +290,50 @@
             font-size: 1.6rem;
             border-right: none;
             padding: 0 3rem;
+            .left-picture {
+                .profile-image-form {
+                    grid-template-columns: 100%;
+                    grid-template-rows: 74% 13% 13%;
+                    grid-template-areas:
+                        "pimage"
+                        "upload"
+                        "delete";
+                    gap: 4rem;
+                    label {
+                        .profile-image {
+                            width: 200px;
+                            height: 200px;
+                        }
+                        .change-profile-image {
+                            top: 35%;
+                            left: 25%;
+                        }
+                    }
+                    label:before {
+                        width: 180px;
+                        height: 180px;
+                    }
+                    .profile-image-submit,
+                    .disabled-image-submit {
+                        color: $white;
+                        background: $green;
+                        border: $green;
+                    }
+                    .delete-profile-image {
+                        color: $white;
+                        background: $red;
+                        border: $red;
+                    }
+                }
+                @-moz-document url-prefix() {
+                    .profile-image-form {
+                        margin-top: 6rem;
+                        #profile_image_submit {
+                            margin-top: 6rem;
+                        }
+                    }
+                }
+            }
             .staff-left-info {
                 height: 80%;
             }
@@ -376,6 +421,28 @@
                 .bottom-right {
                     width: 90%;
                 }
+            }
+        }
+    }
+    #deleteimagemodal {
+        height: 74%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 20rem;
+        .modal-header {
+            grid-gap: 12rem;
+        }
+        .modal-body {
+            .delete-submit-button {
+                background: $red;
+                border: $red;
+                color: $white;
+            }
+            .delete-cancel-button {
+                background: $lightblue;
+                border: $lightblue;
+                color: $white;
             }
         }
     }

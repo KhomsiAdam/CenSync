@@ -60,7 +60,7 @@ const fetchStaff = async (method, endpoint, staff_container) => {
             staff_image.setAttribute('class', 'card-image');
             staff_image.setAttribute('src', user['profile_img']);
             staff_image_container.appendChild(staff_image);
-            
+
             // Create Staff Info
             let staff_info = document.createElement('div');
             staffCardElement(staff_header, staff_info, 'card-info', '');
@@ -229,7 +229,7 @@ const fetchUserById = async (method, endpoint, user_id) => {
         } else {
             if (delete_button) delete_button.value = user['user_id'];
         }
-        
+
         if (delete_image_button) delete_image_button.value = user['user_id'];
 
         // Department
@@ -286,7 +286,7 @@ const fetchUserById = async (method, endpoint, user_id) => {
         document.querySelector('.email-right').innerHTML = user['email'];
         document.querySelector('.role-right').innerHTML = user['role'];
 
-        document.querySelector('.profile-image').setAttribute('src',user['profile_img']);
+        document.querySelector('.profile-image').setAttribute('src', user['profile_img']);
 
         // Chart
         if (user['role'] === 'Employee') fetchTicketsNumbersUser('readTicketsNumberUser', '/ticket', user['user_id']);
@@ -530,4 +530,44 @@ if (delete_form) {
         // Capture all staff members
         setTimeout(() => { captureAllStaff(); }, 400);
     })
+}
+
+// Delete user profile image
+async function deleteUserImage() {
+
+    try {
+        const response = await fetch('/deleteimg', {
+            method: 'POST'
+        });
+        const result = await response.json();
+        console.log(result);
+        // Clear chart canvas
+        document.querySelector('.right-chart').innerHTML = '';
+        // Get the user informations with the newly uploaded image
+        fetchUserById('readUniqueUser', '/user', user_selected_id);
+        // Close the delete image modal
+        const modals = document.querySelectorAll('.modal.active');
+        modals.forEach(modal => {
+            closeModal(modal);
+        })
+        // Emptying the staff container and get the updated list
+        staff_container.innerHTML = '';
+        fetchStaff('readAllUsers', '/user', staff_container);
+        // Capture all staff members
+        setTimeout(() => { captureAllStaff(); }, 400);
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+if (document.querySelector('.delete-profile-image-form')) {
+    document.querySelector('.delete-profile-image-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        deleteUserImage();
+    })
+}
+
+// Profile picture placement fix when user connected is not admin
+if (!document.querySelector('.delete-profile-image')) {
+    document.querySelector('.left-picture').style.gap = '18.4rem'
 }

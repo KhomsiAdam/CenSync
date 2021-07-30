@@ -39,7 +39,7 @@ function captureAllTickets() {
         ticket_row.addEventListener('click', () => {
             ticket_selected_id = ticket_row.children[0].innerHTML;
             fetchTicketById('readUniqueTicket', '/ticket', ticket_selected_id);
-            document.querySelector('.main').scroll(0, 0);
+            if (screenWidth <= 768) document.querySelector('.main').scroll(0, 0);
         })
     });
 }
@@ -51,7 +51,7 @@ function captureAllStaff() {
         staff_card.addEventListener('click', () => {
             user_selected_id = staff_card.children[0].innerHTML;
             fetchUserById('readUniqueUser', '/user', user_selected_id);
-            document.querySelector('.main').scroll(0, 0);
+            if (screenWidth <= 768) document.querySelector('.main').scroll(0, 0);
         })
     });
 }
@@ -129,13 +129,10 @@ function chartJs(chart, label1, label2, label3, data1, data2, data3, color1, col
     })
 }
 
-// Get unique staff member by his ID
-const fetchImageById = async (method, endpoint, user_id) => {
+// Get unique staff member image by his ID
+const fetchImageById = async (method, endpoint) => {
     const data = {
-        "method": method,
-        "params": {
-            "user_id": user_id
-        }
+        "method": method
     }
     const response = await fetch(endpoint, {
         method: 'POST',
@@ -157,6 +154,7 @@ const fetchImageById = async (method, endpoint, user_id) => {
     } else {
         console.log(user);
         document.querySelector('.header-image').setAttribute('src', user['profile_img']);
+        document.querySelector('.nav-image').setAttribute('src', user['profile_img']);
     }
 }
 
@@ -213,7 +211,6 @@ document.addEventListener("DOMContentLoaded", () => {
         // Return to previous page from profile
         if (document.querySelector('.profile-return')) {
             document.querySelector('.profile-return').addEventListener('click', () => {
-                // document.querySelector('.right-chart').innerHTML = '';
                 window.history.back();
             });
         }

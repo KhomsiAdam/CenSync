@@ -9,6 +9,8 @@ composer.phar
 
 # Node
 /node_modules
+/public/node_modules
+node_modules/
 
 # SASS
 .sass-cache/

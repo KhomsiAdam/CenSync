@@ -2,10 +2,10 @@
     <div class="staff-left">
         <!-- Profile image -->
         <div class="left-picture">
-            <form class="profile-image-form" action="/upload" method="POST" enctype="multipart/form-data">
+            <form class="profile-image-form">
                 <label for="profile_image_input">
                     <input type="file" name="profile_image" id="profile_image_input" />
-                    <img class="profile-image" />
+                    <img class="profile-image"/>
                     <span class="change-profile-image">Select image</span>
                 </label>
                 <button type="submit" name="profile_image_submit" id="profile_image_submit" disabled class="disabled-image-submit">Upload image</button>
@@ -89,7 +89,7 @@
         </button>
     </div>
     <div class="modal-body">
-        <form class="delete-profile-image-form" action="/delete" method="POST">
+        <form class="delete-profile-image-form">
             <button type="submit" class="delete-submit-button" id="delete-profile-image-submit">Yes</button>
             <button type="button" data-close-button class="delete-cancel-button">No</button>
         </form>

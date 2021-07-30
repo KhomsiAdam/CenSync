@@ -322,6 +322,7 @@
   .staff-container {
     padding: 0 0 3rem 0;
     justify-content: center;
+    grid-row-gap: 3rem;
   }
   .staff-container .staff-card {
     width: 329px;
@@ -366,6 +367,27 @@
     font-size: 1.6rem;
     border-right: none;
     padding: 0 3rem;
+  }
+  .staff-details .staff-left .left-picture {
+    gap: 13.4rem;
+    grid-template-rows: auto;
+  }
+  .staff-details .staff-left .left-picture .profile-image {
+    width: 200px;
+    height: 200px;
+  }
+  .staff-details .staff-left .left-picture .change-profile-image {
+    top: 35%;
+    left: 25%;
+  }
+  .staff-details .staff-left .left-picture .delete-profile-image {
+    color: #F9F9F9;
+    background: #C94242;
+    border: #C94242;
+  }
+  .staff-details .staff-left .left-picture:before {
+    width: 180px;
+    height: 180px;
   }
   .staff-details .staff-left .staff-left-info {
     height: 80%;
@@ -453,22 +475,26 @@
     }
   }
 
-  #deletemodal {
+  #deletemodal,
+#deleteimagemodal {
     height: 74%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 20rem;
   }
-  #deletemodal .modal-header {
+  #deletemodal .modal-header,
+#deleteimagemodal .modal-header {
     grid-gap: 12rem;
   }
-  #deletemodal .modal-body .delete-submit-button {
+  #deletemodal .modal-body .delete-submit-button,
+#deleteimagemodal .modal-body .delete-submit-button {
     background: #C94242;
     border: #C94242;
     color: #F9F9F9;
   }
-  #deletemodal .modal-body .delete-cancel-button {
+  #deletemodal .modal-body .delete-cancel-button,
+#deleteimagemodal .modal-body .delete-cancel-button {
     background: #5FBEBC;
     border: #5FBEBC;
     color: #F9F9F9;

@@ -191,6 +191,20 @@ ticket_form.addEventListener('submit', async function (e) {
             fetchStatusNumbers('readStatusNumber', '/ticket');
             fetchPriorityNumbers('readPriorityNumber', '/ticket');
         }
+        // If the current page is the Staff page
+        if (document.querySelector('.staff-return')) {
+            // Clear profile chart from canvas
+            document.querySelector('.right-chart').innerHTML = '';
+            // Get the user informations and update the chart
+            fetchUserById('readUniqueUser', '/user', user_selected_id);
+        }
+        // If the current page is the Profile page
+        if (document.querySelector('.profile-return')) {
+            // Clear profile chart from canvas
+            document.querySelector('.right-chart').innerHTML = '';
+            // Get the user informations and update the chart
+            fetchUserProfile('readProfileUser', '/user');
+        }
         // Closing the create ticket modal
         const modals = document.querySelectorAll('.modal.active');
         modals.forEach(modal => {
@@ -201,5 +215,5 @@ ticket_form.addEventListener('submit', async function (e) {
 
 // Get the profile image for the header
 setTimeout(() => {
-if (document.querySelector('.header-image')) fetchImageById('readProfileImage', '/user', user_selected_id);
+fetchImageById('readProfileImage', '/user');
 }, 50);

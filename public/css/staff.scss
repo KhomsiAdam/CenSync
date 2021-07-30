@@ -144,7 +144,7 @@
             display: grid;
             grid-template-columns: 100%;
             grid-template-rows: auto;
-            grid-template-areas: 
+            grid-template-areas:
                 "pimg"
                 "dimg";
             gap: 2rem;
@@ -326,6 +326,7 @@
     .staff-container {
         padding: 0 0 3rem 0;
         justify-content: center;
+        grid-row-gap: 3rem;
         .staff-card {
             width: 329px;
             .card-header {
@@ -369,6 +370,27 @@
             font-size: 1.6rem;
             border-right: none;
             padding: 0 3rem;
+            .left-picture {
+                gap: 13.4rem;
+                grid-template-rows: auto;
+                .profile-image {
+                    width: 200px;
+                    height: 200px;
+                }
+                .change-profile-image {
+                    top: 35%;
+                    left: 25%;
+                }
+                .delete-profile-image {
+                    color: $white;
+                    background: $red;
+                    border: $red;
+                }
+            }
+            .left-picture:before {
+                width: 180px;
+                height: 180px;
+            }
             .staff-left-info {
                 height: 80%;
             }
@@ -461,7 +483,8 @@
             }
         }
     }
-    #deletemodal {
+    #deletemodal,
+    #deleteimagemodal {
         height: 74%;
         display: flex;
         flex-direction: column;

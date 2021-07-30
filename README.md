@@ -11,6 +11,8 @@
 * [Database Setup](#database-setup)
 * [Usage](#usage)
 * [Previews](#previews)
+  * [Desktop](#desktop)
+  * [Mobile](#mobile)
 <!--te-->
 
 # Project Description
@@ -62,11 +64,16 @@ Quick overview : Mobile
 
 # Installation
 
-[Composer](https://getcomposer.org/) is required.
+[Composer](https://getcomposer.org/) and [Node](https://nodejs.org/en/) are required.
 
-Install dependencies and other packages
+Install dependencies:
+
 ```bash
 composer install
+```
+
+```bash
+npm install
 ```
 
 [Back to top](#table-of-contents)
@@ -167,6 +174,14 @@ Account deletion by Admin:
 
 ![censync_delete_account_desktop](https://user-images.githubusercontent.com/9354045/126696896-3d8471cf-c813-4032-a124-e53df5144069.gif)
 
+User profile image upload and delete:
+
+![censync_upload_image_desktop](https://user-images.githubusercontent.com/9354045/127658303-a9bc9823-dc60-416f-b46c-02f648f88f0a.gif)
+
+Admin deleting user profile image:
+
+![censync_delete_image_desktop](https://user-images.githubusercontent.com/9354045/127658344-6380ab80-20fd-4674-ac7e-a15f91f0dd0e.gif)
+
 [Back to top](#table-of-contents)
 
 ## Mobile:
@@ -202,5 +217,13 @@ Note update and deletion, Ticket deletion (by Admin):
 Account deletion by Admin:
 
 ![censync_delete_account_mobile](https://user-images.githubusercontent.com/9354045/126840148-c79661b7-c4a7-4cad-a8b5-0e18eb61407b.gif)
+
+User profile image upload and delete:
+
+![censync_upload_image_mobile](https://user-images.githubusercontent.com/9354045/127658325-15fc050d-c9ec-4fea-beea-57ed381c310c.gif)
+
+Admin deleting user profile image:
+
+![censync_delete_image_mobile](https://user-images.githubusercontent.com/9354045/127658378-b1a8eee2-2113-4561-9d1a-b3c7dbf6c152.gif)
 
 [Back to top](#table-of-contents)

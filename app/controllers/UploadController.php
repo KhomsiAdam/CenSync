@@ -9,7 +9,7 @@ class UploadController extends UploadModel
     // Upload image page for connected User
     public function postImage()
     {
-        if (isset($_POST['profile_image_submit']) && isset($_FILES['profile_image'])) {
+        if (isset($_FILES['profile_image']) && !empty($_FILES['profile_image'])) {
             // Extract image name, size, tmp
             $img_name = $_FILES['profile_image']['name'];
             $img_size = $_FILES['profile_image']['size'];
@@ -17,9 +17,8 @@ class UploadController extends UploadModel
             $error = $_FILES['profile_image']['error'];
 
             if ($error === 0) {
-                if ($img_size > 2000000) {
+                if ($img_size > 4000000) {
                     $e = "Sorry, your file is too large!";
-                    // header("Location: /profile?error=$e");
                     echo json_encode($e);
                 } else {
                     // Get the uploaded image's file extension
@@ -41,20 +40,19 @@ class UploadController extends UploadModel
                         move_uploaded_file($tmp_name, $img_upload_path);
                         // Insert file name in database
                         $this->uploadImage($new_img_name, $_SESSION['ACCOUNTS_ID']);
-                        header('Location: /profile');
+                        echo json_encode('Image uploaded successfully');
                     } else {
                         $e = "File type not allowed";
-                        // header("Location: /profile?error=$e");
                         echo json_encode($e);
                     }
                 }
             } else {
                 $e = "Unknown error occured!";
-                // header("Location: /profile?error=$e");
                 echo json_encode($e);
             }
         } else {
-            header('Location: /profile');
+            $e = "No image found!";
+            echo json_encode($e);
         }
     }
 
@@ -70,8 +68,7 @@ class UploadController extends UploadModel
         }
         // Delete from database
         $this->deleteImageURL($_SESSION['ACCOUNTS_ID']);
-        // Redirect to profile page
-        header('Location: /profile');
+        echo json_encode('Image Deleted');
     }
 
     // Delete user profile picture
@@ -86,7 +83,6 @@ class UploadController extends UploadModel
         }
         // Delete from database
         $this->deleteImageURL($_SESSION['USER_ID']);
-        // Redirect to staff page
-        header('Location: /staff');
+        echo json_encode('Image Deleted');
     }
 }

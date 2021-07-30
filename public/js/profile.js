@@ -67,9 +67,11 @@ const fetchUserProfile = async (method, endpoint) => {
         document.querySelector('.email-right').innerHTML = user['email'];
         document.querySelector('.role-right').innerHTML = user['role'];
         document.querySelector('.left-joined-value').innerHTML = user['user_created_at'];
-        
-        document.querySelector('.profile-image').setAttribute('src',user['profile_img']);
 
+        document.querySelector('.profile-image').setAttribute('src', user['profile_img']);
+
+        // Clear chart canvas
+        document.querySelector('.right-chart').innerHTML = '';
         // Chart depending on role
         if (user['role'] === 'Employee') fetchTicketsNumbersUser('readTicketsNumberUser', '/ticket', user['user_id']);
         if (user['role'] === 'Developer' || user['role'] === 'Technician') fetchAssignedNumbersUser('readAssignedNumberUser', '/ticket', user['firstname'] + ' ' + user['lastname']);
@@ -189,17 +191,7 @@ const fetchAssignedNumbersUser = async (method, endpoint, fullname) => {
     n_tickets = 0, n_pend = 0, n_open = 0, n_resolv = 0;
 }
 
-document.getElementById('profile_image_submit').addEventListener('click', function (e) {
-
-    if (document.getElementById('profile_image_input').value === '') {
-        e.preventDefault();
-        console.log('Please select an image to upload');
-    } else {
-        console.log(document.getElementById('profile_image_input').value);
-        document.querySelector('.profile-image-form').submit();
-    }
-})
-
+// Handle the state of the upload image button
 document.getElementById('profile_image_input').addEventListener('change', () => {
     if (document.getElementById('profile_image_input').value !== '') {
         document.getElementById('profile_image_submit').classList.remove('disabled-image-submit');
@@ -212,21 +204,67 @@ document.getElementById('profile_image_input').addEventListener('change', () => 
     }
 })
 
-// document.getElementById('profile-image-submit').addEventListener('click', uploadImage);
-// async function uploadImage(e) {
-//     e.preventDefault();
+// Upload profile image
+async function uploadImage() {
 
-//     const formData = new FormData();
-//     formData.append('profile_image', (document.getElementById('profile-image-input').files[0]));
+    const formData = new FormData();
+    formData.append('profile_image', (document.getElementById('profile_image_input').files[0]));
 
-//     try {
-//         const response = await fetch('/upload', {
-//             method: 'POST',
-//             body: formData
-//         });
-//         const result = await response.json();
-//         console.log(result);
-//     } catch (e) {
-//         console.log(e);
-//     }
-// }
+    try {
+        const response = await fetch('/upload', {
+            method: 'POST',
+            body: formData
+        });
+        const result = await response.json();
+        console.log(result);
+        // Get the profile informations with the newly uploaded image
+        fetchUserProfile('readProfileUser', '/user');
+        // Get the uploaded image in the header
+        fetchImageById('readProfileImage', '/user');
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+document.getElementById('profile_image_submit').addEventListener('click', function (e) {
+    e.preventDefault();
+
+    if (document.getElementById('profile_image_input').value === '') {
+        console.log('Please select an image to upload');
+    } else {
+        console.log(document.getElementById('profile_image_input').value);
+        uploadImage();
+    }
+})
+
+// Delete profile image
+async function deleteImage() {
+
+    try {
+        const response = await fetch('/delete', {
+            method: 'POST'
+        });
+        const result = await response.json();
+        console.log(result);
+        // Get the profile informations with the newly uploaded image
+        fetchUserProfile('readProfileUser', '/user');
+        // Get the uploaded image in the header
+        fetchImageById('readProfileImage', '/user');
+        // Close the delete image modal
+        const modals = document.querySelectorAll('.modal.active');
+        modals.forEach(modal => {
+            closeModal(modal);
+        })
+        // Disable the upload image button
+        document.getElementById('profile_image_submit').classList.remove('profile-image-submit');
+        document.getElementById('profile_image_submit').classList.add('disabled-image-submit');
+        document.getElementById('profile_image_submit').disabled = true;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+document.querySelector('.delete-profile-image-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    deleteImage();
+})

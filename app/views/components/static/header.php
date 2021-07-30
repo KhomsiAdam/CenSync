@@ -22,7 +22,7 @@
 <!-- Profile image -->
 <a href="/profile">
     <div class="profile_container">
-        <img class="header-image" />
+        <img class="header-image"/>
         <span class="username"><?php echo $_SESSION['ACCOUNTS_FIRSTNAME'] . ' ' . $_SESSION['ACCOUNTS_LASTNAME'] ?></span>
     </div>
 </a>

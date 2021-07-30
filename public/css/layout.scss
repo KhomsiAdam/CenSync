@@ -132,12 +132,11 @@ header {
             height: 60px;
             width: 60px;
             object-fit: cover;
-            // border: 10px solid $blue;
             border-radius: 100%;
         }
     }
-    .profile_container:before{
-        content:"";
+    .profile_container:before {
+        content: "";
         width: 52px;
         height: 52px;
         position: absolute;
@@ -145,7 +144,7 @@ header {
         border-radius: 50%;
         transition: border 300ms;
     }
-    .profile_container:hover:before{
+    .profile_container:hover:before {
         border: 4px solid $green;
         transition: border 300ms;
     }
@@ -205,7 +204,7 @@ header {
             }
             .active_link {
                 color: $green;
-                fill: $green !important; 
+                fill: $green !important;
                 svg {
                     fill: $green;
                 }
@@ -261,7 +260,7 @@ header {
     color: $white;
     background-color: $blue;
     border-radius: 10px;
-    z-index: 10;
+    z-index: 20;
     width: 1600px;
     max-width: 91%;
     padding: 5rem;
@@ -618,7 +617,7 @@ header {
 #overlay.active {
     pointer-events: all;
     opacity: 1;
-    z-index: 9;
+    z-index: 19;
 }
 
 // Mobile media query
@@ -690,6 +689,24 @@ header {
                         fill: $blue;
                         cursor: pointer;
                     }
+                    .nav-image {
+                        width: 30px;
+                        height: 30px;
+                        object-fit: cover;
+                        border-radius: 100%;
+                    }
+                }
+                .profile_container_mobile:before {
+                    content: "";
+                    width: 26px;
+                    height: 26px;
+                    position: absolute;
+                    border: 2px solid $blue;
+                    border-radius: 50%;
+                    transition: border 300ms;
+                }
+                .active_image_link:before {
+                    border: 2px solid $green;
                 }
             }
             .nav_item:nth-child(2) {
@@ -704,14 +721,15 @@ header {
         }
     }
     header {
+        gap: 0;
         .create_container,
         .bell_container,
         .profile_container {
             display: none;
         }
         .search-container {
-            width: 88%;
-            margin-left: 6%;
+            width: 90%;
+            margin-left: 5%;
         }
     }
     .modal {
@@ -778,6 +796,7 @@ header {
 // Navbar fixes for Desktop
 @media only screen and (min-width: 768px) {
     .navbar {
+        z-index: 10;
         &:hover {
             width: 34rem;
             .nav_menu .logo .nav_link .text_link {

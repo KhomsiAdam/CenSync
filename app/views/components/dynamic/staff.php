@@ -7,7 +7,7 @@
     <div class="staff-left">
         <!-- Profile image -->
         <div class="left-picture">
-            <img class="profile-image" />
+            <img class="profile-image"/>
             <?php if ($_SESSION['ACCOUNTS_ROLE'] === 'Admin') { ?>
                 <button type="button" class="delete-profile-image" data-modal-target="#deleteimagemodal">Delete image</button>
             <?php } ?>
@@ -39,7 +39,7 @@
             <div class="account-settings">
                 <?php if ($_SESSION['ACCOUNTS_ROLE'] === 'Admin') { ?>
                     <button class="activate-account" data-modal-target="#activatemodal">Activate</button>
-                    <button class="delete-account" data-modal-target="#deletemodal">Delete</button>
+                    <button class="delete-account" data-modal-target="#deletemodal">Remove</button>
                 <?php } ?>
             </div>
             <!-- Return previous page -->
@@ -130,7 +130,7 @@
             </button>
         </div>
         <div class="modal-body">
-            <form class="delete-profile-image-form" action="/deleteimg" method="POST">
+            <form class="delete-profile-image-form">
                 <button type="submit" class="delete-submit-button" id="delete-profile-image-submit">Yes</button>
                 <button type="button" data-close-button class="delete-cancel-button">No</button>
             </form>
