@@ -37,16 +37,8 @@ class NoteModel {
 
     // Create note
     public function create($table) {
-    	$sql = "INSERT INTO $table (
-        note_id,
-        user_id,
-        ticket_id,
-        content)
-        VALUES
-        (:note_id,
-        :user_id,
-        :ticket_id,
-        :content)";
+    	$sql = "INSERT INTO $table ( note_id, user_id, ticket_id, content)
+        VALUES (:note_id, :user_id, :ticket_id, :content)";
     	$stmt = $this->db_conn->prepare($sql);
     	$stmt->bindParam(':note_id', $this->note_id);
     	$stmt->bindParam(':user_id', $this->user_id);

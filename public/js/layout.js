@@ -30,6 +30,10 @@ open_modal_buttons.forEach(button => {
     button.addEventListener('click', () => {
         const modal = document.querySelector(button.dataset.modalTarget);
         openModal(modal);
+        // Hide the scrollbars behind the modal
+        if (document.querySelector('.filter-by')) {
+            document.querySelector('.filter-by').style.overflow = 'hidden';
+        }
     })
 })
 
@@ -37,6 +41,10 @@ close_modal_buttons.forEach(button => {
     button.addEventListener('click', () => {
         const modal = button.closest('.modal');
         closeModal(modal);
+        // Reactivate the scrollbars
+        if (document.querySelector('.filter-by')) {
+            document.querySelector('.filter-by').style.overflow = 'auto';
+        }
     })
 })
 
@@ -45,6 +53,10 @@ overlay.addEventListener('click', () => {
     const modals = document.querySelectorAll('.modal.active');
     modals.forEach(modal => {
         closeModal(modal);
+        // Reactivate the scrollbars
+        if (document.querySelector('.filter-by')) {
+            document.querySelector('.filter-by').style.overflow = 'auto';
+        }
     })
 })
 
@@ -215,5 +227,5 @@ ticket_form.addEventListener('submit', async function (e) {
 
 // Get the profile image for the header
 setTimeout(() => {
-fetchImageById('readProfileImage', '/user');
-}, 50);
+    fetchImageById('readProfileImage', '/user');
+}, 75);

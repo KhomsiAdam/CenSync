@@ -118,6 +118,9 @@ const signup_form = document.querySelector('.signup_form');
 const role = document.getElementById('role');
 const firstname = document.getElementById('firstname');
 const lastname = document.getElementById('lastname');
+const month = document.getElementById('month');
+const day = document.getElementById('day');
+const year = document.getElementById('year');
 const email_up = document.getElementById('email_up');
 const password_up = document.getElementById('password_up');
 const signup_error = document.getElementById('signup_error');
@@ -130,6 +133,7 @@ const register = async (method, endpoint) => {
             "role": role.value,
             "firstname": firstname.value,
             "lastname": lastname.value,
+            "birthdate": year.value + '-' + month.value + '-' + day.value,
             "email": email_up.value,
             "password": password_up.value
         }

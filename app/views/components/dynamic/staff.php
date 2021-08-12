@@ -1,3 +1,14 @@
+<div class="filter-by">
+    <input type="text" class="filter">
+    <button class="filter-button active-filter" value="All" id="All">All</button>
+    <span>Role: </span>
+    <button class="filter-button" value="Role" id="Developer">Developer</button>
+    <button class="filter-button" value="Role" id="Technician">Technician</button>
+    <button class="filter-button" value="Role" id="Employee">Employee</button>
+    <span>Status: </span>
+    <button class="filter-button" value="Status" id="Active">Active</button>
+    <button class="filter-button" value="Status" id="Inactive">Inactive</button>
+</div>
 <!-- Staff list section -->
 <section class="staff-container">
 </section>
@@ -7,7 +18,7 @@
     <div class="staff-left">
         <!-- Profile image -->
         <div class="left-picture">
-            <img class="profile-image"/>
+            <img class="profile-image" />
             <?php if ($_SESSION['ACCOUNTS_ROLE'] === 'Admin') { ?>
                 <button type="button" class="delete-profile-image" data-modal-target="#deleteimagemodal">Delete image</button>
             <?php } ?>
@@ -56,7 +67,7 @@
         <!-- Bio -->
         <div class="bio-right">
             <label for="bio">Bio</label>
-            <textarea name="bio" id="bio" cols="30" rows="8"></textarea>
+            <div id="bio"></div>
         </div>
         <div class="bottom-right">
             <!-- Additional informations -->

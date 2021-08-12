@@ -35,17 +35,17 @@ const fetchTickets = async (method, endpoint, ticket_body) => {
                 ticket_col = document.createElement('li');
                 ticket_col.innerHTML = ticket[col_name];
 
-                if(ticket[col_name] === document.querySelector('.username').innerHTML) ticket_col.style.color = green;
+                if (ticket[col_name] === document.querySelector('.username').innerHTML) ticket_col.style.color = green;
 
                 switch (ticket_col.innerHTML) {
                     case 'High':
-                        ticket_col.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="33.423" height="29.154" viewBox="0 0 33.423 29.154"> <g id="High_Icon" data-name="High Icon" transform="translate(-886.461 -435.423)"> <path id="Icon_feather-triangle" data-name="Icon feather-triangle" d="M15.435,5.79,2.73,27A3,3,0,0,0,5.3,31.5H30.7A3,3,0,0,0,33.27,27L20.565,5.79a3,3,0,0,0-5.13,0Z" transform="translate(885.172 432.077)" fill="none" stroke="#2b777d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/> <text id="H" transform="translate(898 459)" fill="#2b777d" font-size="15" font-family="Raleway-SemiBold, Raleway" font-weight="600"><tspan x="0" y="0">H</tspan></text> </g> </svg>';
+                        ticket_col.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="33.423" height="29.154" viewBox="0 0 33.423 29.154"> <g id="High_Icon" data-name="High Icon" transform="translate(-886.461 -435.423)"> <path id="Icon_feather-triangle" data-name="Icon feather-triangle" d="M15.435,5.79,2.73,27A3,3,0,0,0,5.3,31.5H30.7A3,3,0,0,0,33.27,27L20.565,5.79a3,3,0,0,0-5.13,0Z" transform="translate(885.172 432.077)" fill="none" stroke="#2b777d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/> <text id="H" transform="translate(898 459)" fill="#2b777d" font-size="15" font-family="Raleway-SemiBold, Raleway" font-weight="600"><tspan x="0" y="0">H</tspan></text> </g> </svg><span class="hidden-prio">High</span>';
                         break;
                     case 'Medium':
-                        ticket_col.innerHTML = '<svg class="medium-icon" xmlns="http://www.w3.org/2000/svg" width="37.639" height="37.639" viewBox="0 0 37.639 37.639"> <g id="Medium_Icon" data-name="Medium Icon" transform="translate(-884.086 -505.103)"> <path id="Icon_awesome-square" data-name="Icon awesome-square" d="M21.981,2.25H2.638A2.638,2.638,0,0,0,0,4.888V24.231a2.638,2.638,0,0,0,2.638,2.638H21.981a2.638,2.638,0,0,0,2.638-2.638V4.888A2.638,2.638,0,0,0,21.981,2.25Z" transform="matrix(0.719, 0.695, -0.695, 0.719, 904.165, 504.899)" fill="none" stroke="#2b777d" stroke-width="2"/> <text id="M" transform="translate(896 529)" fill="#2b777d" font-size="15" font-family="Raleway-SemiBold, Raleway" font-weight="600"><tspan x="0" y="0">M</tspan></text> </g> </svg>';
+                        ticket_col.innerHTML = '<svg class="medium-icon" xmlns="http://www.w3.org/2000/svg" width="37.639" height="37.639" viewBox="0 0 37.639 37.639"> <g id="Medium_Icon" data-name="Medium Icon" transform="translate(-884.086 -505.103)"> <path id="Icon_awesome-square" data-name="Icon awesome-square" d="M21.981,2.25H2.638A2.638,2.638,0,0,0,0,4.888V24.231a2.638,2.638,0,0,0,2.638,2.638H21.981a2.638,2.638,0,0,0,2.638-2.638V4.888A2.638,2.638,0,0,0,21.981,2.25Z" transform="matrix(0.719, 0.695, -0.695, 0.719, 904.165, 504.899)" fill="none" stroke="#2b777d" stroke-width="2"/> <text id="M" transform="translate(896 529)" fill="#2b777d" font-size="15" font-family="Raleway-SemiBold, Raleway" font-weight="600"><tspan x="0" y="0">M</tspan></text> </g> </svg><span class="hidden-prio">Medium</span>';
                         break;
                     case 'Low':
-                        ticket_col.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="33.423" height="29.154" viewBox="0 0 33.423 29.154"> <g id="Low_Icon" data-name="Low Icon" transform="translate(-886.459 -585.5)"> <path id="Icon_feather-triangle" data-name="Icon feather-triangle" d="M15.435,5.79,2.73,27A3,3,0,0,0,5.3,31.5H30.7A3,3,0,0,0,33.27,27L20.565,5.79a3,3,0,0,0-5.13,0Z" transform="translate(921.172 618) rotate(180)" fill="none" stroke="#2b777d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/> <text id="L" transform="translate(899 602)" fill="#2b777d" font-size="15" font-family="Raleway-SemiBold, Raleway" font-weight="600"><tspan x="0" y="0">L</tspan></text> </g> </svg>';
+                        ticket_col.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="33.423" height="29.154" viewBox="0 0 33.423 29.154"> <g id="Low_Icon" data-name="Low Icon" transform="translate(-886.459 -585.5)"> <path id="Icon_feather-triangle" data-name="Icon feather-triangle" d="M15.435,5.79,2.73,27A3,3,0,0,0,5.3,31.5H30.7A3,3,0,0,0,33.27,27L20.565,5.79a3,3,0,0,0-5.13,0Z" transform="translate(921.172 618) rotate(180)" fill="none" stroke="#2b777d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/> <text id="L" transform="translate(899 602)" fill="#2b777d" font-size="15" font-family="Raleway-SemiBold, Raleway" font-weight="600"><tspan x="0" y="0">L</tspan></text> </g> </svg><span class="hidden-prio">Low</span>';
                         break;
                 }
                 ticket_col.setAttribute('class', col_name);
@@ -68,6 +68,12 @@ const fetchTickets = async (method, endpoint, ticket_body) => {
             createTicketCol('ticket_reported_by', 'reported_by', 'Employee');
             createTicketCol('ticket_created_at', 'ticket_created_at', 'Created');
             createTicketCol('ticket_status', 'status', 'Status');
+
+            ticket_assigned_to = document.createElement('li');
+            ticket_assigned_to.innerHTML = ticket['assigned_to'];
+            ticket_assigned_to.setAttribute('class', 'hidden-col');
+            ticket_assigned_to.setAttribute('id', ticket['assigned_to']);
+            ticket_row.appendChild(ticket_assigned_to);
         });
     }
 }
@@ -790,3 +796,112 @@ const fetchNoteByTicketId = async (method, endpoint, ticket_id) => {
         }
     }
 }
+
+/* Search and Filters handling */
+let search = 3;
+let search_buttons = document.querySelectorAll('.search-button');
+const search_input = document.querySelector('.search');
+
+// Define the search option: Title (default), Employee, Date
+search_buttons.forEach(search_button => {
+    search_button.addEventListener('click', () => {
+        let active_search_button = document.querySelector('.active-search');
+        active_search_button.classList.remove('active-search');
+        search = search_button.value;
+        console.log(search);
+        search_button.classList.add('active-search');
+        switch (search) {
+            case '3':
+                search_input.placeholder = 'Search by Title..';
+                search_input.focus();
+                break;
+            case '4':
+                search_input.placeholder = 'Search by Employee..';
+                search_input.focus();
+                break;
+            case '5':
+                search_input.placeholder = 'Search by Date..';
+                search_input.focus();
+                break;
+        }
+    })
+});
+
+// Filter to show all tickets
+const show_all = document.getElementById('All');
+let all_tickets = document.querySelector(".tbody").getElementsByTagName("ul");
+show_all.addEventListener('click', () => {
+    for (i = 0; i < all_tickets.length; i++) {
+        all_tickets[i].classList.remove('hidden-row');
+    }
+})
+
+// Search through all tickets depending on search option
+search_input.addEventListener('keyup', () => {
+    // Show all tickets
+    for (i = 0; i < all_tickets.length; i++) {
+        all_tickets[i].classList.remove('hidden-row');
+    }
+    // Remove the current active filter
+    let active_filter_button = document.querySelector('.active-filter');
+    active_filter_button.classList.remove('active-filter');
+    show_all.classList.add('active-filter');
+    // Only search if all tickets are shown
+    if (show_all.classList.contains('active-filter') === true) {
+        let search_value, tickets, row, col, i, txtValue;
+        search_value = search_input.value.toUpperCase();
+        tickets = document.querySelector(".tbody");
+        row = tickets.getElementsByTagName("ul");
+        // Loop through all tickets, and hide those who don't match the search
+        for (i = 0; i < row.length; i++) {
+            col = row[i].getElementsByTagName("li")[search];
+            if (col) {
+                txtValue = col.textContent || col.innerText;
+                if (txtValue.toUpperCase().indexOf(search_value) > -1) {
+                    row[i].classList.remove('hidden-row');
+                } else {
+                    row[i].classList.add('hidden-row');
+                }
+            }
+        }
+        roundCorners();
+    }
+})
+
+let filter = -1;
+let filter_buttons = document.querySelectorAll('.filter-button');
+const filter_input = document.querySelector('.filter');
+
+// Filter buttons for: All, Assigned (if Developer or Technician), Reported (if Employee), Category, Priority, Status
+filter_buttons.forEach(filter_button => {
+    
+    filter_button.addEventListener('click', () => {
+        // Reset the search value
+        search_input.value = '';
+        // Remove the current active filter
+        let active_filter_button = document.querySelector('.active-filter');
+        active_filter_button.classList.remove('active-filter');
+        // Take the filter number from the button value and the name from it's id and make it the current active filter
+        filter = filter_button.value;
+        filter_input.value = filter_button.id;
+        filter_button.classList.add('active-filter');
+        // Define variables
+        let filter_value, tickets, row, col, i, txtValue;
+        filter_value = filter_input.value.toUpperCase();
+        tickets = document.querySelector(".tbody");
+        row = tickets.getElementsByTagName("ul");
+        // Loop through all tickets, and hide those who don't match the filter
+        for (i = 0; i < row.length; i++) {
+            col = row[i].getElementsByTagName("li")[filter];
+            if (col) {
+                txtValue = col.textContent || col.innerText;
+                if (txtValue.toUpperCase().indexOf(filter_value) > -1) {
+                    row[i].classList.remove('hidden-row');
+                } else {
+                    row[i].classList.add('hidden-row');
+                }
+            }
+        }
+        roundCorners();
+    })
+});

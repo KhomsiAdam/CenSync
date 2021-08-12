@@ -2,24 +2,92 @@
 @use "variables" as *;
 
 // All Staff section styling
+main {
+    display: grid;
+    grid-template-areas:
+        "sfilter"
+        "scards";
+    padding-top: 2rem;
+    gap: 3rem;
+    grid-template-rows: 5% 1fr;
+    overflow: hidden;
+}
+.filter-by {
+    grid-area: sfilter;
+    width: 93%;
+    font-size: 1.6rem;
+    font-weight: $semibold;
+    color: $green;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 0;
+    .filter {
+        display: none;
+    }
+    .filter-button {
+        width: 150px;
+        height: 30px;
+        background: none;
+        font-size: 1.4rem;
+        font-weight: $semibold;
+        color: $blue;
+        border: 2px solid $blue;
+        border-radius: 5px;
+        cursor: pointer;
+        &:hover {
+            background: $green;
+            color: $white;
+            border: $green;
+        }
+    }
+    .active-filter {
+        background: $green;
+        color: $white;
+        border: $green;
+    }
+    .inactive-filter {
+        opacity: 0.5;
+    }
+}
+// Scrollbar Styling Chrome & Safari & Opera
+.staff-container::-webkit-scrollbar {
+    width: 1.5rem;
+}
+.staff-container::-webkit-scrollbar-track {
+    background: $blue;
+    border-radius: 4px;
+}
+.staff-container::-webkit-scrollbar-thumb {
+    background: $lightblue;
+    border-radius: 4px;
+}
+.staff-container::-webkit-scrollbar-thumb:hover {
+    background: $green;
+}
 .staff-container {
+    grid-area: scards;
+    height: 73vh;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-    grid-column-gap: 4rem;
-    grid-row-gap: 4rem;
-    place-items: center;
+    grid-column-gap: 3rem;
+    grid-row-gap: 3rem;
     padding: 0 10rem 4rem 0;
+    overflow: overlay;
+    // Scrollbar Styling : Firefox
+    scrollbar-width: thin;
+    scrollbar-color: $green $blue;
     .staff-card {
         display: grid;
         grid-template-areas:
             "chead"
             "cbody";
         grid-template-rows: 25% 75%;
-        width: 445px;
-        height: 344px;
+        width: 453px;
+        height: 338px;
         background: $white;
         border: 1px solid $gray;
-        border-radius: 10px;
+        border-radius: 11px;
         cursor: pointer;
         &:hover {
             border: 1px solid $blue;
@@ -101,11 +169,20 @@
             }
         }
     }
+    .hidden-card {
+        display: none;
+    }
+}
+@-moz-document url-prefix() {
+    .staff-container {
+        overflow-y: auto;
+    }
 }
 // Staff member profile styling
 .staff-details {
+    grid-area: sfilter;
     width: 93%;
-    height: 75vh;
+    height: 81vh;
     display: grid;
     grid-template-areas: "linfo rinfo";
     grid-template-columns: 35% 65%;
@@ -114,6 +191,7 @@
     background: $white;
     border: 1px solid $gray;
     border-radius: 10px;
+    z-index: 1;
     .staff-left {
         display: grid;
         grid-template-rows: 60% 40%;
@@ -266,7 +344,7 @@
                 font-weight: $semibold;
                 color: $blue;
             }
-            textarea {
+            .bio {
                 font-size: 1.6rem;
                 background: $white;
                 border: 1px solid $gray;
@@ -320,13 +398,55 @@
 }
 @media only screen and (max-width: 768px) {
     main {
-        padding-top: 3rem;
+        height: 65vh;
+        padding-top: 0;
+        grid-template-columns: 100%;
+        grid-template-rows: 15% 1fr;
+        gap: 2rem;
+    }
+    .filter-by {
+        padding-top: 0;
+        width: 86%;
+        gap: 3.5rem;
+        justify-self: center;
         overflow: auto;
+        // Scrollbar Styling : Firefox
+        scrollbar-width: thin;
+        scrollbar-color: $green $blue;
+        .filter-button {
+            width: 100px;
+            padding: 0 1rem;
+        }
+        #All {
+            padding: 0 2rem;
+        }
+        span {
+            display: none;
+        }
+    }
+    .filter-by::-webkit-scrollbar {
+        height: 0.5rem;
+    }
+    .filter-by::-webkit-scrollbar-thumb {
+        background: $green;
+        border-radius: 4px;
+    }
+    .filter-by::-webkit-scrollbar-track {
+        background: $blue;
+        border-radius: 4px;
+    }
+    .staff-container::-webkit-scrollbar {
+        width: 0.5rem;
+    }
+    .staff-container::-webkit-scrollbar-thumb {
+        background: $green;
     }
     .staff-container {
-        padding: 0 0 3rem 0;
-        justify-content: center;
+        height: 100%;
+        padding: 0 0 1rem 0;
         grid-row-gap: 3rem;
+        justify-items: center;
+        grid-template-columns: 100%;
         .staff-card {
             width: 329px;
             .card-header {
@@ -356,8 +476,9 @@
         margin-bottom: 3rem;
     }
     .staff-details {
+        grid-area: scards;
         width: 90%;
-        height: 290%;
+        height: 400%;
         grid-template-areas:
             "linfo"
             "rinfo";
@@ -392,7 +513,7 @@
                 height: 180px;
             }
             .staff-left-info {
-                height: 80%;
+                height: 90%;
             }
         }
         .staff-right {
@@ -444,7 +565,7 @@
                     height: 52px;
                     width: 60px;
                     left: 74%;
-                    bottom: 73.8%;
+                    bottom: 62%;
                     background: $blue;
                     z-index: 5;
                     border-radius: 5px;
@@ -462,6 +583,10 @@
             .bio-right {
                 label {
                     font-size: 1.6rem;
+                }
+                #bio {
+                    font-size: 1.6rem;
+                    color: $blue;
                 }
             }
             .bottom-right {

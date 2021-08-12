@@ -6,7 +6,7 @@ CREATE TABLE user (
     lastname VARCHAR(16) NOT NULL,
     email VARCHAR(32) NOT NULL UNIQUE,
     password VARCHAR(128) NOT NULL,
-    dateofbirth DATE NOT NULL,
+    birthdate DATE NOT NULL,
     department VARCHAR(32),
     jobtitle VARCHAR(32),
     phone VARCHAR(16),

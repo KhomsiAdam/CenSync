@@ -80,7 +80,7 @@ CREATE TABLE `user` (
   `lastname` varchar(16) NOT NULL,
   `email` varchar(32) NOT NULL,
   `password` varchar(128) NOT NULL,
-  `dateofbirth` date DEFAULT NULL,
+  `birthdate` date DEFAULT NULL,
   `department` varchar(32) DEFAULT NULL,
   `jobtitle` varchar(32) DEFAULT NULL,
   `phone` varchar(16) DEFAULT NULL,
@@ -98,7 +98,7 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`user_id`, `role`, `firstname`, `lastname`, `email`, `password`, `dateofbirth`, `department`, `jobtitle`, `phone`, `country`, `city`, `gender`, `bio`, `status`, `profile_img`, `user_created_at`, `user_updated_at`) VALUES
+INSERT INTO `user` (`user_id`, `role`, `firstname`, `lastname`, `email`, `password`, `birthdate`, `department`, `jobtitle`, `phone`, `country`, `city`, `gender`, `bio`, `status`, `profile_img`, `user_created_at`, `user_updated_at`) VALUES
 ('ADMe769fbadacc23', 'Admin', 'Adam', 'Khomsi', 'adam.khomsi@censync.com', '$2y$10$VZzA0wc7SijjSdwr8cSP/uYDSqWr0t30iYebGS4QncUx9yITJPIh6', '1993-12-03', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '', '2021-07-04 21:28:14', '2021-07-04 21:28:14'),
 ('DEV6ce9d0c9afde5', 'Developer', 'Hamza', 'Bouchikhi', 'hamza.bouchikhi@censync.com', '$2y$10$vlOvm0DB4kixg0yYMl75XOK/0m0vG2NK1rJ2nY5Jkg5Nww2UXAN66', NULL, 'Frontend', 'Web Designer', NULL, NULL, NULL, NULL, NULL, 'active', '', '2021-07-21 22:37:42', '2021-07-21 22:42:55'),
 ('DEV76d004394b1ca', 'Developer', 'Othmane', 'Kahtal', 'othmane.kahtal@censync.com', '$2y$10$mEIratDkU4abcO3Z5MlpCu07x2m09ag9BSp1/5P9BTdXvQ2IE6SbC', NULL, 'CSS', 'Flexbox', NULL, NULL, NULL, NULL, NULL, 'active', '', '2021-07-21 22:45:58', '2021-07-21 22:46:21'),

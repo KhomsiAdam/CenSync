@@ -179,25 +179,63 @@
             }
         }
         .bio-right {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-evenly;
-            height: 85%;
+            display: grid;
+            align-items: center;
+            gap: 1rem;
+            height: 95%;
+            grid-template-columns: 7% 93%;
+            grid-template-rows: 30% 70%;
+            grid-template-areas:
+                "label icon"
+                "bio bio";
             label {
+                grid-area: label;
                 font-size: 3.2rem;
                 font-weight: $semibold;
                 color: $blue;
             }
-            textarea {
-                font-size: 1.6rem;
-                background: $white;
-                border: 1px solid $gray;
-                border-radius: 5px;
-                outline: none;
-                padding: 1rem;
+            svg {
+                grid-area: icon;
+                width: 30px;
+                height: 30px;
+                cursor: pointer;
+                g {
+                    path {
+                        stroke: $black;
+                        opacity: 0.2;
+                    }
+                }
+                &:hover {
+                    g {
+                        path {
+                            stroke: $blue;
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+            .bio,
+            .bio-form {
+                grid-area: bio;
+                font-size: 2.2rem;
+                color: $blue;
                 height: 100%;
-                &:focus {
-                    background: white;
+            }
+            .bio-form {
+                z-index: 1;
+                #bio {
+                    width: 100%;
+                    font-size: 2.2rem;
+                    color: $blue;
+                    background: $white;
+                    border: 2px solid $blue;
+                    border-radius: 5px;
+                    outline: none;
+                    padding: 1rem 2rem;
+                    height: 100%;
+                    visibility: hidden;
+                    opacity: 0;
+                    transition: opacity 300ms;
                 }
             }
         }
@@ -220,6 +258,63 @@
                 }
                 .right-values {
                     align-items: flex-end;
+                    .right-phone,
+                    .right-country,
+                    .right-city,
+                    .right-gender {
+                        display: grid;
+                        grid-template-columns: 70% 20%;
+                        grid-template-rows: 100%;
+                        width: 100%;
+                        text-align: right;
+                        align-items: center;
+                        grid-template-areas: "input icon";
+                        gap: 3rem;
+                        div,
+                        form {
+                            grid-area: input;
+                            transition: opacity 300ms;
+                        }
+                        form {
+                            input {
+                                width: 180px;
+                                height: 30px;
+                                border: solid 2px $blue;
+                                border-radius: 5px;
+                                outline: none;
+                                text-align: center;
+                                padding: 1em;
+                                font-size: 1.8rem;
+                                font-weight: $regular;
+                                color: $blue;
+                                background: $white;
+                                z-index: 1;
+                                visibility: hidden;
+                                opacity: 0;
+                                transition: opacity 300ms;
+                            }
+                        }
+                        svg {
+                            grid-area: icon;
+                            width: 30px;
+                            height: 30px;
+                            cursor: pointer;
+                            g {
+                                path {
+                                    stroke: $black;
+                                    opacity: 0.2;
+                                }
+                            }
+                            &:hover {
+                                g {
+                                    path {
+                                        stroke: $blue;
+                                        opacity: 1;
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
             .right-chart {
@@ -240,8 +335,11 @@
     }
 }
 @media only screen and (max-width: 768px) {
+    body {
+        gap: 2rem;
+    }
     main {
-        padding-top: 3rem;
+        padding-top: 0;
         overflow: auto;
     }
     .staff-container {
@@ -277,19 +375,20 @@
     }
     .staff-details {
         width: 90%;
-        height: 290%;
+        height: 300%;
         grid-template-areas:
             "linfo"
             "rinfo";
         grid-template-rows: 50% 50%;
         grid-template-columns: 100%;
         position: relative;
-        margin: 0 2rem 3rem 2rem;
+        margin: 0 2rem 1rem 2rem;
         .staff-left {
             height: 100%;
             font-size: 1.6rem;
             border-right: none;
             padding: 0 3rem;
+            grid-template-rows: 60% 47%;
             .left-picture {
                 .profile-image-form {
                     grid-template-columns: 100%;
@@ -385,7 +484,7 @@
                     height: 52px;
                     width: 60px;
                     left: 74%;
-                    bottom: 73.8%;
+                    bottom: 71.5%;
                     background: $blue;
                     z-index: 5;
                     border-radius: 5px;
@@ -401,25 +500,63 @@
                 }
             }
             .bio-right {
+                grid-template-columns: 15% 82%;
+                .bio {
+                    font-size: 1.6rem;
+                }
+                .bio-form {
+                    #bio {
+                        font-size: 1.6rem;
+                    }
+                }
                 label {
                     font-size: 1.6rem;
+                }
+                svg {
+                    width: 20px;
+                    height: 20px;
                 }
             }
             .bottom-right {
                 grid-template-columns: 100%;
                 grid-template-rows: 50% 50%;
+                .staff-right-info {
+                    grid-template-columns: 25% 83%;
+                    .right-info {
+                        .right-phone,
+                        .right-country,
+                        .right-city,
+                        .right-gender {
+                            height: 13%;
+                            padding-top: 1rem;
+                        }
+                    }
+                    .right-values {
+                        .right-phone,
+                        .right-country,
+                        .right-city,
+                        .right-gender {
+                            form {
+                                input {
+                                    width: 140px;
+                                    height: 20px;
+                                    font-size: 1.6rem;
+                                }
+                            }
+                            svg {
+                                width: 20px;
+                                height: 20px;
+                            }
+                        }
+                    }
+                }
                 .right-chart {
                     width: 90%;
                     height: 100%;
+                    margin-bottom: 3rem;
                     #titleChart {
                         font-size: 1.6rem;
                     }
-                }
-            }
-            @-moz-document url-prefix() {
-                .bio-right,
-                .bottom-right {
-                    width: 90%;
                 }
             }
         }

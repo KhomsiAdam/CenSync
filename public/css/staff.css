@@ -1,22 +1,92 @@
 /* Colors */
 /* Font Weights */
+main {
+  display: grid;
+  grid-template-areas: "sfilter" "scards";
+  padding-top: 2rem;
+  gap: 3rem;
+  grid-template-rows: 5% 1fr;
+  overflow: hidden;
+}
+
+.filter-by {
+  grid-area: sfilter;
+  width: 93%;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #5FBE6E;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 0;
+}
+.filter-by .filter {
+  display: none;
+}
+.filter-by .filter-button {
+  width: 150px;
+  height: 30px;
+  background: none;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #2B777D;
+  border: 2px solid #2B777D;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.filter-by .filter-button:hover {
+  background: #5FBE6E;
+  color: #F9F9F9;
+  border: #5FBE6E;
+}
+.filter-by .active-filter {
+  background: #5FBE6E;
+  color: #F9F9F9;
+  border: #5FBE6E;
+}
+.filter-by .inactive-filter {
+  opacity: 0.5;
+}
+
+.staff-container::-webkit-scrollbar {
+  width: 1.5rem;
+}
+
+.staff-container::-webkit-scrollbar-track {
+  background: #2B777D;
+  border-radius: 4px;
+}
+
+.staff-container::-webkit-scrollbar-thumb {
+  background: #5FBEBC;
+  border-radius: 4px;
+}
+
+.staff-container::-webkit-scrollbar-thumb:hover {
+  background: #5FBE6E;
+}
+
 .staff-container {
+  grid-area: scards;
+  height: 73vh;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-  grid-column-gap: 4rem;
-  grid-row-gap: 4rem;
-  place-items: center;
+  grid-column-gap: 3rem;
+  grid-row-gap: 3rem;
   padding: 0 10rem 4rem 0;
+  overflow: overlay;
+  scrollbar-width: thin;
+  scrollbar-color: #5FBE6E #2B777D;
 }
 .staff-container .staff-card {
   display: grid;
   grid-template-areas: "chead" "cbody";
   grid-template-rows: 25% 75%;
-  width: 445px;
-  height: 344px;
+  width: 453px;
+  height: 338px;
   background: #F9F9F9;
   border: 1px solid #EBEBEB;
-  border-radius: 10px;
+  border-radius: 11px;
   cursor: pointer;
 }
 .staff-container .staff-card:hover {
@@ -99,10 +169,19 @@
 .staff-container .staff-card .card-body .values {
   align-items: flex-end;
 }
+.staff-container .hidden-card {
+  display: none;
+}
 
+@-moz-document url-prefix() {
+  .staff-container {
+    overflow-y: auto;
+  }
+}
 .staff-details {
+  grid-area: sfilter;
   width: 93%;
-  height: 75vh;
+  height: 81vh;
   display: grid;
   grid-template-areas: "linfo rinfo";
   grid-template-columns: 35% 65%;
@@ -111,6 +190,7 @@
   background: #F9F9F9;
   border: 1px solid #EBEBEB;
   border-radius: 10px;
+  z-index: 1;
 }
 .staff-details .staff-left {
   display: grid;
@@ -263,7 +343,7 @@
   font-weight: 600;
   color: #2B777D;
 }
-.staff-details .staff-right .bio-right textarea {
+.staff-details .staff-right .bio-right .bio {
   font-size: 1.6rem;
   background: #F9F9F9;
   border: 1px solid #EBEBEB;
@@ -272,7 +352,7 @@
   padding: 1rem;
   height: 100%;
 }
-.staff-details .staff-right .bio-right textarea:focus {
+.staff-details .staff-right .bio-right .bio:focus {
   background: white;
 }
 .staff-details .staff-right .bottom-right {
@@ -315,14 +395,61 @@
 
 @media only screen and (max-width: 768px) {
   main {
-    padding-top: 3rem;
+    height: 65vh;
+    padding-top: 0;
+    grid-template-columns: 100%;
+    grid-template-rows: 15% 1fr;
+    gap: 2rem;
+  }
+
+  .filter-by {
+    padding-top: 0;
+    width: 86%;
+    gap: 3.5rem;
+    justify-self: center;
     overflow: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #5FBE6E #2B777D;
+  }
+  .filter-by .filter-button {
+    width: 100px;
+    padding: 0 1rem;
+  }
+  .filter-by #All {
+    padding: 0 2rem;
+  }
+  .filter-by span {
+    display: none;
+  }
+
+  .filter-by::-webkit-scrollbar {
+    height: 0.5rem;
+  }
+
+  .filter-by::-webkit-scrollbar-thumb {
+    background: #5FBE6E;
+    border-radius: 4px;
+  }
+
+  .filter-by::-webkit-scrollbar-track {
+    background: #2B777D;
+    border-radius: 4px;
+  }
+
+  .staff-container::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+
+  .staff-container::-webkit-scrollbar-thumb {
+    background: #5FBE6E;
   }
 
   .staff-container {
-    padding: 0 0 3rem 0;
-    justify-content: center;
+    height: 100%;
+    padding: 0 0 1rem 0;
     grid-row-gap: 3rem;
+    justify-items: center;
+    grid-template-columns: 100%;
   }
   .staff-container .staff-card {
     width: 329px;
@@ -354,8 +481,9 @@
   }
 
   .staff-details {
+    grid-area: scards;
     width: 90%;
-    height: 290%;
+    height: 400%;
     grid-template-areas: "linfo" "rinfo";
     grid-template-rows: 50% 50%;
     grid-template-columns: 100%;
@@ -390,7 +518,7 @@
     height: 180px;
   }
   .staff-details .staff-left .staff-left-info {
-    height: 80%;
+    height: 90%;
   }
   .staff-details .staff-right {
     grid-template-rows: 30% 70%;
@@ -440,7 +568,7 @@
     height: 52px;
     width: 60px;
     left: 74%;
-    bottom: 73.8%;
+    bottom: 62%;
     background: #2B777D;
     z-index: 5;
     border-radius: 5px;
@@ -456,6 +584,10 @@
   }
   .staff-details .staff-right .bio-right label {
     font-size: 1.6rem;
+  }
+  .staff-details .staff-right .bio-right #bio {
+    font-size: 1.6rem;
+    color: #2B777D;
   }
   .staff-details .staff-right .bottom-right {
     grid-template-columns: 100%;

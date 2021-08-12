@@ -13,10 +13,11 @@ main {
     display: grid;
     grid-template-areas:
         "thead"
+        "tfilter"
         "tbody";
     grid-template-columns: 100%;
-    grid-template-rows: 15% 1fr;
-    grid-gap: 5rem;
+    grid-template-rows: 15% 5% 1fr;
+    grid-gap: 3rem;
     overflow: hidden;
     .thead {
         grid-area: thead;
@@ -34,6 +35,40 @@ main {
             list-style: none;
             grid-template-columns: 16% 12% 24% 17% 17% 14%;
             text-align: center;
+        }
+    }
+    .filter-by {
+        grid-area: tfilter;
+        width: 93%;
+        font-size: 1.6rem;
+        font-weight: $semibold;
+        color: $green;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .filter {
+            display: none;
+        }
+        .filter-button {
+            width: 80px;
+            height: 30px;
+            background: none;
+            font-size: 1.4rem;
+            font-weight: $semibold;
+            color: $blue;
+            border: 2px solid $blue;
+            border-radius: 5px;
+            cursor: pointer;
+            &:hover {
+                background: $green;
+                color: $white;
+                border: $green;
+            }
+        }
+        .active-filter {
+            background: $green;
+            color: $white;
+            border: $green;
         }
     }
     .tbody {
@@ -91,12 +126,12 @@ main {
                     }
                 }
             }
-            &:first-child {
-                border-radius: 10px 10px 0 0;
-            }
-            &:last-child {
-                border-radius: 0 0 10px 10px;
-            }
+            // &:first-child {
+            //     border-radius: 10px 10px 0 0;
+            // }
+            // &:last-child {
+            //     border-radius: 0 0 10px 10px;
+            // }
             .ticket_id {
                 display: none;
             }
@@ -109,7 +144,16 @@ main {
                 .mobile-span {
                     display: none;
                 }
+                .hidden-prio {
+                    display: none;
+                }
             }
+            .hidden-col {
+                display: none;
+            }
+        }
+        .hidden-row {
+            display: none;
         }
     }
     @-moz-document url-prefix() {
@@ -118,18 +162,18 @@ main {
         }
     }
     // Scrollbar Styling Chrome & Safari & Opera
-    ::-webkit-scrollbar {
+    .tbody::-webkit-scrollbar {
         width: 1.5rem;
     }
-    ::-webkit-scrollbar-track {
+    .tbody::-webkit-scrollbar-track {
         background: $blue;
         border-radius: 4px;
     }
-    ::-webkit-scrollbar-thumb {
+    .tbody::-webkit-scrollbar-thumb {
         background: $lightblue;
         border-radius: 4px;
     }
-    ::-webkit-scrollbar-thumb:hover {
+    .tbody::-webkit-scrollbar-thumb:hover {
         background: $green;
     }
 }
@@ -377,23 +421,52 @@ main {
 @media only screen and (max-width: 768px) {
     main {
         overflow: auto;
-        padding-top: 3rem;
+        padding-top: 0;
     }
     .tickets {
         width: 100%;
         height: 65vh;
-        grid-template-areas: "tbody";
-        grid-template-rows: auto;
+        grid-template-areas:
+            "tfilter"
+            "tbody";
+        grid-template-rows: 15% 1fr;
         grid-template-columns: 100%;
         grid-gap: 2rem;
         .thead {
             display: none;
         }
+        .filter-by {
+            width: 86%;
+            gap: 2rem;
+            justify-self: center;
+            overflow: auto;
+            // Scrollbar Styling : Firefox
+            scrollbar-width: thin;
+            scrollbar-color: $green $blue;
+            span {
+                display: none;
+            }
+            .filter-button {
+                width: 103px;
+                padding: 0 2rem;
+            }
+        }
+        .filter-by::-webkit-scrollbar {
+            height: 0.5rem;
+        }
+        .filter-by::-webkit-scrollbar-thumb {
+            background: $green;
+            border-radius: 4px;
+        }
+        .filter-by::-webkit-scrollbar-track {
+            background: $blue;
+            border-radius: 4px;
+        }
         .tbody {
             font-size: 1.6rem;
             scrollbar-width: none;
             ul {
-                height: 50.6%;
+                height: 50%;
                 width: 86%;
                 margin: 0 2.5rem;
                 padding: 2rem;
@@ -451,12 +524,12 @@ main {
                 }
             }
         }
-    }
-    .tickets ::-webkit-scrollbar {
-        width: 0.5rem;
-    }
-    .tickets ::-webkit-scrollbar-thumb {
-        background: $green;
+        .tbody::-webkit-scrollbar {
+            width: 0.5rem;
+        }
+        .tbody::-webkit-scrollbar-thumb {
+            background: $green;
+        }
     }
     .ticket-details {
         width: 89%;
@@ -470,7 +543,7 @@ main {
             "tknote";
         grid-template-columns: 100%;
         grid-template-rows: 5.3% 29% 7% 7% 17% 33%;
-        margin: 0 2rem 3rem 2rem;
+        margin: 2rem 2rem 3rem 2rem;
         border-radius: 10px;
         .ticket-status-container {
             justify-content: start;
@@ -480,6 +553,7 @@ main {
         .ticket-info-container {
             padding: 2rem 1rem 2rem 0.6rem;
             height: 100%;
+            border-right: none;
             .info-values {
                 text-align: right;
                 .ticket-priority-value {
@@ -505,7 +579,7 @@ main {
                 text-align: unset;
                 position: fixed;
                 left: 74%;
-                bottom: 73.8%;
+                bottom: 71.9%;
                 height: 52px;
                 width: 60px;
                 background: $blue;

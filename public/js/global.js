@@ -3,7 +3,6 @@ let ticket_selected_id;
 let ticket;
 let user_selected_id;
 let username;
-let screenWidth = window.innerWidth;
 /* Colors */
 // Main
 const green = '#5FBE6E';
@@ -39,9 +38,30 @@ function captureAllTickets() {
         ticket_row.addEventListener('click', () => {
             ticket_selected_id = ticket_row.children[0].innerHTML;
             fetchTicketById('readUniqueTicket', '/ticket', ticket_selected_id);
-            if (screenWidth <= 768) document.querySelector('.main').scroll(0, 0);
+            if (window.innerWidth <= 768) document.querySelector('.main').scroll(0, 0);
         })
     });
+}
+
+// Round the top corners of the first ticket and the bottom of the last
+function roundCorners() {
+    // Array to store all the tickets that are not hidden
+    let tickets_shown = [];
+    let ticket_rows = document.querySelectorAll(".ticket_row");
+    ticket_rows.forEach(ticket_row => {
+        if (ticket_row.classList.contains('hidden-row') === false) tickets_shown.push(ticket_row);
+    })
+    console.log(tickets_shown);
+    if (tickets_shown.length > 1) {
+        tickets_shown[0].style.borderRadius = '10px 10px 0px 0px';
+        tickets_shown[tickets_shown.length - 1].style.borderRadius = '0px 0px 10px 10px';
+        tickets_shown = [];
+    } else if (tickets_shown.length === 1) {
+        tickets_shown[0].style.borderRadius = '10px';
+        tickets_shown = [];
+    } else if (tickets_shown.length === 0) {
+        tickets_shown = [];
+    }
 }
 
 // Select all staff cards and get user id depending card clicked on
@@ -51,7 +71,14 @@ function captureAllStaff() {
         staff_card.addEventListener('click', () => {
             user_selected_id = staff_card.children[0].innerHTML;
             fetchUserById('readUniqueUser', '/user', user_selected_id);
-            if (screenWidth <= 768) document.querySelector('.main').scroll(0, 0);
+            if (window.innerWidth <= 768) document.querySelector('.main').scroll(0, 0);
+            document.querySelector('.main').style.overflowY = 'auto';
+            let filter_buttons = document.querySelectorAll('.filter-button');
+            filter_buttons.forEach(filter_button => {
+                filter_button.classList.add('inactive-filter');
+                filter_button.disabled = true;
+                filter_button.style.pointerEvents = 'none';
+            });
         })
     });
 }
@@ -59,10 +86,10 @@ function captureAllStaff() {
 // Handle null data for staff informations, render placeholders
 function placeholderData(data, value, placeholder) {
     if (data == null) {
-        value.style.opacity = '0.2';
+        value.classList.add('placeholder-data');
         data = placeholder;
     } else {
-        value.style.opacity = '1';
+        if (value.classList.contains('placeholder-data')) value.classList.remove('placeholder-data');
     }
     value.innerHTML = data;
 }
@@ -168,6 +195,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Check if tickets body exists
         if (document.querySelector('.tbody')) {
             captureAllTickets();
+            roundCorners();
         }
 
         // Return to the view of all tickets
@@ -199,12 +227,14 @@ document.addEventListener("DOMContentLoaded", () => {
             document.querySelector('.staff-return').addEventListener('click', () => {
                 document.querySelector('.staff-details').style.display = 'none';
                 document.querySelector('.staff-container').style.display = 'grid';
-                document.querySelector('.main').style.overflowY = 'overlay';
-                // Detect Firefox and make overflow-y auto
-                let userAgentString = navigator.userAgent;
-                let firefoxAgent = userAgentString.indexOf("Firefox") > -1;
-                if (firefoxAgent === true) document.querySelector('.main').style.overflowY = 'auto';
+                document.querySelector('.main').removeAttribute('style');
                 document.querySelector('.right-chart').innerHTML = '';
+                let filter_buttons = document.querySelectorAll('.filter-button');
+                filter_buttons.forEach(filter_button => {
+                    filter_button.classList.remove('inactive-filter');
+                    filter_button.disabled = false;
+                    filter_button.removeAttribute('style');
+                });
             });
         }
 
@@ -225,6 +255,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Get the username
         if (document.querySelector('.username')) username = document.querySelector('.username').innerHTML;
+
+        // Assign username as id of tickets filter
+        if (document.querySelector('.my-tickets')) document.querySelector('.my-tickets').setAttribute('id', username);
+        if (document.querySelector('.assigned-tickets')) document.querySelector('.assigned-tickets').setAttribute('id', username);
 
     }, 300);
 })

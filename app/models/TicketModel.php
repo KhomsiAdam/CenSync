@@ -72,24 +72,8 @@ class TicketModel {
 
         // if (!is_array($ticket)) {
 
-    	$sql = "INSERT INTO $table (
-        ticket_id,
-        user_id,
-        category,
-        priority,
-        title,
-        content,
-        status,
-        reported_by)
-        VALUES
-        (:ticket_id,
-        :user_id,
-        :category,
-        :priority,
-        :title,
-        :content,
-        :status,
-        :reported_by)";
+    	$sql = "INSERT INTO $table ( ticket_id, user_id, category, priority, title, content, status, reported_by)
+        VALUES (:ticket_id, :user_id, :category, :priority, :title, :content, :status, :reported_by)";
     	$stmt = $this->db_conn->prepare($sql);
     	$stmt->bindParam(':ticket_id', $this->ticket_id);
     	$stmt->bindParam(':user_id', $this->user_id);
@@ -112,7 +96,7 @@ class TicketModel {
 
     // View all tickets
     public function readAll($table) {
-        $sql = "SELECT ticket_id, category, priority, title, reported_by, ticket_created_at, status FROM $table ORDER BY ticket_created_at DESC";
+        $sql = "SELECT ticket_id, category, priority, title, reported_by, ticket_created_at, status, assigned_to FROM $table ORDER BY ticket_created_at DESC";
     	$stmt = $this->db_conn->prepare($sql);
         if($stmt->execute()) {
             $tickets = $stmt->fetchAll(PDO::FETCH_ASSOC);

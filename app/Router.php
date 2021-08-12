@@ -9,7 +9,7 @@ class Router {
 
     protected array $routes = [];
 
-    // ? Arrays for Component View System
+    // Arrays for Component View System
     public array $arrView = [];
     public array $arrComponents = [];
     

@@ -19,6 +19,21 @@
                 <input type="text" name="lastname" id="lastname">
             </div>
         </div>
+        <span>Birthdate</span>
+        <div class="birthdate">
+            <div class="month">
+                <label for="month">Month</label>
+                <input type="text" placeholder="MM" name="month" id="month" minlength="2" maxlength="2">
+            </div>
+            <div class="day">
+                <label for="day">Day</label>
+                <input type="text" placeholder="DD" name="day" id="day" minlength="2" maxlength="2">
+            </div>
+            <div class="year">
+                <label for="year">Year</label>
+                <input type="text" placeholder="YYYY" name="year" id="year" minlength="4" maxlength="4">
+            </div>
+        </div>
         <label for="role">Role</label>
         <div class="custom_select">
             <select name="role" id="role">
@@ -32,7 +47,7 @@
             </span>
         </div>
         <label for="email">Email</label>
-        <input type="email" name="email" id="email_up">
+        <input type="email" name="email" placeholder="example@censync.com" id="email_up">
         <label for="password">Password</label>
         <input type="password" name="password" id="password_up">
         <button type="submit" id="sign_up">Sign Up</button>
@@ -43,7 +58,7 @@
 <section class="signin_section">
     <form class="signin_form">
         <label for="email">Email</label>
-        <input type="email" name="email" id="email_in">
+        <input type="email" name="email" placeholder="example@censync.com" id="email_in">
         <label for="password">Password</label>
         <input type="password" name="password" id="password_in">
         <button type="submit" id="sign_in">Sign In</button>

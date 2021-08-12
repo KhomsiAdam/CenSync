@@ -74,6 +74,7 @@ class UserApiController extends Middleware
         }
         $firstname = $this->validateParams('firstname', $this->param['firstname'], STRING);
         $lastname = $this->validateParams('lastname', $this->param['lastname'], STRING);
+        $birthdate = $this->validateParams('birthdate', $this->param['birthdate'], STRING);
         $email = $this->validateParams('email', $this->param['email'], STRING);
 
         //* if you are hashing a password for account creation
@@ -85,6 +86,7 @@ class UserApiController extends Middleware
         $data->setRole($role);
         $data->setFirstname($firstname);
         $data->setLastname($lastname);
+        $data->setBirthdate($birthdate);
         $data->setEmail($email);
 
         //* setter for your hashed password
@@ -273,6 +275,106 @@ class UserApiController extends Middleware
             $this->returnResponse(RESPONSE_MESSAGE, $message);
         } else {
             $data->updateInfo($_ENV['ACCOUNTS_TABLE']);            
+        }
+    }
+
+    // Edit Phone
+    public function updateUserPhone() {
+        $this->validateToken();
+        $user_id = $this->validateParams('user_id', $this->user_id, STRING);
+        $phone = $this->validateParams('phone', $this->param['phone'], STRING);
+        $data = new UserModel;
+        $data->setUserId($user_id);
+        $data->setPhone($phone);
+        if ($_ENV['DEV_MODE'] === 'ON') {
+            if($data->updatePhone($_ENV['ACCOUNTS_TABLE']) != true) {
+                $message = 'Failed to update User Phone.';
+            } else {
+                $message = "User Phone updated successfully.";
+            }
+            $this->returnResponse(RESPONSE_MESSAGE, $message);
+        } else {
+            $data->updatePhone($_ENV['ACCOUNTS_TABLE']);            
+        }
+    }
+
+    // Edit Country
+    public function updateUserCountry() {
+        $this->validateToken();
+        $user_id = $this->validateParams('user_id', $this->user_id, STRING);
+        $country = $this->validateParams('country', $this->param['country'], STRING);
+        $data = new UserModel;
+        $data->setUserId($user_id);
+        $data->setCountry($country);
+        if ($_ENV['DEV_MODE'] === 'ON') {
+            if($data->updateCountry($_ENV['ACCOUNTS_TABLE']) != true) {
+                $message = 'Failed to update User Country.';
+            } else {
+                $message = "User Country updated successfully.";
+            }
+            $this->returnResponse(RESPONSE_MESSAGE, $message);
+        } else {
+            $data->updateCountry($_ENV['ACCOUNTS_TABLE']);            
+        }
+    }
+    
+    // Edit City
+    public function updateUserCity() {
+        $this->validateToken();
+        $user_id = $this->validateParams('user_id', $this->user_id, STRING);
+        $city = $this->validateParams('city', $this->param['city'], STRING);
+        $data = new UserModel;
+        $data->setUserId($user_id);
+        $data->setCity($city);
+        if ($_ENV['DEV_MODE'] === 'ON') {
+            if($data->updateCity($_ENV['ACCOUNTS_TABLE']) != true) {
+                $message = 'Failed to update User City.';
+            } else {
+                $message = "User City updated successfully.";
+            }
+            $this->returnResponse(RESPONSE_MESSAGE, $message);
+        } else {
+            $data->updateCity($_ENV['ACCOUNTS_TABLE']);            
+        }
+    }
+
+    // Edit Gender
+    public function updateUserGender() {
+        $this->validateToken();
+        $user_id = $this->validateParams('user_id', $this->user_id, STRING);
+        $gender = $this->validateParams('gender', $this->param['gender'], STRING);
+        $data = new UserModel;
+        $data->setUserId($user_id);
+        $data->setGender($gender);
+        if ($_ENV['DEV_MODE'] === 'ON') {
+            if($data->updateGender($_ENV['ACCOUNTS_TABLE']) != true) {
+                $message = 'Failed to update User Gender.';
+            } else {
+                $message = "User Gender updated successfully.";
+            }
+            $this->returnResponse(RESPONSE_MESSAGE, $message);
+        } else {
+            $data->updateGender($_ENV['ACCOUNTS_TABLE']);            
+        }
+    }
+
+    // Edit Bio
+    public function updateUserBio() {
+        $this->validateToken();
+        $user_id = $this->validateParams('user_id', $this->user_id, STRING);
+        $bio = $this->validateParams('bio', $this->param['bio'], STRING);
+        $data = new UserModel;
+        $data->setUserId($user_id);
+        $data->setBio($bio);
+        if ($_ENV['DEV_MODE'] === 'ON') {
+            if($data->updateBio($_ENV['ACCOUNTS_TABLE']) != true) {
+                $message = 'Failed to update User Bio.';
+            } else {
+                $message = "User Bio updated successfully.";
+            }
+            $this->returnResponse(RESPONSE_MESSAGE, $message);
+        } else {
+            $data->updateBio($_ENV['ACCOUNTS_TABLE']);            
         }
     }
 

@@ -55,38 +55,114 @@ header {
   align-items: center;
   border-bottom: solid 2px #EBEBEB;
 }
-header .search-container {
+header .search-container, header .search-container-tickets {
   width: 40%;
   height: 72px;
   margin-left: 20%;
-  background-color: #EBEBEB;
+  position: relative;
+}
+header .search-container .search-bar, header .search-container-tickets .search-bar {
   border-radius: 10px;
 }
-header .search-container .search-bar {
+header .search-container .search-bar-tickets, header .search-container-tickets .search-bar-tickets {
+  border-radius: 10px 10px 10px 0px;
+}
+header .search-container .search-bar, header .search-container .search-bar-tickets, header .search-container-tickets .search-bar, header .search-container-tickets .search-bar-tickets {
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
   padding: 2rem;
+  background-color: #EBEBEB;
+  position: absolute;
+  z-index: 2;
 }
-header .search-container .search-bar .search {
+header .search-container .search-bar .search, header .search-container .search-bar-tickets .search, header .search-container-tickets .search-bar .search, header .search-container-tickets .search-bar-tickets .search {
   padding: 2rem;
   border: none;
   outline: none;
   width: 100%;
   height: 90%;
   background-color: #EBEBEB;
-  font-size: 25px;
+  font-size: 2.5rem;
   font-weight: 400;
   color: #262626;
 }
-header .search-container .search-bar .search:focus + .search-icon {
+header .search-container .search-bar .search:focus + .search-icon, header .search-container .search-bar-tickets .search:focus + .search-icon, header .search-container-tickets .search-bar .search:focus + .search-icon, header .search-container-tickets .search-bar-tickets .search:focus + .search-icon {
   fill: #5FBE6E;
 }
-header .search-container .search-bar .search-icon {
+header .search-container .search-bar .search-icon, header .search-container .search-bar-tickets .search-icon, header .search-container-tickets .search-bar .search-icon, header .search-container-tickets .search-bar-tickets .search-icon {
   fill: #2B777D;
+}
+header .search-container .search-by, header .search-container-tickets .search-by {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 80%;
+  z-index: 1;
+}
+header .search-container .search-by .search-button, header .search-container-tickets .search-by .search-button {
+  width: 130px;
+  height: 35px;
+  padding-top: 1.4rem;
+  background: none;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #747474;
+  border-top: none;
+  border-right: none;
+  border-bottom: 2px solid #EBEBEB;
+  border-left: none;
   cursor: pointer;
+}
+header .search-container .search-by .search-button:hover, header .search-container-tickets .search-by .search-button:hover {
+  background: #5FBE6E;
+  color: #F9F9F9;
+  border-bottom: 2px solid #5FBE6E;
+  border-right: 2px solid #5FBE6E;
+  border-left: 2px solid #5FBE6E;
+}
+header .search-container .search-by .search-button:first-child, header .search-container-tickets .search-by .search-button:first-child {
+  border-right: 2px solid #EBEBEB;
+  border-left: 2px solid #EBEBEB;
+  border-radius: 0 0 0 5px;
+}
+header .search-container .search-by .search-button:first-child:hover, header .search-container-tickets .search-by .search-button:first-child:hover {
+  background: #5FBE6E;
+  color: #F9F9F9;
+  border-right: 2px solid #5FBE6E;
+  border-left: 2px solid #5FBE6E;
+}
+header .search-container .search-by .search-button:last-child, header .search-container-tickets .search-by .search-button:last-child {
+  border-right: 2px solid #EBEBEB;
+  border-left: 2px solid #EBEBEB;
+  border-radius: 0 0 5px 0;
+}
+header .search-container .search-by .search-button:last-child:hover, header .search-container-tickets .search-by .search-button:last-child:hover {
+  background: #5FBE6E;
+  color: #F9F9F9;
+  border-right: 2px solid #5FBE6E;
+  border-left: 2px solid #5FBE6E;
+}
+header .search-container .search-by .search-button.active-search, header .search-container-tickets .search-by .search-button.active-search {
+  background: #5FBE6E;
+  color: #F9F9F9;
+  border-bottom: 2px solid #5FBE6E;
+  border-right: 2px solid #5FBE6E;
+  border-left: 2px solid #5FBE6E;
+}
+header .search-container .search-by .search-button:first-child.active-search, header .search-container-tickets .search-by .search-button:first-child.active-search {
+  background: #5FBE6E;
+  color: #F9F9F9;
+  border-right: 2px solid #5FBE6E;
+  border-left: 2px solid #5FBE6E;
+}
+header .search-container .search-by .search-button:last-child.active-search, header .search-container-tickets .search-by .search-button:last-child.active-search {
+  background: #5FBE6E;
+  color: #F9F9F9;
+  border-right: 2px solid #5FBE6E;
+  border-left: 2px solid #5FBE6E;
 }
 header .create_container {
   width: 20%;
@@ -870,7 +946,7 @@ header .profile_container:hover:before {
   body {
     grid-template-areas: "header" "main" "navbar";
     grid-template-columns: 100%;
-    grid-template-rows: 14% 1fr 14%;
+    grid-template-rows: 17% 1fr 14%;
   }
 
   main {
@@ -967,15 +1043,32 @@ header .profile_container:hover:before {
 
   header {
     gap: 0;
+    grid-area: header;
   }
   header .create_container,
 header .bell_container,
 header .profile_container {
     display: none;
   }
-  header .search-container {
+  header .search-container-tickets {
+    margin-bottom: 5%;
+  }
+  header .search-container, header .search-container-tickets {
     width: 90%;
     margin-left: 5%;
+  }
+  header .search-container .search-bar, header .search-container-tickets .search-bar {
+    border-radius: 10px;
+  }
+  header .search-container .search-bar-tickets, header .search-container-tickets .search-bar-tickets {
+    border-radius: 10px 10px 0px 0px;
+  }
+  header .search-container .search-bar .search, header .search-container .search-bar-tickets .search, header .search-container-tickets .search-bar .search, header .search-container-tickets .search-bar-tickets .search {
+    font-size: 2.2rem;
+  }
+  header .search-container .search-by .search-button, header .search-container-tickets .search-by .search-button {
+    width: 112.5px;
+    height: 37px;
   }
 
   .modal {

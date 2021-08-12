@@ -5,7 +5,8 @@
             <form class="profile-image-form">
                 <label for="profile_image_input">
                     <input type="file" name="profile_image" id="profile_image_input" />
-                    <img class="profile-image"/>
+                    <!-- <img id="source_image"/> -->
+                    <img class="profile-image" />
                     <span class="change-profile-image">Select image</span>
                 </label>
                 <button type="submit" name="profile_image_submit" id="profile_image_submit" disabled class="disabled-image-submit">Upload image</button>
@@ -55,7 +56,16 @@
         <!-- Bio -->
         <div class="bio-right">
             <label for="bio">Bio</label>
-            <textarea name="bio" id="bio" cols="30" rows="8"></textarea>
+            <svg class="edit-bio" xmlns="http://www.w3.org/2000/svg" width="33.182" height="33.182" viewBox="0 0 33.182 33.182">
+                <g class="Icon_feather-edit" data-name="Icon feather-edit" transform="translate(-1.5 -1.318)">
+                    <path class="Path_1" data-name="Path 1" d="M16.5,6H6A3,3,0,0,0,3,9V30a3,3,0,0,0,3,3H27a3,3,0,0,0,3-3V19.5" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
+                    <path class="Path_2" data-name="Path 2" d="M27.75,3.75a3.182,3.182,0,0,1,4.5,4.5L18,22.5,12,24l1.5-6Z" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
+                </g>
+            </svg>
+            <form class="bio-form">
+                <textarea name="bio" id="bio"></textarea>
+            </form>
+            <div class="bio"></div>
         </div>
         <div class="bottom-right">
             <!-- Additional informations -->
@@ -67,10 +77,58 @@
                     <div class="right-gender">Gender</div>
                 </div>
                 <div class="right-values">
-                    <div class="right-phone-value"></div>
-                    <div class="right-country-value"></div>
-                    <div class="right-city-value"></div>
-                    <div class="right-gender-value"></div>
+
+                    <div class="right-phone">
+                        <div class="right-phone-value"></div>
+                        <form class="phone-form">
+                            <input type="text" name="phone-value" id="phone-input" class="hidden-input">
+                        </form>
+                        <svg class="edit-info" xmlns="http://www.w3.org/2000/svg" width="33.182" height="33.182" viewBox="0 0 33.182 33.182">
+                            <g class="Icon_feather-edit" data-name="Icon feather-edit" transform="translate(-1.5 -1.318)">
+                                <path class="Path_1" data-name="Path 1" d="M16.5,6H6A3,3,0,0,0,3,9V30a3,3,0,0,0,3,3H27a3,3,0,0,0,3-3V19.5" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
+                                <path class="Path_2" data-name="Path 2" d="M27.75,3.75a3.182,3.182,0,0,1,4.5,4.5L18,22.5,12,24l1.5-6Z" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
+                            </g>
+                        </svg>
+                    </div>
+
+                    <div class="right-country">
+                        <div class="right-country-value"></div>
+                        <form class="country-form">
+                            <input type="text" name="country-value" id="country-input" class="hidden-input">
+                        </form>
+                        <svg class="edit-info" xmlns="http://www.w3.org/2000/svg" width="33.182" height="33.182" viewBox="0 0 33.182 33.182">
+                            <g class="Icon_feather-edit" data-name="Icon feather-edit" transform="translate(-1.5 -1.318)">
+                                <path class="Path_1" data-name="Path 1" d="M16.5,6H6A3,3,0,0,0,3,9V30a3,3,0,0,0,3,3H27a3,3,0,0,0,3-3V19.5" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
+                                <path class="Path_2" data-name="Path 2" d="M27.75,3.75a3.182,3.182,0,0,1,4.5,4.5L18,22.5,12,24l1.5-6Z" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
+                            </g>
+                        </svg>
+                    </div>
+
+                    <div class="right-city">
+                        <div class="right-city-value"></div>
+                        <form class="city-form">
+                            <input type="text" name="city-value" id="city-input" class="hidden-input">
+                        </form>
+                        <svg class="edit-info" xmlns="http://www.w3.org/2000/svg" width="33.182" height="33.182" viewBox="0 0 33.182 33.182">
+                            <g class="Icon_feather-edit" data-name="Icon feather-edit" transform="translate(-1.5 -1.318)">
+                                <path class="Path_1" data-name="Path 1" d="M16.5,6H6A3,3,0,0,0,3,9V30a3,3,0,0,0,3,3H27a3,3,0,0,0,3-3V19.5" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
+                                <path class="Path_2" data-name="Path 2" d="M27.75,3.75a3.182,3.182,0,0,1,4.5,4.5L18,22.5,12,24l1.5-6Z" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
+                            </g>
+                        </svg>
+                    </div>
+
+                    <div class="right-gender">
+                        <div class="right-gender-value"></div>
+                        <form class="gender-form">
+                            <input type="text" name="gender-value" id="gender-input" class="hidden-input">
+                        </form>
+                        <svg class="edit-info" xmlns="http://www.w3.org/2000/svg" width="33.182" height="33.182" viewBox="0 0 33.182 33.182">
+                            <g class="Icon_feather-edit" data-name="Icon feather-edit" transform="translate(-1.5 -1.318)">
+                                <path class="Path_1" data-name="Path 1" d="M16.5,6H6A3,3,0,0,0,3,9V30a3,3,0,0,0,3,3H27a3,3,0,0,0,3-3V19.5" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
+                                <path class="Path_2" data-name="Path 2" d="M27.75,3.75a3.182,3.182,0,0,1,4.5,4.5L18,22.5,12,24l1.5-6Z" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
+                            </g>
+                        </svg>
+                    </div>
                 </div>
             </div>
             <!-- Chart -->

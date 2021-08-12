@@ -58,19 +58,27 @@ header {
     align-items: center;
     border-bottom: solid 2px $gray;
     // Searbar
-    .search-container {
+    .search-container, .search-container-tickets {
         width: 40%;
         height: 72px;
         margin-left: 20%;
-        background-color: $gray;
-        border-radius: 10px;
+        position: relative;
         .search-bar {
+            border-radius: 10px;
+        }
+        .search-bar-tickets {
+            border-radius: 10px 10px 10px 0px;
+        }
+        .search-bar, .search-bar-tickets {
             width: 100%;
             height: 100%;
             display: flex;
             flex-direction: row-reverse;
             align-items: center;
             padding: 2rem;
+            background-color: $gray;
+            position: absolute;
+            z-index: 2;
             .search {
                 padding: 2rem;
                 border: none;
@@ -78,7 +86,7 @@ header {
                 width: 100%;
                 height: 90%;
                 background-color: $gray;
-                font-size: 25px;
+                font-size: 2.5rem;
                 font-weight: $regular;
                 color: $black;
                 &:focus + .search-icon {
@@ -87,7 +95,75 @@ header {
             }
             .search-icon {
                 fill: $blue;
+            }
+        }
+        .search-by {
+            display: flex;
+            align-items: center;
+            position: absolute;
+            top: 80%;
+            z-index: 1;
+            .search-button {
+                width: 130px;
+                height: 35px;
+                padding-top: 1.4rem;
+                background: none;
+                font-size: 1.2rem;
+                font-weight: $semibold;
+                color: #747474;
+                border-top: none;
+                border-right: none;
+                border-bottom: 2px solid $gray;
+                border-left: none;
                 cursor: pointer;
+                &:hover {
+                    background: $green;
+                    color: $white;
+                    border-bottom: 2px solid $green;
+                    border-right: 2px solid $green;
+                    border-left: 2px solid $green;
+                }
+            }
+            .search-button:first-child {
+                border-right: 2px solid $gray;
+                border-left: 2px solid $gray;
+                border-radius: 0 0 0 5px;
+                &:hover {
+                    background: $green;
+                    color: $white;
+                    border-right: 2px solid $green;
+                    border-left: 2px solid $green;
+                }
+            }
+            .search-button:last-child {
+                border-right: 2px solid $gray;
+                border-left: 2px solid $gray;
+                border-radius: 0 0 5px 0;
+                &:hover {
+                    background: $green;
+                    color: $white;
+                    border-right: 2px solid $green;
+                    border-left: 2px solid $green;
+                }
+            }
+            .search-button.active-search {
+                background: $green;
+                color: $white;
+                border-bottom: 2px solid $green;
+                border-right: 2px solid $green;
+                border-left: 2px solid $green;
+            }
+            .search-button:first-child.active-search {
+                background: $green;
+                color: $white;
+                border-right: 2px solid $green;
+                border-left: 2px solid $green;
+            }
+            .search-button:last-child.active-search {
+                background: $green;
+                color: $white;
+                border-right: 2px solid $green;
+                border-left: 2px solid $green;
             }
         }
     }
@@ -628,7 +704,7 @@ header {
             "main"
             "navbar";
         grid-template-columns: 100%;
-        grid-template-rows: 14% 1fr 14%;
+        grid-template-rows: 17% 1fr 14%;
     }
     main {
         scrollbar-width: none;
@@ -722,14 +798,35 @@ header {
     }
     header {
         gap: 0;
+        grid-area: header;
         .create_container,
         .bell_container,
         .profile_container {
             display: none;
         }
-        .search-container {
+        .search-container-tickets {
+            margin-bottom: 5%;
+        }
+        .search-container, .search-container-tickets {
             width: 90%;
             margin-left: 5%;
+            .search-bar {
+                border-radius: 10px;
+            }
+            .search-bar-tickets {
+                border-radius: 10px 10px 0px 0px;
+            }
+            .search-bar, .search-bar-tickets {
+                .search {
+                    font-size: 2.2rem;
+                }
+            }
+            .search-by {
+                .search-button {
+                    width: 112.5px;
+                    height: 37px;
+                }
+            }
         }
     }
     .modal {

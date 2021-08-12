@@ -15,7 +15,7 @@ class UserModel
     private $lastname;
     private $email;
     private $password;
-    private $dateofbirth;
+    private $birthdate;
     // Data added on account activation by Admin
     private $department;
     private $jobtitle;
@@ -30,142 +30,53 @@ class UserModel
     private $db_conn;
 
     // * Define setters and getters for your params:
-    function setUserId($user_id)
-    {
-        $this->user_id = $user_id;
-    }
-    function getUserId()
-    {
-        return $this->user_id;
-    }
+    function setUserId($user_id) { $this->user_id = $user_id; }
+    function getUserId() { return $this->user_id; }
 
-    function setRole($role)
-    {
-        $this->role = $role;
-    }
-    function getRole()
-    {
-        return $this->role;
-    }
+    function setRole($role) { $this->role = $role; }
+    function getRole() { return $this->role; }
 
-    function setFirstname($firstname)
-    {
-        $this->firstname = $firstname;
-    }
-    function getFirstname()
-    {
-        return $this->firstname;
-    }
+    function setFirstname($firstname) { $this->firstname = $firstname; }
+    function getFirstname() { return $this->firstname; }
 
-    function setLastname($lastname)
-    {
-        $this->lastname = $lastname;
-    }
-    function getLastname()
-    {
-        return $this->lastname;
-    }
+    function setLastname($lastname) { $this->lastname = $lastname; }
+    function getLastname() { return $this->lastname; }
 
-    function setEmail($email)
-    {
-        $this->email = $email;
-    }
+    function setEmail($email) { $this->email = $email; }
     function getEmail()
-    {
-        return $this->email;
-    }
+    { return $this->email; }
 
-    function setPassword($password)
-    {
-        $this->password = $password;
-    }
-    function getPassword()
-    {
-        return $this->password;
-    }
+    function setPassword($password) { $this->password = $password; }
+    function getPassword() { return $this->password; }
 
-    function setDateOfBirth($dateofbirth)
-    {
-        $this->dateofbirth = $dateofbirth;
-    }
-    function getDateOfBirth()
-    {
-        return $this->dateofbirth;
-    }
+    function setBirthdate($birthdate) { $this->birthdate = $birthdate; }
+    function getBirthdate() { return $this->birthdate; }
 
     // Data added on account activation by Admin
-    function setDepartment($department)
-    {
-        $this->department = $department;
-    }
-    function getDepartment()
-    {
-        return $this->department;
-    }
+    function setDepartment($department) { $this->department = $department; }
+    function getDepartment() { return $this->department; }
 
-    function setJobtitle($jobtitle)
-    {
-        $this->jobtitle = $jobtitle;
-    }
-    function getJobtitle()
-    {
-        return $this->jobtitle;
-    }
+    function setJobtitle($jobtitle) { $this->jobtitle = $jobtitle; }
+    function getJobtitle() { return $this->jobtitle; }
 
-    function setStatus($status)
-    {
-        $this->status = $status;
-    }
-    function getStatus()
-    {
-        return $this->status;
-    }
+    function setStatus($status) { $this->status = $status; }
+    function getStatus() { return $this->status; }
 
     // Data added optionally by User on profile
-    function setPhone($phone)
-    {
-        $this->phone = $phone;
-    }
-    function getPhone()
-    {
-        return $this->phone;
-    }
+    function setPhone($phone) { $this->phone = $phone; }
+    function getPhone() { return $this->phone; }
 
-    function setCountry($country)
-    {
-        $this->country = $country;
-    }
-    function getCountry()
-    {
-        return $this->country;
-    }
+    function setCountry($country) { $this->country = $country; }
+    function getCountry() { return $this->country; }
 
-    function setCity($city)
-    {
-        $this->city = $city;
-    }
-    function getCity()
-    {
-        return $this->city;
-    }
+    function setCity($city) { $this->city = $city; }
+    function getCity() { return $this->city; }
 
-    function setGender($gender)
-    {
-        $this->gender = $gender;
-    }
-    function getGender()
-    {
-        return $this->gender;
-    }
+    function setGender($gender) { $this->gender = $gender; }
+    function getGender() { return $this->gender; }
 
-    function setBio($bio)
-    {
-        $this->bio = $bio;
-    }
-    function getBio()
-    {
-        return $this->bio;
-    }
+    function setBio($bio) { $this->bio = $bio; }
+    function getBio() { return $this->bio; }
 
     // Connect to database on object creation
     public function __construct()
@@ -179,27 +90,14 @@ class UserModel
     // User creation
     public function create($table)
     {
-        $sql = "INSERT INTO $table (
-        user_id,
-        role,
-        firstname,
-        lastname,
-        email,
-        password,
-        status)
-        VALUES
-        (:user_id,
-        :role,
-        :firstname,
-        :lastname,
-        :email,
-        :password,
-        :status)";
+        $sql = "INSERT INTO $table ( user_id, role, firstname, lastname, birthdate, email, password, status)
+        VALUES (:user_id, :role, :firstname, :lastname, :birthdate, :email, :password, :status)";
         $stmt = $this->db_conn->prepare($sql);
         $stmt->bindParam(':user_id', $this->user_id);
         $stmt->bindParam(':role', $this->role);
         $stmt->bindParam(':firstname', $this->firstname);
         $stmt->bindParam(':lastname', $this->lastname);
+        $stmt->bindParam(':birthdate', $this->birthdate);
         $stmt->bindParam(':email', $this->email);
         $stmt->bindParam(':password', $this->password);
         $stmt->bindParam(':status', $this->status);
@@ -213,7 +111,7 @@ class UserModel
     // View all Users
     public function readAll($table)
     {
-        $sql = "SELECT user_id, role, firstname, lastname, email, dateofbirth, jobtitle, phone, country, city, status, profile_img, user_created_at FROM $table WHERE NOT (user_id = :user_id) AND NOT (role = 'admin')";
+        $sql = "SELECT user_id, role, firstname, lastname, email, birthdate, jobtitle, phone, country, city, status, profile_img, user_created_at FROM $table WHERE NOT (user_id = :user_id) AND NOT (role = 'admin')";
         $stmt = $this->db_conn->prepare($sql);
         $stmt->bindParam(':user_id', $this->user_id);
         if ($stmt->execute()) {
@@ -256,7 +154,7 @@ class UserModel
     // View User and render his image profile if it exists, if not render a default avatar image
     public function readUnique($table)
     {
-        $sql = "SELECT user_id, role, firstname, lastname, email, dateofbirth, department, jobtitle, phone, country, city, status, gender, bio, user_created_at, profile_img FROM $table WHERE (user_id = :user_id)";
+        $sql = "SELECT user_id, role, firstname, lastname, email, birthdate, department, jobtitle, phone, country, city, status, gender, bio, user_created_at, profile_img FROM $table WHERE (user_id = :user_id)";
         $stmt = $this->db_conn->prepare($sql);
         $stmt->bindParam(':user_id', $this->user_id);
         if ($stmt->execute()) {
@@ -383,6 +281,86 @@ class UserModel
         $stmt->bindParam(':bio', $this->bio);
         if ($stmt->execute()) {
             echo json_encode('user info updated');
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // Edit Phone
+    public function updatePhone($table)
+    {
+        $sql = "UPDATE $table SET phone = :phone, user_updated_at = CURRENT_TIMESTAMP
+        WHERE user_id = :user_id";
+        $stmt = $this->db_conn->prepare($sql);
+        $stmt->bindParam(':user_id', $this->user_id);
+        $stmt->bindParam(':phone', $this->phone);
+        if ($stmt->execute()) {
+            echo json_encode('user phone updated');
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // Edit Country
+    public function updateCountry($table)
+    {
+        $sql = "UPDATE $table SET country = :country, user_updated_at = CURRENT_TIMESTAMP
+        WHERE user_id = :user_id";
+        $stmt = $this->db_conn->prepare($sql);
+        $stmt->bindParam(':user_id', $this->user_id);
+        $stmt->bindParam(':country', $this->country);
+        if ($stmt->execute()) {
+            echo json_encode('user country updated');
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // Edit City
+    public function updateCity($table)
+    {
+        $sql = "UPDATE $table SET city = :city, user_updated_at = CURRENT_TIMESTAMP
+        WHERE user_id = :user_id";
+        $stmt = $this->db_conn->prepare($sql);
+        $stmt->bindParam(':user_id', $this->user_id);
+        $stmt->bindParam(':city', $this->city);
+        if ($stmt->execute()) {
+            echo json_encode('user city updated');
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // Edit Gender
+    public function updateGender($table)
+    {
+        $sql = "UPDATE $table SET gender = :gender, user_updated_at = CURRENT_TIMESTAMP
+        WHERE user_id = :user_id";
+        $stmt = $this->db_conn->prepare($sql);
+        $stmt->bindParam(':user_id', $this->user_id);
+        $stmt->bindParam(':gender', $this->gender);
+        if ($stmt->execute()) {
+            echo json_encode('user gender updated');
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // Edit Bio
+    public function updateBio($table)
+    {
+        $sql = "UPDATE $table SET bio = :bio, user_updated_at = CURRENT_TIMESTAMP
+        WHERE user_id = :user_id";
+        $stmt = $this->db_conn->prepare($sql);
+        $stmt->bindParam(':user_id', $this->user_id);
+        $stmt->bindParam(':bio', $this->bio);
+        if ($stmt->execute()) {
+            echo json_encode('user bio updated');
             return true;
         } else {
             return false;

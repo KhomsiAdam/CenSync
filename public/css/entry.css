@@ -15,7 +15,7 @@
 .entry_forms select,
 .entry_forms button {
   width: 291px;
-  height: 42px;
+  height: 40px;
   border: solid 1px #2B777D;
   border-radius: 10px;
   outline: none;
@@ -90,13 +90,13 @@
   transition: opacity 200ms linear;
   border-radius: 10px;
   padding: 1em;
-  margin: 2em;
+  margin: 0 2em 1em 2em;
   background: #2B777D;
 }
 .entry_forms .signup_form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 .entry_forms .signup_form .fullname {
   display: flex;
@@ -110,6 +110,28 @@
   display: flex;
   flex-direction: column;
   gap: 1.4rem;
+}
+.entry_forms .signup_form .birthdate {
+  display: flex;
+  justify-content: space-between;
+}
+.entry_forms .signup_form .birthdate .month, .entry_forms .signup_form .birthdate .day, .entry_forms .signup_form .birthdate .year {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.entry_forms .signup_form .birthdate label {
+  color: #EBEBEB;
+  font-size: 1.4rem;
+  font-weight: 300;
+}
+.entry_forms .signup_form .birthdate #month, .entry_forms .signup_form .birthdate #day {
+  text-align: center;
+  width: 75px;
+}
+.entry_forms .signup_form .birthdate #year {
+  text-align: center;
+  width: 125px;
 }
 .entry_forms .signup_form .signin {
   text-align: center;
@@ -129,7 +151,7 @@
   transition: opacity 200ms linear;
   border-radius: 10px;
   padding: 1em;
-  margin: 7.7em 2em;
+  margin: 8.1em 2em;
   background: #2b777d;
 }
 .entry_forms .signin_form {
@@ -159,17 +181,17 @@
   flex-direction: column;
   color: #2B777D;
   width: 100vw;
-  height: 100vh;
+  height: 23vh;
   transition: all 300ms linear;
   z-index: 3;
 }
 .hero .logo_icon {
-  width: 184px;
+  width: 150px;
   transform: rotate(0deg);
   transition: transform 300ms;
 }
 .hero .logo_name {
-  font-size: 3.2rem;
+  font-size: 2.8rem;
   font-weight: 600;
   display: flex;
 }
@@ -238,7 +260,7 @@
     background: #5FBE6E;
   }
   .entry_forms .signup_form {
-    gap: 3.5rem;
+    gap: 2rem;
   }
   .entry_forms .signup_form .fullname {
     gap: 2.6rem;
@@ -248,7 +270,16 @@
   }
   .entry_forms .signup_form .fullname .firstname,
 .entry_forms .signup_form .fullname .lastname {
-    gap: 3.5rem;
+    gap: 2rem;
+  }
+  .entry_forms .signup_form .birthdate label {
+    font-size: 1.8rem;
+  }
+  .entry_forms .signup_form .birthdate #month, .entry_forms .signup_form .birthdate #day {
+    width: 100px;
+  }
+  .entry_forms .signup_form .birthdate #year {
+    width: 200px;
   }
   .entry_forms .signup_form .signin {
     margin: 0;
@@ -290,6 +321,7 @@
     right: 50%;
     background: #F9F9F9;
     width: 50vw;
+    height: 100vh;
   }
   .hero .logo_icon {
     width: 415px;

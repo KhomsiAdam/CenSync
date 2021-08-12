@@ -33,10 +33,10 @@ const fetchUserProfile = async (method, endpoint) => {
         let user_jobtitle = user['jobtitle'];
         placeholderData(user_jobtitle, document.querySelector('.left-jobtitle-value'), '____________________');
         // Date of birth
-        let user_dob = user['dateofbirth'];
+        let user_dob = user['birthdate'];
         placeholderData(user_dob, document.querySelector('.left-dob-value'), '____-__-__');
         // Age
-        let user_age = user['dateofbirth'];
+        let user_age = user['birthdate'];
         if (user_age == null) {
             document.querySelector('.left-age-value').style.opacity = '0.2';
             user_age = '--';
@@ -48,7 +48,7 @@ const fetchUserProfile = async (method, endpoint) => {
 
         // Bio
         let user_bio = user['bio'];
-        placeholderData(user_bio, document.querySelector('#bio'), '');
+        placeholderData(user_bio, document.querySelector('.bio'), '');
 
         // Phone
         let user_phone = user['phone'];
@@ -81,6 +81,181 @@ const fetchUserProfile = async (method, endpoint) => {
 // Get the profile after the page load
 document.addEventListener('DOMContentLoaded', () => {
     fetchUserProfile('readProfileUser', '/user');
+})
+
+/* Edit Profile informations */
+const fetchInformations = async (method, endpoint, info, value) => {
+    const data = {
+        "method": method,
+        "params": {
+        }
+    }
+    data.params[info] = value;
+    console.log(data);
+    const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify(data)
+    });
+    // Custom error message in case the status is not 200 : OK (ex:problem with ressource url)
+    if (response.status !== 200) {
+        throw new Error('cannot fetch data');
+    }
+    user = await response.json();
+    // Check for expired token to redirect to login page
+    if (user.error) {
+        verifyTokenExp();
+    }
+}
+
+let edit_icons = document.querySelectorAll('.edit-info');
+let hidden_inputs = document.querySelectorAll('.hidden-input');
+
+// If an edit icon is clicked reveal the edit input
+edit_icons.forEach(edit_icon => {
+    edit_icon.addEventListener('click', () => {
+        let edit_input = edit_icon.parentElement.children[1].children[0];
+        let edit_info = edit_icon.parentElement.children[0];
+        edit_info.style.opacity = '0';
+        edit_input.style.visibility = 'visible';
+        edit_input.style.opacity = '1';
+        edit_input.focus();
+        if (!edit_info.classList.contains('placeholder-data')) {
+            edit_input.value = edit_info.innerHTML;
+        }
+    })
+});
+
+// Hide the edit input if it looses focus
+hidden_inputs.forEach(hidden_input => {
+    hidden_input.addEventListener('blur', () => {
+        let info = hidden_input.parentElement.parentElement.children[0];
+        hidden_input.style.opacity = '0';
+        setTimeout(() => {
+            hidden_input.style.visibility = 'hidden';
+        }, 300);
+        if (info.classList.contains('placeholder-data')) {
+            info.style.opacity = '0.2';
+        } else {
+            info.style.opacity = '1';
+        }
+    })
+});
+
+let phone_form = document.querySelector('.phone-form');
+let phone_input = document.getElementById('phone-input');
+
+let country_form = document.querySelector('.country-form');
+let country_input = document.getElementById('country-input');
+
+let city_form = document.querySelector('.city-form');
+let city_input = document.getElementById('city-input');
+
+let gender_form = document.querySelector('.gender-form');
+let gender_input = document.getElementById('gender-input');
+
+// To hide inputs after submitting
+function hideInput(form, input) {
+    setTimeout(() => {
+        input.style.opacity = '0';
+    }, 300);
+    setTimeout(() => {
+        input.style.visibility = 'hidden';
+        form.reset();
+    }, 600);
+}
+
+// Phone
+phone_form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (phone_input.value === '') {
+        console.log('Please enter a phone number');
+    } else {
+        fetchInformations('updateUserPhone', '/user', 'phone', phone_input.value);
+        fetchUserProfile('readProfileUser', '/user');
+        hideInput(phone_form, phone_input);
+    }
+})
+
+// Country
+country_form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (country_input.value === '') {
+        console.log('Please enter a country');
+    } else {
+        fetchInformations('updateUserCountry', '/user', 'country', country_input.value);
+        fetchUserProfile('readProfileUser', '/user');
+        hideInput(country_form, country_input);
+    }
+})
+
+// City
+city_form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (city_input.value === '') {
+        console.log('Please enter a city');
+    } else {
+        fetchInformations('updateUserCity', '/user', 'city', city_input.value);
+        fetchUserProfile('readProfileUser', '/user');
+        hideInput(city_form, city_input);
+    }
+})
+
+// Gender
+gender_form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (gender_input.value === '') {
+        console.log('Please enter a gender');
+    } else {
+        fetchInformations('updateUserGender', '/user', 'gender', gender_input.value);
+        fetchUserProfile('readProfileUser', '/user');
+        hideInput(gender_form, gender_input);
+    }
+})
+
+// Bio
+let bio_edit = document.querySelector('.edit-bio');
+let bio_form = document.querySelector('.bio-form');
+let bio_input = document.querySelector('#bio');
+
+// If the edit icon is clicked reveal the textarea
+bio_edit.addEventListener('click', () => {
+    bio_input.value = document.querySelector('.bio').innerHTML;
+    bio_input.style.visibility = 'visible';
+    bio_input.style.opacity = '1';
+    bio_input.focus();
+})
+
+// Hide the edit input if it looses focus
+bio_input.addEventListener('blur', () => {
+    bio_input.style.opacity = '0';
+    setTimeout(() => {
+        bio_input.style.visibility = 'hidden';
+    }, 300);
+})
+
+// Handle the bio textarea to submit the form on key press Enter, you can use shift+Enter to add another line
+bio_input.addEventListener('keypress', (e) => {
+    if(e.which === 13 && !e.shiftKey){
+        e.preventDefault();
+        event.target.form.dispatchEvent(new Event('submit', {cancelable: true}));
+    }
+});
+
+// Submit the bio form
+bio_form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (bio_input.value === '') {
+        console.log('Please enter a bio');
+    } else {
+        fetchInformations('updateUserBio', '/user', 'bio', bio_input.value);
+        fetchUserProfile('readProfileUser', '/user');
+        hideInput(bio_form, bio_input);
+    }
 })
 
 // Initialization of tickets priorities numbers
@@ -133,7 +308,8 @@ const fetchTicketsNumbersUser = async (method, endpoint, user_id) => {
     document.querySelector('.right-chart').appendChild(titleChart);
     titleChart.innerHTML = 'Tickets submitted: ' + tickets.length;
     // Render the chart
-    chartJs('profileChart', 'High', 'Medium', 'Low', n_high, n_med, n_low, '#C94242', '#BEBE5F', '#5FBE6E', 16)
+    if (window.innerWidth <= 768) chartJs('profileChart', 'High', 'Medium', 'Low', n_high, n_med, n_low, '#C94242', '#BEBE5F', '#5FBE6E', 13)
+    if (window.innerWidth > 768) chartJs('profileChart', 'High', 'Medium', 'Low', n_high, n_med, n_low, '#C94242', '#BEBE5F', '#5FBE6E', 16)
     // Reseting the numbers
     n_high = 0, n_med = 0, n_low = 0;
 }
@@ -186,21 +362,40 @@ const fetchAssignedNumbersUser = async (method, endpoint, fullname) => {
     document.querySelector('.right-chart').appendChild(titleChart);
     titleChart.innerHTML = 'Tickets assigned: ' + tickets.length;
     // Render the chart
-    chartJs('profileChart', 'Pending', 'Open', 'Resolved', n_pend, n_open, n_resolv, '#2B777D', '#5FBEBC', '#5FBE6E', 16)
+    if (window.innerWidth <= 768) chartJs('profileChart', 'Pending', 'Open', 'Resolved', n_pend, n_open, n_resolv, '#2B777D', '#5FBEBC', '#5FBE6E', 13)
+    if (window.innerWidth > 768) chartJs('profileChart', 'Pending', 'Open', 'Resolved', n_pend, n_open, n_resolv, '#2B777D', '#5FBEBC', '#5FBE6E', 16)
     // Reseting the numbers
     n_tickets = 0, n_pend = 0, n_open = 0, n_resolv = 0;
 }
 
 // Handle the state of the upload image button
-document.getElementById('profile_image_input').addEventListener('change', () => {
-    if (document.getElementById('profile_image_input').value !== '') {
-        document.getElementById('profile_image_submit').classList.remove('disabled-image-submit');
-        document.getElementById('profile_image_submit').classList.add('profile-image-submit');
-        document.getElementById('profile_image_submit').disabled = false;
+let image_input = document.getElementById('profile_image_input');
+let image_submit = document.getElementById('profile_image_submit');
+let image_preview = document.querySelector('.profile-image');
+
+// Image preview of selected image
+image_input.addEventListener('change', () => {
+
+    let image_file = image_input.files[0];
+    let image_reader = new FileReader();
+
+    // Load the preview image and view it
+    image_reader.addEventListener('load', (e) => {
+        image_preview.src = e.target.result;
+    });
+    if (image_file) {
+        image_reader.readAsDataURL(image_file);
+    }
+
+    // Enable or Disable the upload image button
+    if (image_input.value !== null) {
+        image_submit.classList.remove('disabled-image-submit');
+        image_submit.classList.add('profile-image-submit');
+        image_submit.disabled = false;
     } else {
-        document.getElementById('profile_image_submit').classList.remove('profile-image-submit');
-        document.getElementById('profile_image_submit').classList.add('disabled-image-submit');
-        document.getElementById('profile_image_submit').disabled = true;
+        image_submit.classList.remove('profile-image-submit');
+        image_submit.classList.add('disabled-image-submit');
+        image_submit.disabled = true;
     }
 })
 
@@ -208,7 +403,7 @@ document.getElementById('profile_image_input').addEventListener('change', () => 
 async function uploadImage() {
 
     const formData = new FormData();
-    formData.append('profile_image', (document.getElementById('profile_image_input').files[0]));
+    formData.append('profile_image', (image_input.files[0]));
 
     try {
         const response = await fetch('/upload', {
@@ -221,18 +416,23 @@ async function uploadImage() {
         fetchUserProfile('readProfileUser', '/user');
         // Get the uploaded image in the header
         fetchImageById('readProfileImage', '/user');
+        // Clear the input file and disable the upload button
+        image_input.value = null;
+        image_submit.classList.remove('profile-image-submit');
+        image_submit.classList.add('disabled-image-submit');
+        image_submit.disabled = true;
     } catch (e) {
         console.log(e);
     }
 }
 
-document.getElementById('profile_image_submit').addEventListener('click', function (e) {
+image_submit.addEventListener('click', function (e) {
     e.preventDefault();
 
-    if (document.getElementById('profile_image_input').value === '') {
+    if (image_input.value === '') {
         console.log('Please select an image to upload');
     } else {
-        console.log(document.getElementById('profile_image_input').value);
+        console.log(image_input.value);
         uploadImage();
     }
 })
@@ -255,10 +455,11 @@ async function deleteImage() {
         modals.forEach(modal => {
             closeModal(modal);
         })
-        // Disable the upload image button
-        document.getElementById('profile_image_submit').classList.remove('profile-image-submit');
-        document.getElementById('profile_image_submit').classList.add('disabled-image-submit');
-        document.getElementById('profile_image_submit').disabled = true;
+        // Clear the input file and disable the upload button
+        image_input.value = null;
+        image_submit.classList.remove('profile-image-submit');
+        image_submit.classList.add('disabled-image-submit');
+        image_submit.disabled = true;
     } catch (e) {
         console.log(e);
     }

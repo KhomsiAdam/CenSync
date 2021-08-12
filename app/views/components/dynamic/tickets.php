@@ -11,6 +11,28 @@
             <li>Status</li>
         </ul>
     </div>
+    <div class="filter-by">
+        <input type="text" class="filter">
+        <button class="filter-button active-filter" id="All">All</button>
+        <?php if ($_SESSION['ACCOUNTS_ROLE'] === 'Employee') { ?>
+            <button class="filter-button my-tickets" value="4">Reported</button>
+        <?php } ?>
+        <?php if (($_SESSION['ACCOUNTS_ROLE'] === 'Developer') || ($_SESSION['ACCOUNTS_ROLE'] === 'Technician')) { ?>
+            <button class="filter-button assigned-tickets" value="7">Assigned</button>
+        <?php } ?>
+        <span>Category: </span>
+        <button class="filter-button" value="1" id="Hardware">Hardware</button>
+        <button class="filter-button" value="1" id="Software">Software</button>
+        <button class="filter-button" value="1" id="Service">Service</button>
+        <span>Priority: </span>
+        <button class="filter-button" value="2" id="High">High</button>
+        <button class="filter-button" value="2" id="Medium">Medium</button>
+        <button class="filter-button" value="2" id="Low">Low</button>
+        <span>Status: </span>
+        <button class="filter-button" value="6" id="Pending">Pending</button>
+        <button class="filter-button" value="6" id="Open">Open</button>
+        <button class="filter-button" value="6" id="Resolved">Resolved</button>
+    </div>
     <!-- Tickets Body containing all tickets -->
     <div class="tbody">
     </div>

@@ -133,7 +133,7 @@ const fetchStaff = async (method, endpoint, staff_container) => {
             let staff_age_value = document.createElement('div');
             staffCardElement(staff_values, staff_age_value, 'age-value', '');
 
-            let age = user['dateofbirth'];
+            let age = user['birthdate'];
             if (age == null) {
                 staff_age_value.style.opacity = '0.2';
                 age = '--';
@@ -147,7 +147,7 @@ const fetchStaff = async (method, endpoint, staff_container) => {
             let staff_dob_value = document.createElement('div');
             staffCardElement(staff_values, staff_dob_value, 'dob-value', '');
 
-            let dob = user['dateofbirth'];
+            let dob = user['birthdate'];
             placeholderData(dob, staff_dob_value, '____-__-__');
 
             // Create Staff Location values
@@ -239,15 +239,15 @@ const fetchUserById = async (method, endpoint, user_id) => {
         let user_jobtitle = user['jobtitle'];
         placeholderData(user_jobtitle, document.querySelector('.left-jobtitle-value'), '____________________');
         // Date of birth
-        let user_dob = user['dateofbirth'];
+        let user_dob = user['birthdate'];
         placeholderData(user_dob, document.querySelector('.left-dob-value'), '____-__-__');
         // Age
-        let user_age = user['dateofbirth'];
+        let user_age = user['birthdate'];
         if (user_age == null) {
-            document.querySelector('.left-age-value').style.opacity = '0.2';
+            document.querySelector('.left-age-value').classList.add('placeholder-data')
             user_age = '--';
         } else {
-            document.querySelector('.left-age-value').style.opacity = '1';
+            if (document.querySelector('.left-age-value').classList.contains('placeholder-data')) document.querySelector('.left-age-value').classList.remove('placeholder-data');
             user_age = getAge(user_age);
         }
         document.querySelector('.left-age-value').innerHTML = user_age;
@@ -297,20 +297,6 @@ const fetchUserById = async (method, endpoint, user_id) => {
         document.querySelector('.staff-details').style.display = 'grid';
     }
 }
-
-// const sendUserId = async (endpoint, user_id) => {
-//     const formData = new FormData();
-//     formData.append('user_id', user_id);
-
-//     const response = await fetch(endpoint, {
-//         method: 'POST',
-//         body: formData
-//     });
-//     // Custom error message in case the status is not 200 : OK (ex:problem with ressource url)
-//     if (response.status !== 200) {
-//         throw new Error('cannot fetch data');
-//     }
-// } 
 
 // Initialization of tickets priorities numbers
 let n_high = 0, n_med = 0, n_low = 0;
@@ -362,8 +348,8 @@ const fetchTicketsNumbersUser = async (method, endpoint, user_id) => {
     document.querySelector('.right-chart').appendChild(titleChart);
     titleChart.innerHTML = 'Tickets submitted: ' + tickets.length;
     // Render the chart
-    if (screenWidth <= 768) chartJs('profileChart', 'High', 'Medium', 'Low', n_high, n_med, n_low, '#C94242', '#BEBE5F', '#5FBE6E', 13)
-    if (screenWidth > 768) chartJs('profileChart', 'High', 'Medium', 'Low', n_high, n_med, n_low, '#C94242', '#BEBE5F', '#5FBE6E', 16)
+    if (window.innerWidth <= 768) chartJs('profileChart', 'High', 'Medium', 'Low', n_high, n_med, n_low, '#C94242', '#BEBE5F', '#5FBE6E', 13)
+    if (window.innerWidth > 768) chartJs('profileChart', 'High', 'Medium', 'Low', n_high, n_med, n_low, '#C94242', '#BEBE5F', '#5FBE6E', 16)
     // Reseting the numbers
     n_high = 0, n_med = 0, n_low = 0;
 }
@@ -416,8 +402,8 @@ const fetchAssignedNumbersUser = async (method, endpoint, fullname) => {
     document.querySelector('.right-chart').appendChild(titleChart);
     titleChart.innerHTML = 'Tickets assigned: ' + tickets.length;
     // Render the chart
-    if (screenWidth <= 768) chartJs('profileChart', 'Pending', 'Open', 'Resolved', n_pend, n_open, n_resolv, '#2B777D', '#5FBEBC', '#5FBE6E', 13)
-    if (screenWidth > 768) chartJs('profileChart', 'Pending', 'Open', 'Resolved', n_pend, n_open, n_resolv, '#2B777D', '#5FBEBC', '#5FBE6E', 16)
+    if (window.innerWidth <= 768) chartJs('profileChart', 'Pending', 'Open', 'Resolved', n_pend, n_open, n_resolv, '#2B777D', '#5FBEBC', '#5FBE6E', 13)
+    if (window.innerWidth > 768) chartJs('profileChart', 'Pending', 'Open', 'Resolved', n_pend, n_open, n_resolv, '#2B777D', '#5FBEBC', '#5FBE6E', 16)
     // Reseting the numbers
     n_pend = 0, n_open = 0, n_resolv = 0;
 }
@@ -514,11 +500,6 @@ if (delete_form) {
         // Return to normal view with all staff members
         document.querySelector('.staff-details').style.display = 'none';
         document.querySelector('.staff-container').style.display = 'grid';
-        document.querySelector('.main').style.overflowY = 'overlay';
-        // Detect Firefox and make overflow-y auto
-        let userAgentString = navigator.userAgent;
-        let firefoxAgent = userAgentString.indexOf("Firefox") > -1;
-        if (firefoxAgent === true) document.querySelector('.main').style.overflowY = 'auto';
         // Emptying the staff container and get the updated list
         staff_container.innerHTML = '';
         fetchStaff('readAllUsers', '/user', staff_container);
@@ -569,5 +550,122 @@ if (document.querySelector('.delete-profile-image-form')) {
 
 // Profile picture placement fix when user connected is not admin
 if (!document.querySelector('.delete-profile-image')) {
-    document.querySelector('.left-picture').style.gap = '18.4rem'
+    if (window.innerWidth <= 768) document.querySelector('.left-picture').style.gap = '18.4rem';
 }
+
+/* Search and Filters handling */
+const search_input = document.querySelector('.search');
+
+// Filter to show all staff cards
+const show_all = document.getElementById('All');
+let all_staff = document.querySelector(".staff-container").getElementsByTagName("div");
+show_all.addEventListener('click', () => {
+    for (i = 0; i < all_staff.length; i++) {
+        all_staff[i].classList.remove('hidden-card');
+    }
+})
+
+// Search through all staff cards depending on search option
+search_input.addEventListener('keyup', () => {
+    // Show all staff cards
+    for (i = 0; i < all_staff.length; i++) {
+        all_staff[i].classList.remove('hidden-card');
+    }
+    // Remove the current active filter
+    let active_filter_button = document.querySelector('.active-filter');
+    active_filter_button.classList.remove('active-filter');
+    show_all.classList.add('active-filter');
+    // Only search if all staff cards are shown
+    if (show_all.classList.contains('active-filter') === true) {
+        let search_value, cards, fullname, i, text_value;
+        search_value = search_input.value.toUpperCase();
+        cards = document.querySelectorAll('.staff-card');
+        // Loop through all staff cards, and hide those who don't match the search
+        for (i = 0; i < cards.length; i++) {
+            fullname = cards[i].children[1].children[1].children[0];
+                text_value = fullname.textContent || fullname.innerText;
+                if (text_value.toUpperCase().indexOf(search_value) > -1) {
+                    cards[i].classList.remove('hidden-card');
+                } else {
+                    cards[i].classList.add('hidden-card');
+                }
+        }
+    }
+})
+
+let filter = 'All';
+let filter_buttons = document.querySelectorAll('.filter-button');
+const filter_input = document.querySelector('.filter');
+
+// Filter buttons for: All, Role, Status
+filter_buttons.forEach(filter_button => {
+
+    filter_button.addEventListener('click', () => {
+        // Reset the search value
+        search_input.value = '';
+        // Remove the current active filter
+        let active_filter_button = document.querySelector('.active-filter');
+        active_filter_button.classList.remove('active-filter');
+        // Take the filter value from the button value and the name from it's id and make it the current active filter
+        filter = filter_button.value;
+        filter_input.value = filter_button.id;
+        filter_button.classList.add('active-filter');
+        // Define variables
+        let filter_value, cards, filter_type, i, txtValue;
+        filter_value = filter_input.value.toUpperCase();
+        cards = document.querySelectorAll('.staff-card');
+        // Loop through all staff, and hide those who don't match the filter
+        switch (filter) {
+            case 'Role':
+                for (i = 0; i < cards.length; i++) {
+                    filter_type = cards[i].children[1].children[1].children[1];
+                    if (filter_type) {
+                        txtValue = filter_type.textContent || filter_type.innerText;
+                        if (txtValue.toUpperCase().indexOf(filter_value) > -1) {
+                            cards[i].classList.remove('hidden-card');
+                        } else {
+                            cards[i].classList.add('hidden-card');
+                        }
+                    }
+                }
+                break;
+            case 'Status':
+                for (i = 0; i < cards.length; i++) {
+                    filter_type = cards[i].children[1].children[2];
+                    if (filter_type) {
+                        txtValue = filter_type.textContent || filter_type.innerText;
+                        if (txtValue.toUpperCase().indexOf(filter_value) > -1) {
+                            cards[i].classList.remove('hidden-card');
+                        } else {
+                            cards[i].classList.add('hidden-card');
+                        }
+                    }
+                }
+                break;
+        }
+    })
+});
+
+// if (window.innerWidth <= 768) {
+//     document.getElementById('Developer').innerHTML = 'Dev';
+//     document.getElementById('Technician').innerHTML = 'Tech';
+//     document.getElementById('Employee').innerHTML = 'Emp';
+//     document.getElementById('Active').innerHTML = 'Act';
+//     document.getElementById('Inactive').innerHTML = 'Inact';
+// }
+
+// window.addEventListener('resize', () => {
+//     if (window.innerWidth <= 768) {
+//         document.getElementById('Developer').innerHTML = 'Dev';
+//         document.getElementById('Technician').innerHTML = 'Tech';
+//         document.getElementById('Employee').innerHTML = 'Emp';
+//         document.getElementById('Active').innerHTML = 'Act';
+//         document.getElementById('Inactive').innerHTML = 'Inact';
+//     } else {
+//         document.getElementById('Developer').innerHTML = 'Developer';
+//         document.getElementById('Technician').innerHTML = 'Technician';
+//         document.getElementById('Employee').innerHTML = 'Employee';
+//         document.getElementById('Active').innerHTML = 'Active';
+//         document.getElementById('Inactive').innerHTML = 'Inactive';
+//     }
+// })

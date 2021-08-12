@@ -1,7 +1,89 @@
-// Import variables
+// Use variables
 @use "variables" as *;
-// Import font : Raleway
-@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap");
+// Import font : Raleway (from Google Fonts)
+// @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+// Thin - 100
+@font-face {
+    font-family: "Raleway";
+    font-style: normal;
+    font-weight: 100;
+    src: local(""),
+    url("/fonts/raleway-v22-latin-100.woff2") format("woff2"),
+    url("/fonts/raleway-v22-latin-100.woff") format("woff");
+}
+// Extralight - 200
+@font-face {
+    font-family: "Raleway";
+    font-style: normal;
+    font-weight: 200;
+    src: local(""),
+    url("/fonts/raleway-v22-latin-300.woff2") format("woff2"),
+    url("/fonts/raleway-v22-latin-300.woff") format("woff");
+}
+// Light - 300
+@font-face {
+    font-family: "Raleway";
+    font-style: normal;
+    font-weight: 300;
+    src: local(""),
+    url("/fonts/raleway-v22-latin-200.woff2") format("woff2"),
+    url("/fonts/raleway-v22-latin-200.woff") format("woff");
+}
+// Regular - 400
+@font-face {
+    font-family: "Raleway";
+    font-style: normal;
+    font-weight: 400;
+    src: local(""),
+    url("/fonts/raleway-v22-latin-regular.woff2") format("woff2"),
+    url("/fonts/raleway-v22-latin-regular.woff") format("woff");
+}
+// Medium - 500
+@font-face {
+    font-family: "Raleway";
+    font-style: normal;
+    font-weight: 500;
+    src: local(""),
+    url("/fonts/raleway-v22-latin-500.woff2") format("woff2"),
+    url("/fonts/raleway-v22-latin-500.woff") format("woff");
+}
+// Semibold - 600
+@font-face {
+    font-family: "Raleway";
+    font-style: normal;
+    font-weight: 600;
+    src: local(""),
+    url("/fonts/raleway-v22-latin-600.woff2") format("woff2"),
+    url("/fonts/raleway-v22-latin-600.woff") format("woff");
+}
+// Bold - 700
+@font-face {
+    font-family: "Raleway";
+    font-style: normal;
+    font-weight: 700;
+    src: local(""),
+    url("/fonts/raleway-v22-latin-700.woff2") format("woff2"),
+    url("/fonts/raleway-v22-latin-700.woff") format("woff");
+}
+// Extrabold - 800
+@font-face {
+    font-family: "Raleway";
+    font-style: normal;
+    font-weight: 800;
+    src: local(""),
+    url("/fonts/raleway-v22-latin-800.woff2") format("woff2"),
+    url("/fonts/raleway-v22-latin-800.woff") format("woff");
+}
+// Blackbold - 900
+@font-face {
+    font-family: "Raleway";
+    font-style: normal;
+    font-weight: 900;
+    src: local(""),
+    url("/fonts/raleway-v22-latin-900.woff2") format("woff2"),
+    url("/fonts/raleway-v22-latin-900.woff") format("woff");
+}
 
 // General settings
 * {
@@ -29,4 +111,7 @@ html {
 ::placeholder {
     color: $black;
     opacity: 0.6;
+}
+.placeholder-data {
+    opacity: 0.2;
 }

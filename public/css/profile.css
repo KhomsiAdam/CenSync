@@ -172,27 +172,57 @@
   color: #5FBE6E;
 }
 .staff-details .staff-right .bio-right {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  height: 85%;
+  display: grid;
+  align-items: center;
+  gap: 1rem;
+  height: 95%;
+  grid-template-columns: 7% 93%;
+  grid-template-rows: 30% 70%;
+  grid-template-areas: "label icon" "bio bio";
 }
 .staff-details .staff-right .bio-right label {
+  grid-area: label;
   font-size: 3.2rem;
   font-weight: 600;
   color: #2B777D;
 }
-.staff-details .staff-right .bio-right textarea {
-  font-size: 1.6rem;
-  background: #F9F9F9;
-  border: 1px solid #EBEBEB;
-  border-radius: 5px;
-  outline: none;
-  padding: 1rem;
+.staff-details .staff-right .bio-right svg {
+  grid-area: icon;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+.staff-details .staff-right .bio-right svg g path {
+  stroke: #262626;
+  opacity: 0.2;
+}
+.staff-details .staff-right .bio-right svg:hover g path {
+  stroke: #2B777D;
+  opacity: 1;
+}
+.staff-details .staff-right .bio-right .bio,
+.staff-details .staff-right .bio-right .bio-form {
+  grid-area: bio;
+  font-size: 2.2rem;
+  color: #2B777D;
   height: 100%;
 }
-.staff-details .staff-right .bio-right textarea:focus {
-  background: white;
+.staff-details .staff-right .bio-right .bio-form {
+  z-index: 1;
+}
+.staff-details .staff-right .bio-right .bio-form #bio {
+  width: 100%;
+  font-size: 2.2rem;
+  color: #2B777D;
+  background: #F9F9F9;
+  border: 2px solid #2B777D;
+  border-radius: 5px;
+  outline: none;
+  padding: 1rem 2rem;
+  height: 100%;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 300ms;
 }
 .staff-details .staff-right .bottom-right {
   display: grid;
@@ -216,6 +246,73 @@
 .staff-details .staff-right .bottom-right .staff-right-info .right-values {
   align-items: flex-end;
 }
+.staff-details .staff-right .bottom-right .staff-right-info .right-values .right-phone,
+.staff-details .staff-right .bottom-right .staff-right-info .right-values .right-country,
+.staff-details .staff-right .bottom-right .staff-right-info .right-values .right-city,
+.staff-details .staff-right .bottom-right .staff-right-info .right-values .right-gender {
+  display: grid;
+  grid-template-columns: 70% 20%;
+  grid-template-rows: 100%;
+  width: 100%;
+  text-align: right;
+  align-items: center;
+  grid-template-areas: "input icon";
+  gap: 3rem;
+}
+.staff-details .staff-right .bottom-right .staff-right-info .right-values .right-phone div,
+.staff-details .staff-right .bottom-right .staff-right-info .right-values .right-phone form,
+.staff-details .staff-right .bottom-right .staff-right-info .right-values .right-country div,
+.staff-details .staff-right .bottom-right .staff-right-info .right-values .right-country form,
+.staff-details .staff-right .bottom-right .staff-right-info .right-values .right-city div,
+.staff-details .staff-right .bottom-right .staff-right-info .right-values .right-city form,
+.staff-details .staff-right .bottom-right .staff-right-info .right-values .right-gender div,
+.staff-details .staff-right .bottom-right .staff-right-info .right-values .right-gender form {
+  grid-area: input;
+  transition: opacity 300ms;
+}
+.staff-details .staff-right .bottom-right .staff-right-info .right-values .right-phone form input,
+.staff-details .staff-right .bottom-right .staff-right-info .right-values .right-country form input,
+.staff-details .staff-right .bottom-right .staff-right-info .right-values .right-city form input,
+.staff-details .staff-right .bottom-right .staff-right-info .right-values .right-gender form input {
+  width: 180px;
+  height: 30px;
+  border: solid 2px #2B777D;
+  border-radius: 5px;
+  outline: none;
+  text-align: center;
+  padding: 1em;
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: #2B777D;
+  background: #F9F9F9;
+  z-index: 1;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 300ms;
+}
+.staff-details .staff-right .bottom-right .staff-right-info .right-values .right-phone svg,
+.staff-details .staff-right .bottom-right .staff-right-info .right-values .right-country svg,
+.staff-details .staff-right .bottom-right .staff-right-info .right-values .right-city svg,
+.staff-details .staff-right .bottom-right .staff-right-info .right-values .right-gender svg {
+  grid-area: icon;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+.staff-details .staff-right .bottom-right .staff-right-info .right-values .right-phone svg g path,
+.staff-details .staff-right .bottom-right .staff-right-info .right-values .right-country svg g path,
+.staff-details .staff-right .bottom-right .staff-right-info .right-values .right-city svg g path,
+.staff-details .staff-right .bottom-right .staff-right-info .right-values .right-gender svg g path {
+  stroke: #262626;
+  opacity: 0.2;
+}
+.staff-details .staff-right .bottom-right .staff-right-info .right-values .right-phone svg:hover g path,
+.staff-details .staff-right .bottom-right .staff-right-info .right-values .right-country svg:hover g path,
+.staff-details .staff-right .bottom-right .staff-right-info .right-values .right-city svg:hover g path,
+.staff-details .staff-right .bottom-right .staff-right-info .right-values .right-gender svg:hover g path {
+  stroke: #2B777D;
+  opacity: 1;
+}
 .staff-details .staff-right .bottom-right .right-chart {
   width: 75%;
   height: 85%;
@@ -232,8 +329,12 @@
 }
 
 @media only screen and (max-width: 768px) {
+  body {
+    gap: 2rem;
+  }
+
   main {
-    padding-top: 3rem;
+    padding-top: 0;
     overflow: auto;
   }
 
@@ -272,18 +373,19 @@
 
   .staff-details {
     width: 90%;
-    height: 290%;
+    height: 300%;
     grid-template-areas: "linfo" "rinfo";
     grid-template-rows: 50% 50%;
     grid-template-columns: 100%;
     position: relative;
-    margin: 0 2rem 3rem 2rem;
+    margin: 0 2rem 1rem 2rem;
   }
   .staff-details .staff-left {
     height: 100%;
     font-size: 1.6rem;
     border-right: none;
     padding: 0 3rem;
+    grid-template-rows: 60% 47%;
   }
   .staff-details .staff-left .left-picture .profile-image-form {
     grid-template-columns: 100%;
@@ -371,7 +473,7 @@
     height: 52px;
     width: 60px;
     left: 74%;
-    bottom: 73.8%;
+    bottom: 71.5%;
     background: #2B777D;
     z-index: 5;
     border-radius: 5px;
@@ -385,25 +487,58 @@
     grid-area: email;
     font-size: 1.4rem;
   }
+  .staff-details .staff-right .bio-right {
+    grid-template-columns: 15% 82%;
+  }
+  .staff-details .staff-right .bio-right .bio {
+    font-size: 1.6rem;
+  }
+  .staff-details .staff-right .bio-right .bio-form #bio {
+    font-size: 1.6rem;
+  }
   .staff-details .staff-right .bio-right label {
     font-size: 1.6rem;
+  }
+  .staff-details .staff-right .bio-right svg {
+    width: 20px;
+    height: 20px;
   }
   .staff-details .staff-right .bottom-right {
     grid-template-columns: 100%;
     grid-template-rows: 50% 50%;
   }
+  .staff-details .staff-right .bottom-right .staff-right-info {
+    grid-template-columns: 25% 83%;
+  }
+  .staff-details .staff-right .bottom-right .staff-right-info .right-info .right-phone,
+.staff-details .staff-right .bottom-right .staff-right-info .right-info .right-country,
+.staff-details .staff-right .bottom-right .staff-right-info .right-info .right-city,
+.staff-details .staff-right .bottom-right .staff-right-info .right-info .right-gender {
+    height: 13%;
+    padding-top: 1rem;
+  }
+  .staff-details .staff-right .bottom-right .staff-right-info .right-values .right-phone form input,
+.staff-details .staff-right .bottom-right .staff-right-info .right-values .right-country form input,
+.staff-details .staff-right .bottom-right .staff-right-info .right-values .right-city form input,
+.staff-details .staff-right .bottom-right .staff-right-info .right-values .right-gender form input {
+    width: 140px;
+    height: 20px;
+    font-size: 1.6rem;
+  }
+  .staff-details .staff-right .bottom-right .staff-right-info .right-values .right-phone svg,
+.staff-details .staff-right .bottom-right .staff-right-info .right-values .right-country svg,
+.staff-details .staff-right .bottom-right .staff-right-info .right-values .right-city svg,
+.staff-details .staff-right .bottom-right .staff-right-info .right-values .right-gender svg {
+    width: 20px;
+    height: 20px;
+  }
   .staff-details .staff-right .bottom-right .right-chart {
     width: 90%;
     height: 100%;
+    margin-bottom: 3rem;
   }
   .staff-details .staff-right .bottom-right .right-chart #titleChart {
     font-size: 1.6rem;
-  }
-  @-moz-document url-prefix() {
-    .staff-details .staff-right .bio-right,
-.staff-details .staff-right .bottom-right {
-      width: 90%;
-    }
   }
 
   #deleteimagemodal {
