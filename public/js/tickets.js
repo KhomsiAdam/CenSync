@@ -430,7 +430,7 @@ const fetchUserByRole = async (method, endpoint, role) => {
         console.log(users);
         users.forEach(user => {
             let label = document.createElement('label');
-            label.setAttribute('for', user['firstname'] + ' ' + user['lastname']);
+            label.setAttribute('for', user['role'] + ' ' + user['firstname'] + ' ' + user['lastname']);
             assign_form.prepend(label);
 
             let assigned_image = document.createElement('span');
@@ -452,7 +452,7 @@ const fetchUserByRole = async (method, endpoint, role) => {
             radio.setAttribute('class', 'custom-radio');
             radio.setAttribute('type', 'radio');
             radio.setAttribute('name', 'assigned_to');
-            radio.setAttribute('id', user['firstname'] + ' ' + user['lastname']);
+            radio.setAttribute('id', user['role'] + ' ' + user['firstname'] + ' ' + user['lastname']);
             radio.setAttribute('value', user['firstname'] + ' ' + user['lastname']);
             label.appendChild(radio);
 
